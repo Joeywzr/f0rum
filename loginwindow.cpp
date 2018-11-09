@@ -31,7 +31,6 @@ void LoginWindow::on_sign_in_clicked()
 void LoginWindow::on_sign_up_clicked()
 {
     view = new signup(this);
-
     view->setModal(true);
     view->show();
 
