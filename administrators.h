@@ -7,7 +7,7 @@ class Administrators:public User
 {
 public:
     Administrators();
-    QVector<INFO> info;
+    INFO info;
 
     //-------基础要求----------//
     virtual void user_information();

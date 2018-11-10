@@ -32,7 +32,8 @@ SOURCES += \
     comment.cpp \
     post.cpp \
     loginwindow.cpp \
-    signup.cpp
+    signup.cpp \
+    personal_infomation.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,13 +43,15 @@ HEADERS += \
     comment.h \
     post.h \
     loginwindow.h \
-    signup.h
+    signup.h \
+    personal_infomation.h
 
 FORMS += \
     mainwindow.ui \
     loginwindow.ui \
     user_information.ui \
-    signup.ui
+    signup.ui \
+    personal_infomation.ui
 
 RESOURCES += \
     qss.qrc

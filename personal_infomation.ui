@@ -1,56 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>LoginWindow</class>
- <widget class="QWidget" name="LoginWindow">
+ <class>Personal_infomation</class>
+ <widget class="QDialog" name="Personal_infomation">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>588</width>
-    <height>412</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0" colspan="2">
+   <item row="0" column="0">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0">
+     <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>密码</string>
+        <string>ID</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
+     <item row="1" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>用户名</string>
        </property>
       </widget>
      </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>密码</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="username"/>
+      <widget class="QTextBrowser" name="ID"/>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="password"/>
+      <widget class="QTextBrowser" name="username"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QTextBrowser" name="password"/>
      </item>
     </layout>
-   </item>
-   <item row="1" column="0">
-    <widget class="QPushButton" name="sign_in">
-     <property name="text">
-      <string>登录</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="sign_up">
-     <property name="text">
-      <string>注册</string>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

@@ -1,7 +1,6 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
 
-
 LoginWindow::LoginWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::LoginWindow)
@@ -11,8 +10,6 @@ LoginWindow::LoginWindow(QWidget *parent) :
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
     }
-
-
 }
 
 LoginWindow::~LoginWindow()
@@ -22,9 +19,8 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_sign_in_clicked()
 {
-    QString username_input = ui->username->text(),
-            password_input = ui->password->text();
-    bool username_flag = false;
+    username_input = ui->username->text();
+    password_input = ui->password->text();
     if(username_input.isEmpty())
     {
         qDebug() << "Please input username!";
@@ -32,15 +28,15 @@ void LoginWindow::on_sign_in_clicked()
     }
     else
     {
-        QString select_sql = "select username,password from registered_user";
+        QString select_sql = "select id,username,password from registered_user";
         if(!sql_query.exec(select_sql))
             qDebug()<<sql_query.lastError();
         else
         {
             while(sql_query.next())
             {
-                QString username = sql_query.value(0).toString();
-                QString password = sql_query.value(1).toString();
+                QString username = sql_query.value(1).toString();
+                QString password = sql_query.value(2).toString();
                 if(username_input == username)
                 {
                     username_flag = true;
@@ -48,6 +44,9 @@ void LoginWindow::on_sign_in_clicked()
                     {
                         this->close();
                         mainview = new MainWindow(this);
+                        mainview->username = username_input;
+                        mainview->password = password_input;
+                        mainview->id = sql_query.value(0).toInt();
                         mainview->show();
                     }
                     else
@@ -63,7 +62,6 @@ void LoginWindow::on_sign_in_clicked()
                             ui->password->setText(NULL);
                             return;
                         }
-
                     }
                 }
             }
@@ -73,12 +71,9 @@ void LoginWindow::on_sign_in_clicked()
                 ui->password->setText(NULL);
                 qDebug() << "Username doesn't exist!";
                 return;
-
             }
         }
     }
-
-
 }
 
 void LoginWindow::on_sign_up_clicked()
@@ -86,5 +81,4 @@ void LoginWindow::on_sign_up_clicked()
     view = new signup(this);
     view->setModal(true);
     view->show();
-
 }

@@ -21,6 +21,9 @@ class LoginWindow : public QWidget
     QSqlQuery sql_query;
 public:
     explicit LoginWindow(QWidget *parent = 0);
+    QString username_input;
+    QString password_input;
+    bool username_flag = false;
     ~LoginWindow();
 
 

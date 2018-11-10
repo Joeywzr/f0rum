@@ -7,10 +7,10 @@ class Registered_user:public User
 public:
     Registered_user();
 
-    QVector<INFO> info;
+    INFO info;
 
     //-------基础要求----------//
-    virtual void user_information(int my_id);
+    virtual void user_information();
     virtual void sign_in();
     virtual void sign_out();
     virtual void check();

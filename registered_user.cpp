@@ -3,11 +3,11 @@
 Registered_user::Registered_user()
 {
 
+
 }
 
-void Registered_user::user_information(int my_id)
+void Registered_user::user_information()
 {
-
 
 }
 
