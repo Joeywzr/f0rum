@@ -6,6 +6,7 @@
 #include <administrators.h>
 #include <QSqlQuery>
 QSqlDatabase database;
+QSqlQuery sql_query;
 int max_id;
 int main(int argc, char *argv[])
 {
@@ -29,19 +30,33 @@ int main(int argc, char *argv[])
     }
     else
     {
-        QString select_max_sql = "select max(id) from registered_user";
-        sql_query.prepare(select_max_sql);
-        if(!sql_query.exec())
+        QString select_sql = "select id, name from registered_user";
+        if(!sql_query.exec(select_sql))
         {
-            qDebug() << sql_query.lastError();
+            QString create_sql = "create table registered_user (id int , username QString, password QString)";
+            sql_query.prepare(create_sql);
+            if(!sql_query.exec())
+            {
+                qDebug() << "Error: Fail to create table." << sql_query.lastError();
+            }
+            else
+            {
+                qDebug() << "Table created!";
+            }
         }
-        else
-        {
-            while(sql_query.next())
-                max_id = sql_query.value(0).toInt();
-            max_id++;
-            qDebug() << QString("max id:%1").arg(max_id);
-        }
+    }
+    QString select_max_sql = "select max(id) from registered_user";
+    sql_query.prepare(select_max_sql);
+    if(!sql_query.exec())
+    {
+        qDebug() << sql_query.lastError();
+    }
+    else
+    {
+        while(sql_query.next())
+            max_id = sql_query.value(0).toInt();
+        max_id++;
+        qDebug() << QString("max id:%1").arg(max_id);
     }
 
 
@@ -65,6 +80,6 @@ int main(int argc, char *argv[])
     LoginWindow w;
     w.show();
 
-    database.close();
+
     return a.exec();
 }

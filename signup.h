@@ -16,7 +16,7 @@ class signup;
 class signup : public QDialog
 {
     Q_OBJECT
-
+    QSqlQuery sql_query;
 public:
 
     explicit signup(QWidget *parent = 0);

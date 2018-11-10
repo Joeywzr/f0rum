@@ -7,6 +7,7 @@
 #include <QSqlQuery>
 #include <QDebug>
 #include "signup.h"
+#include "mainwindow.h"
 
 extern QSqlDatabase database;
 
@@ -17,20 +18,20 @@ class LoginWindow;
 class LoginWindow : public QWidget
 {
     Q_OBJECT
-
+    QSqlQuery sql_query;
 public:
     explicit LoginWindow(QWidget *parent = 0);
     ~LoginWindow();
-    void click_sign_in();
+
 
 private slots:
     void on_sign_in_clicked();
-
     void on_sign_up_clicked();
 
 private:
     Ui::LoginWindow *ui;
     signup *view;
+    MainWindow *mainview;
 };
 
 #endif // LOGINWINDOW_H

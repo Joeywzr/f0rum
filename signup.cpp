@@ -7,30 +7,10 @@ signup::signup(QWidget *parent) :
     ui(new Ui::signup)
 {
     ui->setupUi(this);
-    QSqlQuery sql_query;
     if (!database.open())
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
     }
-    else
-    {
-        QString select_sql = "select id, name from registered_user";
-        if(!sql_query.exec(select_sql))
-        {
-            QString create_sql = "create table registered_user (id int , username QString, password QString)";
-            sql_query.prepare(create_sql);
-            if(!sql_query.exec())
-            {
-                qDebug() << "Error: Fail to create table." << sql_query.lastError();
-            }
-            else
-            {
-                qDebug() << "Table created!";
-            }
-        }
-    }
-
-
 }
 
 signup::~signup()
@@ -40,7 +20,6 @@ signup::~signup()
 
 void signup::on_signup_2_clicked()
 {
-    QSqlQuery sql_query;
     QString username_input = ui->username->text(),
             password_input = ui->password->text(),
             confirm_password_input = ui->confirm_password->text();
