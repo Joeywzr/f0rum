@@ -80,7 +80,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="username">
         <property name="font">
          <font>
           <family>思源黑体 CN Normal</family>
@@ -89,7 +89,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_2">
+       <widget class="QLineEdit" name="password">
         <property name="font">
          <font>
           <family>思源黑体 CN Normal</family>
@@ -98,7 +98,7 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="lineEdit_3">
+       <widget class="QLineEdit" name="confirm_password">
         <property name="font">
          <font>
           <family>思源黑体 CN Normal</family>
@@ -109,7 +109,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="signup_2">
       <property name="font">
        <font>
         <family>思源黑体 CN Normal</family>

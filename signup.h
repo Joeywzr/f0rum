@@ -2,6 +2,12 @@
 #define SIGNUP_H
 
 #include <QDialog>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QDebug>
+
+extern QSqlDatabase database;
 
 namespace Ui {
 class signup;
@@ -14,6 +20,9 @@ class signup : public QDialog
 public:
     explicit signup(QWidget *parent = 0);
     ~signup();
+
+private slots:
+    void on_signup_2_clicked();
 
 private:
     Ui::signup *ui;

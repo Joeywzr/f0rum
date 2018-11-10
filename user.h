@@ -6,7 +6,7 @@
 typedef struct info
 {
     int id;
-    QString userName;
+    QString username;
     QString password;
 }INFO;
 

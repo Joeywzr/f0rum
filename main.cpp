@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include "loginwindow.h"
+#include "registered_user.h"
 #include <QApplication>
 #include <QFile>
 #include <administrators.h>
 QSqlDatabase database;
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
