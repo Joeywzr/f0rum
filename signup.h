@@ -8,7 +8,7 @@
 #include <QDebug>
 
 extern QSqlDatabase database;
-
+extern int max_id;
 namespace Ui {
 class signup;
 }
@@ -18,10 +18,12 @@ class signup : public QDialog
     Q_OBJECT
 
 public:
+
     explicit signup(QWidget *parent = 0);
     ~signup();
 
 private slots:
+
     void on_signup_2_clicked();
 
 private:

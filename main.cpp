@@ -4,8 +4,9 @@
 #include <QApplication>
 #include <QFile>
 #include <administrators.h>
+#include <QSqlQuery>
 QSqlDatabase database;
-
+int max_id;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -21,6 +22,29 @@ int main(int argc, char *argv[])
         database.setUserName("wzr");
         database.setPassword("123456");
     }
+    QSqlQuery sql_query;
+    if (!database.open())
+    {
+        qDebug() << "Error: Failed to connect database." << database.lastError();
+    }
+    else
+    {
+        QString select_max_sql = "select max(id) from registered_user";
+        sql_query.prepare(select_max_sql);
+        if(!sql_query.exec())
+        {
+            qDebug() << sql_query.lastError();
+        }
+        else
+        {
+            while(sql_query.next())
+                max_id = sql_query.value(0).toInt();
+            max_id++;
+            qDebug() << QString("max id:%1").arg(max_id);
+        }
+    }
+
+
 
 
 

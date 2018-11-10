@@ -12,6 +12,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
         qDebug() << "Error: Failed to connect database.Please reboot the system and try again." << database.lastError();
     }
 
+
 }
 
 LoginWindow::~LoginWindow()

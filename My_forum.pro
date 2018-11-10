@@ -42,7 +42,6 @@ HEADERS += \
     comment.h \
     post.h \
     loginwindow.h \
-    jihe.h \
     signup.h
 
 FORMS += \
