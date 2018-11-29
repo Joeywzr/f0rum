@@ -79,6 +79,7 @@ void MainWindow::on_sign_out_clicked()
 
 void MainWindow::on_game_clicked()
 {
+    page_post_num = 0;
     for(int i = 0;i <= 12;i++)
     {
         button[i]->setText("");
@@ -91,13 +92,12 @@ void MainWindow::on_game_clicked()
 
 
     //----从数据库中读取数据
-
+    state_post_num = game_posts.size() - 1;
     //------------------
-    for(int i = game_posts.size()-1;i >= 0;i--)
+    for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
-        int num = game_posts.size() -1 -i;
-        button[num]->setEnabled(true);
-        button[num]->setText(game_posts[i].title);
+        button[i]->setEnabled(true);
+        button[i]->setText(game_posts[state_post_num--].title);
     }
 
 
@@ -105,7 +105,7 @@ void MainWindow::on_game_clicked()
 
 void MainWindow::on_movie_clicked()
 {
-
+    page_post_num = 0;
     state = movie;
     for(int i = 0;i <= 12;i++)
     {
@@ -118,11 +118,12 @@ void MainWindow::on_movie_clicked()
     //----从数据库中读取数据
 
     //------------------
-    for(int i = movie_posts.size()-1;i >= 0;i--)
+    state_post_num = movie_posts.size() - 1;
+    //------------------
+    for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
-        int num = movie_posts.size() -1 -i;
-        button[num]->setEnabled(true);
-        button[num]->setText(movie_posts[i].title);
+        button[i]->setEnabled(true);
+        button[i]->setText(movie_posts[state_post_num--].title);
     }
 //    QWidget * widget = new QWidget();
 //        widget->setWindowTitle(QObject::tr("I'm widget"));
@@ -140,6 +141,7 @@ void MainWindow::on_movie_clicked()
 
 void MainWindow::on_comic_clicked()
 {
+    page_post_num = 0;
     state = comic;
     for(int i = 0;i <= 12;i++)
     {
@@ -152,17 +154,19 @@ void MainWindow::on_comic_clicked()
     //----从数据库中读取数据
 
     //------------------
-    for(int i = comic_posts.size()-1;i >= 0;i--)
+    state_post_num = comic_posts.size() - 1;
+    //------------------
+    for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
-        int num = comic_posts.size() -1 -i;
-        button[num]->setEnabled(true);
-        button[num]->setText(comic_posts[i].title);
+        button[i]->setEnabled(true);
+        button[i]->setText(comic_posts[state_post_num--].title);
     }
 
 }
 
 void MainWindow::on_music_clicked()
 {
+    page_post_num = 0;
     state = music;
     for(int i = 0;i <= 12;i++)
     {
@@ -175,17 +179,19 @@ void MainWindow::on_music_clicked()
     //----从数据库中读取数据
 
     //------------------
-    for(int i = music_posts.size()-1;i >= 0;i--)
+    state_post_num = music_posts.size() - 1;
+    //------------------
+    for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
-        int num = music_posts.size() -1 -i;
-        button[num]->setEnabled(true);
-        button[num]->setText(music_posts[i].title);
+        button[i]->setEnabled(true);
+        button[i]->setText(music_posts[state_post_num--].title);
     }
 
 }
 
 void MainWindow::on_sport_clicked()
 {
+    page_post_num = 0;
     state = sports;
     for(int i = 0;i <= 12;i++)
     {
@@ -198,11 +204,12 @@ void MainWindow::on_sport_clicked()
     //----从数据库中读取数据
 
     //------------------
-    for(int i = sports_posts.size()-1;i >= 0;i--)
+    state_post_num = sports_posts.size() - 1;
+    //------------------
+    for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
-        int num = sports_posts.size() -1 -i;
-        button[num]->setEnabled(true);
-        button[num]->setText(sports_posts[i].title);
+        button[i]->setEnabled(true);
+        button[i]->setText(sports_posts[state_post_num--].title);
     }
 
 }
@@ -212,4 +219,44 @@ void MainWindow::on_post_clicked()
     push_post = new Writepostwindow(this);
     push_post->state = state;
     push_post->show();
+}
+
+void MainWindow::on_next_page_clicked()
+{
+    QVector<Post> this_state_posts = all_post.value(state);
+    if((page_post_num+1)*13 < this_state_posts.size())
+    {
+        for(int i = 0;i <= 12;i++)
+        {
+            button[i]->setText("");
+            button[i]->setEnabled(false);
+        }
+        page_post_num++;
+        state_post_num = this_state_posts.size() - 1 - 13*page_post_num;
+        for(int i = 0;i <= 12 && state_post_num >= 0;i++)
+        {
+            button[i]->setEnabled(true);
+            button[i]->setText(this_state_posts[state_post_num--].title);
+        }
+    }
+}
+
+void MainWindow::on_back_clicked()
+{
+    if(page_post_num-1>=0)
+    {
+        for(int i = 0;i <= 12;i++)
+        {
+            button[i]->setText("");
+            button[i]->setEnabled(false);
+        }
+        page_post_num--;
+        QVector<Post> this_state_posts = all_post.value(state);
+        state_post_num = this_state_posts.size() - 1 - 13*page_post_num;
+        for(int i = 0;i <= 12 && state_post_num >= 0;i++)
+        {
+            button[i]->setEnabled(true);
+            button[i]->setText(this_state_posts[state_post_num--].title);
+        }
+    }
 }

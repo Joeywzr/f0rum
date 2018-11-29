@@ -26,7 +26,8 @@ public:
     QString username;
     QString password;
     int id;
-    int game_post_num = 0;
+    int page_post_num = 0;
+    int state_post_num;
     QPushButton *button[13];
     ~MainWindow();
 
@@ -47,6 +48,10 @@ private slots:
     void on_sport_clicked();
 
     void on_post_clicked();
+
+    void on_next_page_clicked();
+
+    void on_back_clicked();
 
 private:
     Ui::MainWindow *ui;
