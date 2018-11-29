@@ -38,13 +38,25 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QTextBrowser" name="ID"/>
+      <widget class="QLabel" name="id">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QTextBrowser" name="username"/>
+      <widget class="QLabel" name="username">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QTextBrowser" name="password"/>
+      <widget class="QLabel" name="password">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

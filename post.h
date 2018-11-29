@@ -13,21 +13,17 @@ typedef enum
     sports
 }Category;
 
-typedef struct info_post
-{
-    QString id;
-    QString title;
-    QString content;
-    QString time;
-    Comment comment;
-
-}INFO_POST;
 
 class Post
 {
 public:
     Post();
-    QVector<INFO_POST> info;
+    QString id = 0;
+    QString title;
+    QString content;
+    QString time;
+    Comment comment;
+
 
 };
 

@@ -1,12 +1,15 @@
 #include "mainwindow.h"
 #include "loginwindow.h"
 #include "registered_user.h"
+#include "post.h"
 #include <QApplication>
 #include <QFile>
 #include <administrators.h>
 #include <QSqlQuery>
+#include <QDebug>
 QSqlDatabase database;
 QSqlQuery sql_query;
+QHash<Category,QVector<Post>> all_post;
 int max_id;
 int main(int argc, char *argv[])
 {
@@ -80,6 +83,6 @@ int main(int argc, char *argv[])
     LoginWindow w;
     w.show();
 
-
     return a.exec();
+
 }

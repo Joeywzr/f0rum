@@ -1,29 +1,55 @@
+#define post_display_num 13
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "registered_user.h"
-#include "administrators.h"
-#include "post.h"
-#include "comment.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    button[0] = ui->pushButton_1;
+    button[1] = ui->pushButton_2;
+    button[2] = ui->pushButton_3;
+    button[3] = ui->pushButton_4;
+    button[4] = ui->pushButton_5;
+    button[5] = ui->pushButton_6;
+    button[6] = ui->pushButton_7;
+    button[7] = ui->pushButton_8;
+    button[8] = ui->pushButton_9;
+    button[9] = ui->pushButton_10;
+    button[10] = ui->pushButton_11;
+    button[11] = ui->pushButton_12;
+    button[12] = ui->pushButton_13;
+    for(int i = 0;i < post_display_num; i++)
+    {
+        button[i]->setStyleSheet("border:none;");
+        button[i]->setEnabled(false);
+    }
+
     Registered_user *register_user = new Registered_user;
     Administrators *administrators = new Administrators;
+    Post p;
 
-    if(id < 5)
+    if(id < 5)//管理员
     {
         administrators->info.id = id;
         administrators->info.username = username;
         administrators->info.password = password;
     }
-    else
+    else//普通用户
     {
         register_user->info.id = id;
         register_user->info.username = username;
         register_user->info.password = password;
+    }
+
+    state = game;
+    for(int i = game; i <= sports;i++)
+    {
+        QVector<Post> post;
+        all_post.insert(state, post);
     }
 
 }
@@ -34,7 +60,7 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_personal_infomation_clicked()
 {
     per_info = new Personal_infomation(this);
     per_info->username = username;
@@ -42,5 +68,148 @@ void MainWindow::on_pushButton_clicked()
     per_info->id = id;
     per_info->show_infomation();
     per_info->setModal(true);
+    per_info->setWindowTitle(QObject::tr("发帖"));
     per_info->show();
+}
+
+void MainWindow::on_sign_out_clicked()
+{
+    this->close();
+}
+
+void MainWindow::on_game_clicked()
+{
+    for(int i = 0;i <= 12;i++)
+    {
+        button[i]->setText("");
+        button[i]->setEnabled(false);
+    }
+    state = game;
+    QVector<Post> game_posts = all_post.value(state);
+//    QVector<Post>::iterator i;
+
+
+
+    //----从数据库中读取数据
+
+    //------------------
+    for(int i = game_posts.size()-1;i >= 0;i--)
+    {
+        int num = game_posts.size() -1 -i;
+        button[num]->setEnabled(true);
+        button[num]->setText(game_posts[i].title);
+    }
+
+
+}
+
+void MainWindow::on_movie_clicked()
+{
+
+    state = movie;
+    for(int i = 0;i <= 12;i++)
+    {
+        button[i]->setText("");
+        button[i]->setEnabled(false);
+    }
+    QVector<Post> movie_posts = all_post.value(state);
+//    QVector<Post>::iterator i;
+
+    //----从数据库中读取数据
+
+    //------------------
+    for(int i = movie_posts.size()-1;i >= 0;i--)
+    {
+        int num = movie_posts.size() -1 -i;
+        button[num]->setEnabled(true);
+        button[num]->setText(movie_posts[i].title);
+    }
+//    QWidget * widget = new QWidget();
+//        widget->setWindowTitle(QObject::tr("I'm widget"));
+//        QLabel * label = new QLabel();
+//        label->setWindowTitle(QObject::tr("I'm label"));
+//        label->setText(QObject::tr("label:I'm a window"));
+//        label->resize(180,20);
+//        QLabel * label2 = new QLabel(widget);
+//        label2->setText(QObject::tr("label2:I'm not a dulideWindow,but window's son"));
+//        label2->resize(250,20);
+//        label->show();
+//        widget->show();
+
+}
+
+void MainWindow::on_comic_clicked()
+{
+    state = comic;
+    for(int i = 0;i <= 12;i++)
+    {
+        button[i]->setText("");
+        button[i]->setEnabled(false);
+    }
+    QVector<Post> comic_posts = all_post.value(state);
+//    QVector<Post>::iterator i;
+
+    //----从数据库中读取数据
+
+    //------------------
+    for(int i = comic_posts.size()-1;i >= 0;i--)
+    {
+        int num = comic_posts.size() -1 -i;
+        button[num]->setEnabled(true);
+        button[num]->setText(comic_posts[i].title);
+    }
+
+}
+
+void MainWindow::on_music_clicked()
+{
+    state = music;
+    for(int i = 0;i <= 12;i++)
+    {
+        button[i]->setText("");
+        button[i]->setEnabled(false);
+    }
+    QVector<Post> music_posts = all_post.value(state);
+//    QVector<Post>::iterator i;
+
+    //----从数据库中读取数据
+
+    //------------------
+    for(int i = music_posts.size()-1;i >= 0;i--)
+    {
+        int num = music_posts.size() -1 -i;
+        button[num]->setEnabled(true);
+        button[num]->setText(music_posts[i].title);
+    }
+
+}
+
+void MainWindow::on_sport_clicked()
+{
+    state = sports;
+    for(int i = 0;i <= 12;i++)
+    {
+        button[i]->setText("");
+        button[i]->setEnabled(false);
+    }
+    QVector<Post> sports_posts = all_post.value(state);
+//    QVector<Post>::iterator i;
+
+    //----从数据库中读取数据
+
+    //------------------
+    for(int i = sports_posts.size()-1;i >= 0;i--)
+    {
+        int num = sports_posts.size() -1 -i;
+        button[num]->setEnabled(true);
+        button[num]->setText(sports_posts[i].title);
+    }
+
+}
+
+void MainWindow::on_post_clicked()
+{
+    push_post = new Writepostwindow(this);
+    push_post->state = state;
+    push_post->show();
 }

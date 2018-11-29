@@ -12,7 +12,7 @@ void Personal_infomation::show_infomation()
 {
     ui->username->setText(username);
     ui->password->setText(password);
-    ui->ID->setText(QString::number(id, 10));
+    ui->id->setText(QString::number(id, 10));
 }
 
 Personal_infomation::~Personal_infomation()
