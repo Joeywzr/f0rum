@@ -30,8 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     Registered_user *register_user = new Registered_user;
     Administrators *administrators = new Administrators;
-    Post p;
-
+    bg = new QButtonGroup;
+    for(int i = 0;i <= 12;i++)
+        bg->addButton(button[i],i);
     if(id < 5)//管理员
     {
         administrators->info.id = id;
@@ -51,6 +52,8 @@ MainWindow::MainWindow(QWidget *parent) :
         QVector<Post> post;
         all_post.insert(state, post);
     }
+
+    connect(bg,SIGNAL(buttonClicked(int)),this,SLOT(click_posts(int)));
 
 }
 
@@ -218,6 +221,7 @@ void MainWindow::on_post_clicked()
 {
     push_post = new Writepostwindow(this);
     push_post->state = state;
+    push_post->username = username;
     push_post->show();
 }
 
@@ -259,4 +263,38 @@ void MainWindow::on_back_clicked()
             button[i]->setText(this_state_posts[state_post_num--].title);
         }
     }
+}
+
+void MainWindow::click_posts(int i)
+{
+    QVector<Post> this_state_posts = all_post.value(state);
+    int selected_post = this_state_posts.size() - 1 - 13*page_post_num -i;
+
+    post_detail = new Details_of_posts(this);
+    post_detail->p.title = this_state_posts[selected_post].title;
+    post_detail->p.content = this_state_posts[selected_post].content;
+    post_detail->p.comment = this_state_posts[selected_post].comment;
+    post_detail->p.time = this_state_posts[selected_post].time;
+    post_detail->p.poster_name = this_state_posts[selected_post].poster_name;
+    post_detail->username = username;
+    post_detail->state = state;
+    post_detail->this_post_num = selected_post;
+    post_detail->ui->title->setText(post_detail->p.title);
+    QString all_content;
+    all_content.append("用户:");
+    all_content.append(post_detail->p.poster_name+"\n\n");
+    all_content.append(post_detail->p.content+"\n\n");
+    all_content.append("------------------------------------------\n\n");
+    for(int i = 0; i <= post_detail->p.comment.size() - 1;i++)
+    {
+        all_content.append("用户:");
+        all_content.append(post_detail->p.comment[i].username+"\n\n");
+        all_content.append(post_detail->p.comment[i].content+"\n\n");
+        all_content.append("------------------------------------------\n\n");
+    }
+
+    post_detail->ui->content->setText(all_content);
+
+    post_detail->show();
+
 }

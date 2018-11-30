@@ -16,6 +16,7 @@ class Writepostwindow : public QMainWindow
 
 public:
     Category state;
+    QString username;
     explicit Writepostwindow(QWidget *parent = 0);
     ~Writepostwindow();
     Post a;

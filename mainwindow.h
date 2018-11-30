@@ -3,11 +3,14 @@
 #include <QMainWindow>
 #include <Personal_infomation.h>
 #include <QLabel>
+#include <QButtonGroup>
 #include "registered_user.h"
 #include "administrators.h"
 #include "post.h"
 #include "comment.h"
 #include "writepostwindow.h"
+#include "details_of_posts.h"
+#include "ui_details_of_posts.h"
 extern QHash<Category,QVector<Post>> all_post;
 
 namespace Ui {
@@ -53,10 +56,14 @@ private slots:
 
     void on_back_clicked();
 
+    void click_posts(int i);
+
 private:
     Ui::MainWindow *ui;
     Personal_infomation *per_info;
     Writepostwindow *push_post;
+    Details_of_posts *post_detail;
+    QButtonGroup *bg;
 };
 
 #endif // MAINWINDOW_H

@@ -35,7 +35,8 @@ SOURCES += \
     signup.cpp \
     personal_infomation.cpp \
     postwindow.cpp \
-    writepostwindow.cpp
+    writepostwindow.cpp \
+    details_of_posts.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,7 +49,8 @@ HEADERS += \
     signup.h \
     personal_infomation.h \
     postwindow.h \
-    writepostwindow.h
+    writepostwindow.h \
+    details_of_posts.h
 
 FORMS += \
     mainwindow.ui \
@@ -57,7 +59,8 @@ FORMS += \
     signup.ui \
     personal_infomation.ui \
     postwindow.ui \
-    writepostwindow.ui
+    writepostwindow.ui \
+    details_of_posts.ui
 
 RESOURCES += \
     qss.qrc

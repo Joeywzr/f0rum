@@ -22,6 +22,7 @@ void Writepostwindow::on_push_clicked()
 //    p.id = QString::number(temp);
     p.title = ui->title->toPlainText();
     p.content = ui->content->toPlainText();
+    p.poster_name = username;
     new_post.push_back(p);
     all_post.insert(state, new_post);
     this->close();

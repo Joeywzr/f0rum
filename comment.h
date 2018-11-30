@@ -3,18 +3,13 @@
 #include <QString>
 #include <QVector>
 
-typedef struct info_com
-{
-    QString content;
-    QString time;
-}INFO_COM;
-
-
 class Comment
 {
 public:
+    QString username;
+    QString content;
+    QString time;
     Comment();
-    QVector<INFO_COM> info;
 };
 
 #endif // COMMENT_H

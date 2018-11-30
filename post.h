@@ -19,12 +19,11 @@ class Post
 public:
     Post();
     QString id = 0;
+    QString poster_name;
     QString title;
     QString content;
     QString time;
-    Comment comment;
-
-
+    QVector<Comment> comment;
 };
 
 #endif // POST_H
