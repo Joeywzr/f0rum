@@ -47,6 +47,9 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
     state = game;
+    ui->game->setChecked(true);
+    ui->game->setCheckable(true);
+    ui->game->setAutoExclusive(true);
     for(int i = game; i <= sports;i++)
     {
         QVector<Post> post;
@@ -222,6 +225,7 @@ void MainWindow::on_post_clicked()
     push_post = new Writepostwindow(this);
     push_post->state = state;
     push_post->username = username;
+    push_post->setWindowModality(Qt::ApplicationModal);
     push_post->show();
 }
 
@@ -294,7 +298,7 @@ void MainWindow::click_posts(int i)
     }
 
     post_detail->ui->content->setText(all_content);
-
+    post_detail->setWindowModality(Qt::ApplicationModal);
     post_detail->show();
 
 }
