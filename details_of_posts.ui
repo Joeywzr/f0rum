@@ -43,6 +43,13 @@
       <item row="0" column="1">
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
+         <widget class="QPushButton" name="delete_this_post">
+          <property name="text">
+           <string>删除该贴</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QPushButton" name="comment">
           <property name="text">
            <string>评论</string>

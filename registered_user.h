@@ -7,8 +7,6 @@ class Registered_user:public User
 public:
     Registered_user();
 
-    INFO info;
-
     //-------基础要求----------//
     virtual void user_information();
     virtual void sign_in();

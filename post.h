@@ -6,7 +6,7 @@
 
 typedef enum
 {
-    game=0,
+    game=1,
     movie,
     comic,
     music,
@@ -23,6 +23,7 @@ public:
     QString title;
     QString content;
     QString time;
+    QString state;
     QVector<Comment> comment;
 };
 

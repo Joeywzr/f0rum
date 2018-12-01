@@ -2,7 +2,15 @@
 #define DETAILS_OF_POSTS_H
 
 #include <QMainWindow>
+#include <QSqlQuery>
+#include <QMessageBox>
+#include <QCloseEvent>
+#include <QDate>
+#include <QTime>
+#include <QDateTime>
 #include "post.h"
+extern QSqlDatabase database;
+extern QSqlQuery sql_query;
 extern QHash<Category,QVector<Post>> all_post;
 namespace Ui {
 class Details_of_posts;
@@ -16,7 +24,7 @@ public:
     Category state;
     int this_post_num;
     QString username;
-    QString time_now;
+    QString level;
 
     Post p;
     explicit Details_of_posts(QWidget *parent = 0);
@@ -29,6 +37,10 @@ private slots:
     void on_comment_clicked();
 
     void on_quit_clicked();
+
+    void on_delete_this_post_clicked();
+
+    void closeEvent(QCloseEvent *event);
 
 private:
 };

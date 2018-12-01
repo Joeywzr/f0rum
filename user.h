@@ -2,18 +2,14 @@
 #define USER_H
 #include <QVector>
 #include <QString>
-
-typedef struct info
-{
-    int id;
-    QString username;
-    QString password;
-}INFO;
-
 class User
 {
 public:
     User();
+    int id;
+    QString username;
+    QString password;
+    QString level;
 
 //-------基础要求----------//
     virtual void user_information() = 0;

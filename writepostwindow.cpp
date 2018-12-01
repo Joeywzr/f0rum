@@ -16,19 +16,68 @@ Writepostwindow::~Writepostwindow()
 void Writepostwindow::on_push_clicked()
 {
     QVector<Post> new_post = all_post.value(state);
+    QDateTime local(QDateTime::currentDateTime());
+    QString localTime = local.toString("yyyy-MM-dd:hh:mm:ss");
     Post p;
 //    int temp = p.id.toInt();
 //    temp++;
 //    p.id = QString::number(temp);
     p.title = ui->title->toPlainText();
     p.content = ui->content->toPlainText();
+    p.time = localTime;
     p.poster_name = username;
     new_post.push_back(p);
     all_post.insert(state, new_post);
+    ui->title->clear();
+    ui->content->clear();
     this->close();
+
 }
 
 void Writepostwindow::on_cancel_clicked()
 {
-    this->close();
+    if(ui->title->toPlainText().isEmpty() && ui->content->toPlainText().isEmpty())
+    {
+        ui->title->clear();
+        ui->content->clear();
+        this->close();
+    }
+    else
+    {
+        QMessageBox::StandardButton button;
+        button = QMessageBox::question(this, tr("退出"),
+                 QString(tr("有未发送的帖子，是否继续退出?")),
+                 QMessageBox::Yes | QMessageBox::No);
+        if (button == QMessageBox::Yes)
+        {
+                ui->title->clear();
+                ui->content->clear();
+                this->close();
+        }
+    }
+}
+
+void Writepostwindow::closeEvent(QCloseEvent *event)
+{
+    if(ui->title->toPlainText().isEmpty() && ui->content->toPlainText().isEmpty())
+    {
+        ui->title->clear();
+        ui->content->clear();
+    }
+    else
+    {
+        QMessageBox::StandardButton button;
+        button = QMessageBox::question(this, tr("退出"),
+                 QString(tr("有未发送的帖子，是否继续退出?")),
+                 QMessageBox::Yes | QMessageBox::No);
+
+            if (button == QMessageBox::No) {
+                event->ignore();  //忽略退出信号，程序继续运行
+            }
+            else if (button == QMessageBox::Yes) {
+                ui->title->clear();
+                ui->content->clear();
+                event->accept();  //接受退出信号，程序退出
+            }
+    }
 }

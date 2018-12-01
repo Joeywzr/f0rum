@@ -8,6 +8,8 @@
 #include <QDebug>
 #include "signup.h"
 #include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "post.h"
 
 extern QSqlDatabase database;
 
@@ -30,8 +32,10 @@ public:
 private slots:
     void on_sign_in_clicked();
     void on_sign_up_clicked();
+    void show_loginwindow();
 
 private:
+    LoginWindow *new_mainview;
     Ui::LoginWindow *ui;
     signup *view;
     MainWindow *mainview;

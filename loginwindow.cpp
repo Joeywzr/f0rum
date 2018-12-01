@@ -10,6 +10,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
     }
+    mainview = new MainWindow(this);
+
+    connect(mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()) );
 }
 
 LoginWindow::~LoginWindow()
@@ -28,7 +31,7 @@ void LoginWindow::on_sign_in_clicked()
     }
     else
     {
-        QString select_sql = "select id,username,password from registered_user";
+        QString select_sql = "select id,username,password , level, responsible_plate from users";
         if(!sql_query.exec(select_sql))
             qDebug()<<sql_query.lastError();
         else
@@ -37,15 +40,19 @@ void LoginWindow::on_sign_in_clicked()
             {
                 QString username = sql_query.value(1).toString();
                 QString password = sql_query.value(2).toString();
+                QString level = sql_query.value(3).toString();
+                int responsible_plate = sql_query.value(4).toInt();
                 if(username_input == username)
                 {
                     username_flag = true;
                     if(password_input == password)
                     {
                         this->close();
-                        mainview = new MainWindow(this);
+
                         mainview->username = username_input;
                         mainview->password = password_input;
+                        mainview->level = level;
+                        mainview->responsible_plate = responsible_plate;
                         mainview->id = sql_query.value(0).toInt();
                         mainview->show();
                     }
@@ -81,4 +88,10 @@ void LoginWindow::on_sign_up_clicked()
     view = new signup(this);
     view->setModal(true);
     view->show();
+}
+
+void LoginWindow::show_loginwindow()
+{
+    new_mainview = new LoginWindow;
+    new_mainview->show();
 }

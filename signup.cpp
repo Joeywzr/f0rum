@@ -11,6 +11,8 @@ signup::signup(QWidget *parent) :
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
     }
+
+
 }
 
 signup::~signup()
@@ -30,7 +32,7 @@ void signup::on_signup_2_clicked()
     }
     else
     {
-        QString select_sql = "select username from registered_user";
+        QString select_sql = "select username from users";
         if(!sql_query.exec(select_sql))
             qDebug()<<sql_query.lastError();
         else
@@ -62,11 +64,17 @@ void signup::on_signup_2_clicked()
         return;
     }
 
-    QString insert_sql = "insert into registered_user values (?, ?, ?)";
+    QString insert_sql = "insert into users values (?, ?, ?, ?, ?)";
     sql_query.prepare(insert_sql);
     sql_query.addBindValue(max_id);
     sql_query.addBindValue(username_input);
     sql_query.addBindValue(password_input);
+    if(max_id>=5)
+        sql_query.addBindValue("ordinary");
+    else
+        sql_query.addBindValue("administrator");
+    sql_query.addBindValue(0);
+
     if(!sql_query.exec())
     {
         qDebug() << sql_query.lastError();

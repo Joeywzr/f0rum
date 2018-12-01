@@ -15,6 +15,7 @@ public:
     QString username;
     QString password;
     int id;
+    QString level;
     explicit Personal_infomation(QWidget *parent = 0);
     ~Personal_infomation();
     void show_infomation();
