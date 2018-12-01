@@ -1,11 +1,11 @@
-#ifndef REGISTERED_USER_H
-#define REGISTERED_USER_H
+#ifndef ORDINARY_USER_H
+#define ORDINARY_USER_H
 #include <user.h>
 
-class Registered_user:public User
+class Ordinary_user:public User
 {
 public:
-    Registered_user();
+    Ordinary_user();
 
     //-------基础要求----------//
     virtual void user_information();
@@ -23,4 +23,4 @@ public:
     //-----------------------//
 };
 
-#endif // REGISTERED_USER_H
+#endif // ORDINARY_USER_H

@@ -7,7 +7,7 @@
 #include <QDate>
 #include <QTime>
 #include <QDateTime>
-#include "registered_user.h"
+#include "ordinary_user.h"
 #include "administrators.h"
 #include "post.h"
 #include "comment.h"

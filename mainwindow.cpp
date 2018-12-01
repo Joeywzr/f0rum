@@ -28,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
         button[i]->setEnabled(false);
     }
 
-    Registered_user *register_user = new Registered_user;
+    Ordinary_user *ordinary_user = new Ordinary_user;
     Administrators *administrators = new Administrators;
     bg = new QButtonGroup;
     push_post = new Writepostwindow(this);
@@ -43,9 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     else//普通用户
     {
-        register_user->id = id;
-        register_user->username = username;
-        register_user->password = password;
+        ordinary_user->id = id;
+        ordinary_user->username = username;
+        ordinary_user->password = password;
     }
 
     state = game;
@@ -61,7 +61,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     state = game;
     QVector<Post> game_posts = all_post.value(state);
-//    QVector<Post>::iterator i;
+    //    QVector<Post>::iterator i;
 
 
 
@@ -73,12 +73,6 @@ MainWindow::MainWindow(QWidget *parent) :
         button[i]->setEnabled(true);
         button[i]->setText(game_posts[state_post_num--].title);
     }
-
-//    for(int i = game; i <= sports;i++)
-//    {
-//        QVector<Post> post;
-//        all_post.insert(state, post);
-//    }
 
     connect(bg,SIGNAL(buttonClicked(int)),this,SLOT(click_posts(int)));
     connect(push_post->ui->push, SIGNAL(clicked(bool)),this,SLOT(refresh()));
@@ -120,7 +114,7 @@ void MainWindow::on_game_clicked()
     }
     state = game;
     QVector<Post> game_posts = all_post.value(state);
-//    QVector<Post>::iterator i;
+    //    QVector<Post>::iterator i;
 
 
 
@@ -146,7 +140,7 @@ void MainWindow::on_movie_clicked()
         button[i]->setEnabled(false);
     }
     QVector<Post> movie_posts = all_post.value(state);
-//    QVector<Post>::iterator i;
+    //    QVector<Post>::iterator i;
 
     //----从数据库中读取数据
 
@@ -158,18 +152,6 @@ void MainWindow::on_movie_clicked()
         button[i]->setEnabled(true);
         button[i]->setText(movie_posts[state_post_num--].title);
     }
-//    QWidget * widget = new QWidget();
-//        widget->setWindowTitle(QObject::tr("I'm widget"));
-//        QLabel * label = new QLabel();
-//        label->setWindowTitle(QObject::tr("I'm label"));
-//        label->setText(QObject::tr("label:I'm a window"));
-//        label->resize(180,20);
-//        QLabel * label2 = new QLabel(widget);
-//        label2->setText(QObject::tr("label2:I'm not a dulideWindow,but window's son"));
-//        label2->resize(250,20);
-//        label->show();
-//        widget->show();
-
 }
 
 void MainWindow::on_comic_clicked()
@@ -182,8 +164,6 @@ void MainWindow::on_comic_clicked()
         button[i]->setEnabled(false);
     }
     QVector<Post> comic_posts = all_post.value(state);
-//    QVector<Post>::iterator i;
-
     //----从数据库中读取数据
 
     //------------------
@@ -207,8 +187,6 @@ void MainWindow::on_music_clicked()
         button[i]->setEnabled(false);
     }
     QVector<Post> music_posts = all_post.value(state);
-//    QVector<Post>::iterator i;
-
     //----从数据库中读取数据
 
     //------------------
@@ -232,8 +210,6 @@ void MainWindow::on_sport_clicked()
         button[i]->setEnabled(false);
     }
     QVector<Post> sports_posts = all_post.value(state);
-//    QVector<Post>::iterator i;
-
     //----从数据库中读取数据
 
     //------------------
@@ -307,7 +283,7 @@ void MainWindow::refresh()
         button[i]->setEnabled(false);
     }
     QVector<Post> posts = all_post.value(state);
-//    QVector<Post>::iterator i;
+    //    QVector<Post>::iterator i;
 
     //----从数据库中读取数据
 
@@ -344,7 +320,7 @@ void MainWindow::click_posts(int i)
     all_content.append("用户:"+ post_detail->p.poster_name+ "   发送时间:" + post_detail->p.time +"\n\n");
     all_content.append(post_detail->p.content+"\n\n");
     all_content.append("------------------------------------------\n\n");
-    for(int i = 0; i <= post_detail->p.comment.size() - 1;i++)
+    for(int i = 0; i <= post_detail->p.comment.size()-1;i++)
     {
         all_content.append("用户:" + post_detail->p.comment[i].username + "   发送时间:" + post_detail->p.comment[i].time +"\n\n");
         all_content.append(post_detail->p.comment[i].content+"\n\n");

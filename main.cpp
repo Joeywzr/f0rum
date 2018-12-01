@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "loginwindow.h"
-#include "registered_user.h"
+#include "ordinary_user.h"
 #include "post.h"
 #include <QApplication>
 #include <QFile>

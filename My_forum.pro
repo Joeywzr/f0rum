@@ -28,32 +28,31 @@ SOURCES += \
         mainwindow.cpp \
     user.cpp \
     administrators.cpp \
-    registered_user.cpp \
     comment.cpp \
     post.cpp \
     loginwindow.cpp \
     signup.cpp \
     personal_infomation.cpp \
     writepostwindow.cpp \
-    details_of_posts.cpp
+    details_of_posts.cpp \
+    ordinary_user.cpp
 
 HEADERS += \
         mainwindow.h \
     user.h \
     administrators.h \
-    registered_user.h \
     comment.h \
     post.h \
     loginwindow.h \
     signup.h \
     personal_infomation.h \
     writepostwindow.h \
-    details_of_posts.h
+    details_of_posts.h \
+    ordinary_user.h
 
 FORMS += \
     mainwindow.ui \
     loginwindow.ui \
-    user_information.ui \
     signup.ui \
     personal_infomation.ui \
     writepostwindow.ui \

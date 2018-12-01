@@ -6,7 +6,7 @@ Details_of_posts::Details_of_posts(QWidget *parent) :
     ui(new Ui::Details_of_posts)
 {
     ui->setupUi(this);
-//    ui->title->setText();
+    //    ui->title->setText();
 
 }
 
@@ -21,7 +21,7 @@ void Details_of_posts::on_comment_clicked()
     {
         QMessageBox::StandardButton button;
         button = QMessageBox::information(this, tr("提示"),
-                 QString(tr("评论不能为空！")));
+                                          QString(tr("评论不能为空！")));
     }
     else
     {
@@ -31,7 +31,7 @@ void Details_of_posts::on_comment_clicked()
         comment_edit.content = ui->comment_edit->toPlainText();
         comment_edit.username = username;
         comment_edit.time = localTime;
-    //    comment_edit.time = time_now;
+        //    comment_edit.time = time_now;
         ui->comment_edit->clear();
 
         p.comment.push_back(comment_edit);
@@ -50,8 +50,6 @@ void Details_of_posts::on_comment_clicked()
         if(level == "ordinary")
             ui->delete_this_post->setEnabled(false);
     }
-
-
 }
 
 void Details_of_posts::on_quit_clicked()
@@ -67,15 +65,15 @@ void Details_of_posts::on_quit_clicked()
     {
         QMessageBox::StandardButton button;
         button = QMessageBox::question(this, tr("退出"),
-                 QString(tr("有未发送的评论，是否继续退出?")),
-                 QMessageBox::Yes | QMessageBox::No);
+                                       QString(tr("有未发送的评论，是否继续退出?")),
+                                       QMessageBox::Yes | QMessageBox::No);
 
         if (button == QMessageBox::Yes) {
-                ui->title->clear();
-                ui->content->clear();
-                ui->comment_edit->clear();
-                this->close();
-            }
+            ui->title->clear();
+            ui->content->clear();
+            ui->comment_edit->clear();
+            this->close();
+        }
     }
 }
 
@@ -103,22 +101,17 @@ void Details_of_posts::closeEvent(QCloseEvent *event)
     {
         QMessageBox::StandardButton button;
         button = QMessageBox::question(this, tr("退出"),
-                 QString(tr("有未发送的评论，是否继续退出?")),
-                 QMessageBox::Yes | QMessageBox::No);
+                                       QString(tr("有未发送的评论，是否继续退出?")),
+                                       QMessageBox::Yes | QMessageBox::No);
 
-            if (button == QMessageBox::No) {
-                event->ignore();  //忽略退出信号，程序继续运行
-            }
-            else if (button == QMessageBox::Yes) {
-                ui->title->clear();
-                ui->content->clear();
-                ui->comment_edit->clear();
-                event->accept();  //接受退出信号，程序退出
-            }
+        if (button == QMessageBox::No) {
+            event->ignore();  //忽略退出信号，程序继续运行
+        }
+        else if (button == QMessageBox::Yes) {
+            ui->title->clear();
+            ui->content->clear();
+            ui->comment_edit->clear();
+            event->accept();  //接受退出信号，程序退出
+        }
     }
-
-
-
 }
-
-
