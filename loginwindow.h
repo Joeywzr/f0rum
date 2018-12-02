@@ -9,6 +9,7 @@
 #include "signup.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "moderator_user.h"
 #include "post.h"
 
 extern QSqlDatabase database;
@@ -28,6 +29,7 @@ public:
     bool username_flag = false;
     Administrators *administrators;
     Ordinary_user *ordinary_user;
+    Moderator_user *moderator_user;
     ~LoginWindow();
 
 

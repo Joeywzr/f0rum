@@ -13,9 +13,10 @@ class Personal_infomation : public QDialog
 
 public:
     QString username;
-    QString password;
     int id;
     QString level;
+    QString responsible_plate;
+    bool show_respresponsible_plate;
     explicit Personal_infomation(QWidget *parent = 0);
     ~Personal_infomation();
     void show_infomation();

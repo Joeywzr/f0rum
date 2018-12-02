@@ -32,7 +32,7 @@ public:
     QString username;
     QString password;
     QString level;
-    int responsible_plate;
+    int responsible_plate = 0;
     int id;
     int page_post_num = 0;
     int state_post_num;

@@ -47,7 +47,7 @@ void Details_of_posts::on_comment_clicked()
         temp[this_post_num] = p;
         all_post[state] = temp;
 
-        if(level == "ordinary")
+        if(level == "ordinary" || (level == "moderator" && responsible_plate != state) )
             ui->delete_this_post->setEnabled(false);
     }
 }

@@ -26,7 +26,6 @@ public:
     int responsible_plate;
     //-------基础要求----------//
 
-    virtual void check() = 0;
     //------------------------//
 signals:
 

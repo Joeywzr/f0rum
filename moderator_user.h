@@ -1,5 +1,6 @@
-#ifndef ORDINARY_USER_H
-#define ORDINARY_USER_H
+#ifndef MODERATOR_USER_H
+#define MODERATOR_USER_H
+#include "ordinary_user.h"
 #include <QObject>
 #include <user.h>
 #include <QDebug>
@@ -15,24 +16,16 @@
 #include "moderatorwindow.h"
 #include "ui_moderatorwindow.h"
 #include "post.h"
-
 class MainWindow;
-class Ordinary_user:public User
+class Moderator_user:public Ordinary_user
 {
     Q_OBJECT
 public:
-    Ordinary_user();
-    MainWindow *mainview;
-    Personal_infomation *per_info;
+    Moderator_user();
 
     void init_class();
-
 public slots:
     void user_information();
-    void sign_in();
-    void sign_out();
-private:
-
 };
 
-#endif // ORDINARY_USER_H
+#endif // MODERATOR_USER_H

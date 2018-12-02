@@ -38,6 +38,8 @@ private slots:
     void click_users(int i );
     void on_next_page_clicked();
     void on_back_clicked();
+    void on_pushButton_clicked();
+
 private:
 
 };

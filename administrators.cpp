@@ -1,25 +1,30 @@
 #include "administrators.h"
 
-Administrators::Administrators(QString username_input, QString password_input, int id_input, QString level_input)
+Administrators::Administrators()
+{
+
+}
+
+void Administrators::init_class()
 {
     mainview = new MainWindow;
-    mainview->username = username_input;
-    mainview->password = password_input;
-    mainview->level = level_input;
-    mainview->id = id_input;
+    mainview->username = username;
+    mainview->password = password;
+    mainview->level = level;
+    mainview->id = id;
     mainview->show();
     connect(mainview->ui->personal_infomation,SIGNAL(clicked(bool)), this, SLOT(user_information()));
     connect(mainview->ui->sign_out,SIGNAL(clicked(bool)), this, SLOT(sign_out()));
     connect(mainview->ui->appoint, SIGNAL(clicked(bool)),this,SLOT(appoint_or_revoke_moderator()));
-
 }
+
 void Administrators::user_information()
 {
     per_info = new Personal_infomation;
     per_info->username = username;
-    per_info->password = password;
     per_info->id = id;
     per_info->level = level;
+    per_info->show_respresponsible_plate = false;
     per_info->show_infomation();
     per_info->setModal(true);
     per_info->setWindowTitle(QObject::tr("个人信息"));
@@ -53,7 +58,6 @@ void Administrators::sign_out()
 
     for(int i = 0;i < all_users.size();i++)
     {
-        qDebug() << "啊哈！插入";
         sql_query.prepare(insert_sql);
         sql_query.addBindValue(all_users[i].id);
         sql_query.addBindValue(all_users[i].username);
@@ -63,10 +67,6 @@ void Administrators::sign_out()
         if(!sql_query.exec())
         {
             qDebug() << sql_query.lastError();
-        }
-        else
-        {
-            qDebug() << "插入成功";
         }
     }
     all_users.clear();

@@ -110,25 +110,7 @@ int main(int argc, char *argv[])
         max_id++;
         qDebug() << QString("max id:%1").arg(max_id);
     }
-//--------------------看看所有用户----------------------
-    QString select_all_sql = "select * from users";
-    sql_query.prepare(select_all_sql);
-    if(!sql_query.exec())
-    {
-        qDebug()<<sql_query.lastError();
-    }
-    else
-    {
-        while(sql_query.next())
-        {
-            int id = sql_query.value(0).toInt();
-            QString username = sql_query.value(1).toString();
-            QString password = sql_query.value(2).toString();
-            QString level = sql_query.value(3).toString();
-            int responsible_plate = sql_query.value(4).toInt();
-            qDebug()<<QString("id:%1    username:%2    password:%3   level:%4   responsible_plate:%5").arg(id).arg(username).arg(password).arg(level).arg(responsible_plate);
-        }
-    }
+
 //-------------------------------------------------------------
 //------------qss美化------------------------------------------
 //    QFile qss(":/qss/style.qss");

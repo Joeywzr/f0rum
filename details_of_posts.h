@@ -25,6 +25,7 @@ public:
     int this_post_num;
     QString username;
     QString level;
+    int responsible_plate;
 
     Post p;
     explicit Details_of_posts(QWidget *parent = 0);

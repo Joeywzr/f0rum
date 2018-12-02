@@ -246,6 +246,7 @@ void MainWindow::click_posts(int i)
     post_detail->username = username;
     post_detail->level = level;
     post_detail->state = state;
+    post_detail->responsible_plate = responsible_plate;
     post_detail->this_post_num = selected_post;
     post_detail->ui->title->setText(post_detail->p.title);
     post_detail->setWindowTitle(QObject::tr("帖子详情"));

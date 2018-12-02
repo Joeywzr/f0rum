@@ -22,13 +22,12 @@ class Administrators:public User
 {
     Q_OBJECT
 public:
-    Administrators(QString username_input,
-                   QString password_input,
-                   int id_input,
-                   QString level_input);
+    Administrators();
     MainWindow *mainview;
     Personal_infomation *per_info;
     Moderatorwindow *mod;
+
+    void init_class();
 
     //-------基础要求----------//
 

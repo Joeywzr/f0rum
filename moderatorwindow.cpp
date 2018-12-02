@@ -121,3 +121,8 @@ Moderatorwindow::~Moderatorwindow()
     delete ui;
 }
 
+
+void Moderatorwindow::on_pushButton_clicked()
+{
+    this->close();
+}
