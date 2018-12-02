@@ -31,11 +31,6 @@ void Administrators::user_information()
     per_info->show();
 }
 
-void Administrators::sign_in()
-{
-
-}
-
 void Administrators::sign_out()
 {
     if (!database.open())

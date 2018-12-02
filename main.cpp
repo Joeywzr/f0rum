@@ -10,7 +10,6 @@
 #include <QDebug>
 
 QSqlDatabase database;
-QSqlQuery sql_query;
 QHash<Category,QVector<Post>> all_post;
 QVector<user_variable> all_users;
 int max_id;

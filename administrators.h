@@ -35,7 +35,6 @@ public:
 public slots:
     void user_information();
     void sign_out();
-    void sign_in();
     void appoint_or_revoke_moderator();
     //------------------------//
 private:

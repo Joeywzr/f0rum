@@ -29,7 +29,6 @@ public:
 
 public slots:
     void user_information();
-    void sign_in();
     void sign_out();
 private:
 

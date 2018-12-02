@@ -33,11 +33,6 @@ void Ordinary_user::user_information()
 
 }
 
-void Ordinary_user::sign_in()
-{
-
-}
-
 void Ordinary_user::sign_out()
 {
     if (!database.open())

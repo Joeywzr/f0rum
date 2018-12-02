@@ -11,6 +11,7 @@
 #include "ui_mainwindow.h"
 #include "moderator_user.h"
 #include "post.h"
+#include "user.h"
 
 extern QSqlDatabase database;
 extern QVector<user_variable> all_users;
@@ -24,12 +25,10 @@ class LoginWindow : public QWidget
     QSqlQuery sql_query;
 public:
     explicit LoginWindow(QWidget *parent = 0);
-    QString username_input;
-    QString password_input;
-    bool username_flag = false;
     Administrators *administrators;
     Ordinary_user *ordinary_user;
     Moderator_user *moderator_user;
+    Ui::LoginWindow *ui;
     ~LoginWindow();
 
 
@@ -40,7 +39,7 @@ private slots:
 
 private:
     LoginWindow *new_mainview;
-    Ui::LoginWindow *ui;
+
     signup *view;
     MainWindow *mainview;
 };
