@@ -12,8 +12,6 @@
 #include "ui_mainwindow.h"
 #include "moderatorwindow.h"
 #include "ui_moderatorwindow.h"
-#include "moderatorwindow.h"
-#include "ui_moderatorwindow.h"
 #include "post.h"
 extern QVector<user_variable> all_users;
 
@@ -29,14 +27,10 @@ public:
 
     void init_class();
 
-    //-------基础要求----------//
-
-
 public slots:
     void user_information();
     void sign_out();
     void appoint_or_revoke_moderator();
-    //------------------------//
 private:
 
 };

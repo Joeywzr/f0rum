@@ -7,28 +7,6 @@ LoginWindow::LoginWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(QObject::tr("登录"));
-    if (!database.open())
-        qDebug() << "Error: Failed to connect database." << database.lastError();
-//-------------------------看看所有用户----------------------
-        QString select_all_sql = "select * from users";
-        sql_query.prepare(select_all_sql);
-        if(!sql_query.exec())
-        {
-            qDebug()<<sql_query.lastError();
-        }
-        else
-        {
-            while(sql_query.next())
-            {
-                int id = sql_query.value(0).toInt();
-                QString username = sql_query.value(1).toString();
-                QString password = sql_query.value(2).toString();
-                QString level = sql_query.value(3).toString();
-                int responsible_plate = sql_query.value(4).toInt();
-                qDebug()<<QString("id:%1    username:%2    password:%3   level:%4   responsible_plate:%5").arg(id).arg(username).arg(password).arg(level).arg(responsible_plate);
-            }
-        }
-//--------------------------------------------------------------------
 }
 
 LoginWindow::~LoginWindow()
@@ -43,13 +21,13 @@ void LoginWindow::on_sign_in_clicked()
     bool username_flag = false;
     if(username_input.isEmpty())
     {
-        ui->warning->setText("Please input username!");
+        ui->warning->setText("请输入用户名");
         qDebug() << "Please input username!";
         return;
     }
     else if(password_input.isEmpty())
     {
-        ui->warning->setText("Please input password!");
+        ui->warning->setText("请输入密码");
         qDebug() << "Please input password!";
         return;
     }
@@ -63,7 +41,6 @@ void LoginWindow::on_sign_in_clicked()
             int id;
             QString level;
             int responsible_plate;
-            User *u;
             u = new User;
             bool judge = u->sign_in(username_input, password_input, username_flag, id, level, responsible_plate);
 
@@ -125,13 +102,13 @@ void LoginWindow::on_sign_in_clicked()
                 {
                     ui->username->setText(NULL);
                     ui->password->setText(NULL);
-                    ui->warning->setText("Username doesn't exist!");
+                    ui->warning->setText("用户名不存在！");
                     qDebug() << "Username doesn't exist!";
                     return;
                 }
                 else
                 {
-                    ui->warning->setText("Password is wrong.Please try again.");
+                    ui->warning->setText("密码错误！请重试！");
                     qDebug() << "Password is wrong.Please try again.";
                     ui->password->setText(NULL);
                     return;

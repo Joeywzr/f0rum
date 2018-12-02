@@ -1,6 +1,5 @@
 #include "details_of_posts.h"
 #include "ui_details_of_posts.h"
-#include <QDebug>
 Details_of_posts::Details_of_posts(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Details_of_posts)

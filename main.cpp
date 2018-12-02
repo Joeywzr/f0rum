@@ -13,10 +13,20 @@ QSqlDatabase database;
 QHash<Category,QVector<Post>> all_post;
 QVector<user_variable> all_users;
 int max_id;
+void database_init();
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    database_init();
+    LoginWindow w;
+    w.show();
 
+    return a.exec();
+
+}
+
+void database_init()
+{
     if (QSqlDatabase::contains("qt_sql_default_connection"))
     {
         database = QSqlDatabase::database("qt_sql_default_connection");
@@ -109,26 +119,4 @@ int main(int argc, char *argv[])
         max_id++;
         qDebug() << QString("max id:%1").arg(max_id);
     }
-
-//-------------------------------------------------------------
-//------------qss美化------------------------------------------
-//    QFile qss(":/qss/style.qss");
-//    if(qss.open(QFile::ReadOnly))
-//    {
-//        qDebug("open success");
-//        QString style = QLatin1String(qss.readAll());
-//        a.setStyleSheet(style);
-//        qss.close();
-//    }
-//    else
-//    {
-//        qDebug("open failed");
-//    }
-//---------------------------------------
-
-    LoginWindow w;
-    w.show();
-
-    return a.exec();
-
 }

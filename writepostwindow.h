@@ -17,8 +17,6 @@ class Writepostwindow : public QMainWindow
 {
     Q_OBJECT
 
-
-
 public:
     Category state;
     QString username;

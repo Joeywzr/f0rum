@@ -20,8 +20,8 @@ class Moderatorwindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit Moderatorwindow(Category s,QWidget *parent = 0
-                             );
+    explicit Moderatorwindow(Category s,QWidget *parent = 0);
+    ~Moderatorwindow();
 
     QCheckBox *button[13];
     QButtonGroup *bg;
@@ -29,11 +29,6 @@ public:
     int user_num;
     Category state;
     Ui::Moderatorwindow *ui;
-
-
-    ~Moderatorwindow();
-
-
 
 private slots:
     void click_users(int i );

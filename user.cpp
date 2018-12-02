@@ -5,8 +5,9 @@ User::User(QObject *parent) : QObject(parent)
 
 }
 
-
-bool User::sign_in(QString username_input, QString password_input, bool &username_flag, int &id, QString &level, int &responsible_plate)
+bool User::sign_in(QString username_input, QString password_input,
+                   bool &username_flag, int &id, QString &level,
+                   int &responsible_plate)
 {
     if (!database.open())
         qDebug() << "Error: Failed to connect database." << database.lastError();
@@ -20,7 +21,6 @@ bool User::sign_in(QString username_input, QString password_input, bool &usernam
         {
             QString username = sql_query.value(1).toString();
             QString password = sql_query.value(2).toString();
-
             if(username_input == username)
             {
                 username_flag = true;

@@ -13,8 +13,6 @@
 #include "ui_mainwindow.h"
 #include "moderatorwindow.h"
 #include "ui_moderatorwindow.h"
-#include "moderatorwindow.h"
-#include "ui_moderatorwindow.h"
 #include "post.h"
 class MainWindow;
 class Moderator_user:public Ordinary_user

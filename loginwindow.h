@@ -22,15 +22,15 @@ class LoginWindow;
 class LoginWindow : public QWidget
 {
     Q_OBJECT
-    QSqlQuery sql_query;
 public:
     explicit LoginWindow(QWidget *parent = 0);
+    ~LoginWindow();
+
+    User *u;
     Administrators *administrators;
     Ordinary_user *ordinary_user;
     Moderator_user *moderator_user;
-    Ui::LoginWindow *ui;
-    ~LoginWindow();
-
+    QSqlQuery sql_query;
 
 private slots:
     void on_sign_in_clicked();
@@ -39,9 +39,9 @@ private slots:
 
 private:
     LoginWindow *new_mainview;
-
     signup *view;
     MainWindow *mainview;
+    Ui::LoginWindow *ui;
 };
 
 #endif // LOGINWINDOW_H

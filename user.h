@@ -25,19 +25,22 @@ class User : public QObject
 {
     Q_OBJECT
 public:
+
     explicit User(QObject *parent = nullptr);
     int id;
+    int responsible_plate;
     QString username;
     QString password;
     QString level;
-    int responsible_plate;
     QSqlQuery sql_query;
     //-------基础要求----------//
 
     //------------------------//
 public slots:
     virtual void user_information(){}
-    bool sign_in(QString username_input, QString password_input, bool &username_flag, int &id, QString &level, int &responsible_plate);
+    bool sign_in(QString username_input, QString password_input,
+                 bool &username_flag, int &id, QString &level,
+                 int &responsible_plate);
     virtual void sign_out(){}
 
 };

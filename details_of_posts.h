@@ -8,9 +8,9 @@
 #include <QDate>
 #include <QTime>
 #include <QDateTime>
+#include <QDebug>
 #include "post.h"
 extern QSqlDatabase database;
-extern QSqlQuery sql_query;
 extern QHash<Category,QVector<Post>> all_post;
 namespace Ui {
 class Details_of_posts;
@@ -19,20 +19,18 @@ class Details_of_posts;
 class Details_of_posts : public QMainWindow
 {
     Q_OBJECT
-
 public:
-    Category state;
-    int this_post_num;
-    QString username;
-    QString level;
-    int responsible_plate;
-
-    Post p;
     explicit Details_of_posts(QWidget *parent = 0);
     ~Details_of_posts();
+
+    Category state;
+    int this_post_num;
+    int responsible_plate;
+    QString username;
+    QString level;
+    QSqlQuery sql_query;
+    Post p;
     Ui::Details_of_posts *ui;
-
-
 
 private slots:
     void on_comment_clicked();

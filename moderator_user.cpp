@@ -17,7 +17,6 @@ void Moderator_user::init_class()
     mainview->show();
     connect(mainview->ui->personal_infomation,SIGNAL(clicked(bool)), this, SLOT(user_information()));
     connect(mainview->ui->sign_out,SIGNAL(clicked(bool)), this, SLOT(sign_out()));
-
 }
 
 void Moderator_user::user_information()
@@ -29,15 +28,15 @@ void Moderator_user::user_information()
     per_info->show_respresponsible_plate = true;
     switch (responsible_plate) {
     case 1:
-        per_info->responsible_plate = "game";break;
+        per_info->responsible_plate = "游戏";break;
     case 2:
-        per_info->responsible_plate = "movie";break;
+        per_info->responsible_plate = "电影";break;
     case 3:
-        per_info->responsible_plate = "comic";break;
+        per_info->responsible_plate = "动漫";break;
     case 4:
-        per_info->responsible_plate = "music";break;
+        per_info->responsible_plate = "音乐";break;
     case 5:
-        per_info->responsible_plate = "sports";break;
+        per_info->responsible_plate = "体育";break;
     default:
         break;
     }

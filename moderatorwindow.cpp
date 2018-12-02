@@ -33,8 +33,6 @@ Moderatorwindow::Moderatorwindow(Category s, QWidget *parent) :
         bg->addButton(button[i],i);
     bg->setExclusive(false);
     user_num = all_users.size()-1;
-    //qDebug()<<"到这还没错" << all_users.size();
-    //------------------
     for(int i = 0;i <= 12 && user_num >= 5;i++)
     {
         button[i]->setEnabled(true);
@@ -42,7 +40,6 @@ Moderatorwindow::Moderatorwindow(Category s, QWidget *parent) :
         if(all_users[user_num].level == "moderator" && all_users[user_num].responsible_plate == state)
         {
             button[i]->setCheckState(Qt::Checked);
-            qDebug()<<"对勾";
         }
         user_num--;
     }
@@ -51,7 +48,6 @@ Moderatorwindow::Moderatorwindow(Category s, QWidget *parent) :
 
 void Moderatorwindow::click_users(int i )
 {
-    //qDebug()<<"跑到这啦";
     int temp = all_users.size() - 1 - 13*page_num - i;
     if(button[i]->checkState() == Qt::Unchecked)
     {
@@ -62,7 +58,6 @@ void Moderatorwindow::click_users(int i )
     {
         all_users[temp].level = "moderator";
         all_users[temp].responsible_plate = state;
-        qDebug()<< all_users[temp].username << all_users[temp].level << all_users[temp].responsible_plate;
     }
     else if(button[i]->checkState() == Qt::Checked && all_users[temp].level == "moderator" && all_users[temp].responsible_plate != state)
     {
@@ -92,8 +87,6 @@ void Moderatorwindow::on_next_page_clicked()
         user_num = all_users.size() - 1 - 13*page_num;
         for(int i = 0;i <= 12 && user_num >= 5;i++)
         {
-            qDebug()<< all_users[user_num].username << all_users[user_num].level << all_users[user_num].responsible_plate;
-
             button[i]->setEnabled(true);
             button[i]->setText(all_users[user_num].username);
             if(all_users[user_num].level == "moderator" && all_users[user_num].responsible_plate == state)

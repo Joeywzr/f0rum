@@ -251,6 +251,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -267,6 +270,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -276,6 +282,9 @@
            <widget class="QPushButton" name="pushButton_3">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
             </property>
             <property name="text">
              <string/>
@@ -287,6 +296,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -296,6 +308,9 @@
            <widget class="QPushButton" name="pushButton_5">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
             </property>
             <property name="text">
              <string/>
@@ -307,6 +322,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -316,6 +334,9 @@
            <widget class="QPushButton" name="pushButton_7">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
             </property>
             <property name="text">
              <string/>
@@ -327,6 +348,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -336,6 +360,9 @@
            <widget class="QPushButton" name="pushButton_9">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
             </property>
             <property name="text">
              <string/>
@@ -347,6 +374,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -356,6 +386,9 @@
            <widget class="QPushButton" name="pushButton_11">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
             </property>
             <property name="text">
              <string/>
@@ -367,6 +400,9 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -377,19 +413,15 @@
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
+            <property name="styleSheet">
+             <string notr="true">text-align: left</string>
+            </property>
             <property name="text">
              <string/>
             </property>
            </widget>
           </item>
          </layout>
-        </item>
-        <item>
-         <widget class="QScrollBar" name="verticalScrollBar">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-         </widget>
         </item>
        </layout>
       </item>

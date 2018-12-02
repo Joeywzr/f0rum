@@ -1,4 +1,3 @@
-#define post_display_num 13
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -22,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     button[10] = ui->pushButton_11;
     button[11] = ui->pushButton_12;
     button[12] = ui->pushButton_13;
-    for(int i = 0;i < post_display_num; i++)
+    for(int i = 0;i < 13; i++)
     {
         button[i]->setStyleSheet("border:none;");
         button[i]->setEnabled(false);
