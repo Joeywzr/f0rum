@@ -26,8 +26,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    user.cpp \
-    administrators.cpp \
     comment.cpp \
     post.cpp \
     loginwindow.cpp \
@@ -35,12 +33,13 @@ SOURCES += \
     personal_infomation.cpp \
     writepostwindow.cpp \
     details_of_posts.cpp \
-    ordinary_user.cpp
+    ordinary_user.cpp \
+    user.cpp \
+    administrators.cpp \
+    moderatorwindow.cpp
 
 HEADERS += \
         mainwindow.h \
-    user.h \
-    administrators.h \
     comment.h \
     post.h \
     loginwindow.h \
@@ -48,7 +47,10 @@ HEADERS += \
     personal_infomation.h \
     writepostwindow.h \
     details_of_posts.h \
-    ordinary_user.h
+    ordinary_user.h \
+    user.h \
+    administrators.h \
+    moderatorwindow.h
 
 FORMS += \
     mainwindow.ui \
@@ -56,7 +58,8 @@ FORMS += \
     signup.ui \
     personal_infomation.ui \
     writepostwindow.ui \
-    details_of_posts.ui
+    details_of_posts.ui \
+    moderatorwindow.ui
 
 RESOURCES += \
     qss.qrc

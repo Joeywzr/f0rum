@@ -2,7 +2,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -28,25 +27,11 @@ MainWindow::MainWindow(QWidget *parent) :
         button[i]->setEnabled(false);
     }
 
-    Ordinary_user *ordinary_user = new Ordinary_user;
-    Administrators *administrators = new Administrators;
     bg = new QButtonGroup;
     push_post = new Writepostwindow(this);
     post_detail = new Details_of_posts(this);
     for(int i = 0;i <= 12;i++)
         bg->addButton(button[i],i);
-    if(id < 5)//管理员
-    {
-        administrators->id = id;
-        administrators->username = username;
-        administrators->password = password;
-    }
-    else//普通用户
-    {
-        ordinary_user->id = id;
-        ordinary_user->username = username;
-        ordinary_user->password = password;
-    }
 
     state = game;
     ui->game->setChecked(true);
@@ -61,11 +46,6 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     state = game;
     QVector<Post> game_posts = all_post.value(state);
-    //    QVector<Post>::iterator i;
-
-
-
-    //----从数据库中读取数据
     state_post_num = game_posts.size() - 1;
     //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
@@ -84,26 +64,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_personal_infomation_clicked()
-{
-    per_info = new Personal_infomation(this);
-    per_info->username = username;
-    per_info->password = password;
-    per_info->id = id;
-    per_info->level = level;
-    per_info->show_infomation();
-    per_info->setModal(true);
-    per_info->setWindowTitle(QObject::tr("个人信息"));
-    per_info->show();
-}
-
-void MainWindow::on_sign_out_clicked()
-{
-
-    this->close();
-}
-
 void MainWindow::on_game_clicked()
 {
     page_post_num = 0;
@@ -114,11 +74,6 @@ void MainWindow::on_game_clicked()
     }
     state = game;
     QVector<Post> game_posts = all_post.value(state);
-    //    QVector<Post>::iterator i;
-
-
-
-    //----从数据库中读取数据
     state_post_num = game_posts.size() - 1;
     //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
@@ -126,8 +81,6 @@ void MainWindow::on_game_clicked()
         button[i]->setEnabled(true);
         button[i]->setText(game_posts[state_post_num--].title);
     }
-
-
 }
 
 void MainWindow::on_movie_clicked()
@@ -140,11 +93,7 @@ void MainWindow::on_movie_clicked()
         button[i]->setEnabled(false);
     }
     QVector<Post> movie_posts = all_post.value(state);
-    //    QVector<Post>::iterator i;
 
-    //----从数据库中读取数据
-
-    //------------------
     state_post_num = movie_posts.size() - 1;
     //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
@@ -164,9 +113,6 @@ void MainWindow::on_comic_clicked()
         button[i]->setEnabled(false);
     }
     QVector<Post> comic_posts = all_post.value(state);
-    //----从数据库中读取数据
-
-    //------------------
     state_post_num = comic_posts.size() - 1;
     //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
@@ -174,7 +120,6 @@ void MainWindow::on_comic_clicked()
         button[i]->setEnabled(true);
         button[i]->setText(comic_posts[state_post_num--].title);
     }
-
 }
 
 void MainWindow::on_music_clicked()
@@ -187,9 +132,6 @@ void MainWindow::on_music_clicked()
         button[i]->setEnabled(false);
     }
     QVector<Post> music_posts = all_post.value(state);
-    //----从数据库中读取数据
-
-    //------------------
     state_post_num = music_posts.size() - 1;
     //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
@@ -197,7 +139,6 @@ void MainWindow::on_music_clicked()
         button[i]->setEnabled(true);
         button[i]->setText(music_posts[state_post_num--].title);
     }
-
 }
 
 void MainWindow::on_sport_clicked()
@@ -210,9 +151,6 @@ void MainWindow::on_sport_clicked()
         button[i]->setEnabled(false);
     }
     QVector<Post> sports_posts = all_post.value(state);
-    //----从数据库中读取数据
-
-    //------------------
     state_post_num = sports_posts.size() - 1;
     //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
@@ -227,6 +165,7 @@ void MainWindow::on_post_clicked()
 {
     push_post->state = state;
     push_post->username = username;
+
     Post a;
     push_post->a = a;
     push_post->setWindowModality(Qt::ApplicationModal);
@@ -283,13 +222,8 @@ void MainWindow::refresh()
         button[i]->setEnabled(false);
     }
     QVector<Post> posts = all_post.value(state);
-    //    QVector<Post>::iterator i;
 
-    //----从数据库中读取数据
-
-    //------------------
     state_post_num = posts.size() - 1;
-    //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
@@ -301,7 +235,6 @@ void MainWindow::click_posts(int i)
 {
     QVector<Post> this_state_posts = all_post.value(state);
     int selected_post = this_state_posts.size() - 1 - 13*page_post_num -i;
-
 
     post_detail->p.title = this_state_posts[selected_post].title;
     post_detail->p.content = this_state_posts[selected_post].content;
@@ -317,7 +250,8 @@ void MainWindow::click_posts(int i)
     post_detail->ui->title->setText(post_detail->p.title);
     post_detail->setWindowTitle(QObject::tr("帖子详情"));
     QString all_content;
-    all_content.append("用户:"+ post_detail->p.poster_name+ "   发送时间:" + post_detail->p.time +"\n\n");
+//    qDebug() << "yonghuming" << post_detail->p.poster_name;
+    all_content.append("用户:" + post_detail->p.poster_name+ "   发送时间:" + post_detail->p.time +"\n\n");
     all_content.append(post_detail->p.content+"\n\n");
     all_content.append("------------------------------------------\n\n");
     for(int i = 0; i <= post_detail->p.comment.size()-1;i++)
@@ -326,7 +260,6 @@ void MainWindow::click_posts(int i)
         all_content.append(post_detail->p.comment[i].content+"\n\n");
         all_content.append("------------------------------------------\n\n");
     }
-
     post_detail->ui->content->setText(all_content);
     post_detail->setWindowModality(Qt::ApplicationModal);
     if(!(level == "administrator" || (level == "moderator" && state == responsible_plate) || (post_detail->p.poster_name == username && post_detail->p.comment.isEmpty())))
@@ -334,5 +267,4 @@ void MainWindow::click_posts(int i)
     else
         post_detail->ui->delete_this_post->setEnabled(true);
     post_detail->show();
-
 }

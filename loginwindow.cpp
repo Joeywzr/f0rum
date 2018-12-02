@@ -10,9 +10,8 @@ LoginWindow::LoginWindow(QWidget *parent) :
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
     }
-    mainview = new MainWindow(this);
 
-    connect(mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()) );
+
 }
 
 LoginWindow::~LoginWindow()
@@ -22,6 +21,7 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_sign_in_clicked()
 {
+
     username_input = ui->username->text();
     password_input = ui->password->text();
     if(username_input.isEmpty())
@@ -31,13 +31,14 @@ void LoginWindow::on_sign_in_clicked()
     }
     else
     {
-        QString select_sql = "select id,username,password , level, responsible_plate from users";
+        QString select_sql = "select id, username,password, level, responsible_plate from users";
         if(!sql_query.exec(select_sql))
             qDebug()<<sql_query.lastError();
         else
         {
             while(sql_query.next())
             {
+                int id = sql_query.value(0).toInt();
                 QString username = sql_query.value(1).toString();
                 QString password = sql_query.value(2).toString();
                 QString level = sql_query.value(3).toString();
@@ -47,14 +48,42 @@ void LoginWindow::on_sign_in_clicked()
                     username_flag = true;
                     if(password_input == password)
                     {
+                        QString select_sql = "select id, username,password, level, responsible_plate from users";
+                        if(!sql_query.exec(select_sql))
+                            qDebug()<<sql_query.lastError();
+                        else
+                        {
+                            while(sql_query.next())
+                            {
+                                user_variable u;
+                                u.id = sql_query.value(0).toInt();
+                                u.username = sql_query.value(1).toString();
+                                u.password = sql_query.value(2).toString();
+                                u.level = sql_query.value(3).toString();
+                                u.responsible_plate = sql_query.value(4).toInt();
+                                all_users.push_back(u);
+                            }
+                        }
                         this->close();
-
-                        mainview->username = username_input;
-                        mainview->password = password_input;
-                        mainview->level = level;
-                        mainview->responsible_plate = responsible_plate;
-                        mainview->id = sql_query.value(0).toInt();
-                        mainview->show();
+                        if(id <= 5)
+                        {
+                            administrators = new Administrators(username_input,password_input,id,level);
+                            administrators->id = id;
+                            administrators->username = username_input;
+                            administrators->password = password_input;
+                            administrators->level = level;
+                            connect(administrators->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
+                        }
+                        else
+                        {
+                            ordinary_user = new Ordinary_user;
+                            ordinary_user->id = id;
+                            ordinary_user->username = username_input;
+                            ordinary_user->password = password_input;
+                            ordinary_user->level = level;
+                            ordinary_user->responsible_plate = responsible_plate;
+                            connect(ordinary_user->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()) );
+                        }
                     }
                     else
                     {

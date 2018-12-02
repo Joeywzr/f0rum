@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
-#include <Personal_infomation.h>
+#include "Personal_infomation.h"
 #include <QLabel>
 #include <QButtonGroup>
 #include <QDate>
@@ -41,10 +41,6 @@ public:
     ~MainWindow();
 
 private slots:
-
-    void on_personal_infomation_clicked();
-
-    void on_sign_out_clicked();
 
     void on_game_clicked();
 

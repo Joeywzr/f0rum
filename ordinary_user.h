@@ -1,13 +1,22 @@
 #ifndef ORDINARY_USER_H
 #define ORDINARY_USER_H
 #include <user.h>
+#include <QDebug>
+#include <QWidget>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
 
+class MainWindow;
 class Ordinary_user:public User
 {
+    Q_OBJECT
 public:
     Ordinary_user();
-
-    //-------基础要求----------//
+    MainWindow *mainview;
+    //-------åŸºç¡€è¦æ±‚----------//
     virtual void user_information();
     virtual void sign_in();
     virtual void sign_out();
@@ -15,12 +24,14 @@ public:
     void post();
     void comment();
     void delete_my_post();
-    //-------附加功能----------//
+    //-------é™„åŠ åŠŸèƒ½----------//
     void sign_up();
 
-    //-------版主-------------//
+    //-------ç‰ˆä¸»-------------//
     void delete_post();
     //-----------------------//
+private:
+
 };
 
 #endif // ORDINARY_USER_H

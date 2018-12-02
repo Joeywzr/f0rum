@@ -69,7 +69,7 @@ void signup::on_signup_2_clicked()
     sql_query.addBindValue(max_id);
     sql_query.addBindValue(username_input);
     sql_query.addBindValue(password_input);
-    if(max_id>=5)
+    if(max_id>5)
         sql_query.addBindValue("ordinary");
     else
         sql_query.addBindValue("administrator");

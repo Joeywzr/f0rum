@@ -2,6 +2,7 @@
 #include "loginwindow.h"
 #include "ordinary_user.h"
 #include "post.h"
+#include "user.h"
 #include <QApplication>
 #include <QFile>
 #include <administrators.h>
@@ -11,6 +12,7 @@
 QSqlDatabase database;
 QSqlQuery sql_query;
 QHash<Category,QVector<Post>> all_post;
+QVector<user_variable> all_users;
 int max_id;
 int main(int argc, char *argv[])
 {

@@ -232,14 +232,14 @@
             <item>
              <widget class="QPushButton" name="back">
               <property name="text">
-               <string>后退</string>
+               <string>上一页</string>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QPushButton" name="next_page">
               <property name="text">
-               <string>翻页</string>
+               <string>下一页</string>
               </property>
              </widget>
             </item>

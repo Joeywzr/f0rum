@@ -2,11 +2,18 @@
 
 Ordinary_user::Ordinary_user()
 {
+    mainview = new MainWindow;
+    mainview->username = username;
+    mainview->password = password;
+    mainview->level = level;
+    mainview->id = id;
+    mainview->show();
 
 }
 
 void Ordinary_user::user_information()
 {
+
 
 }
 

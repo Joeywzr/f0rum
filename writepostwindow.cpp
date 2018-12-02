@@ -15,22 +15,38 @@ Writepostwindow::~Writepostwindow()
 
 void Writepostwindow::on_push_clicked()
 {
-    QVector<Post> new_post = all_post.value(state);
-    QDateTime local(QDateTime::currentDateTime());
-    QString localTime = local.toString("yyyy-MM-dd:hh:mm:ss");
-    Post p;
-//    int temp = p.id.toInt();
-//    temp++;
-//    p.id = QString::number(temp);
-    p.title = ui->title->toPlainText();
-    p.content = ui->content->toPlainText();
-    p.time = localTime;
-    p.poster_name = username;
-    new_post.push_back(p);
-    all_post.insert(state, new_post);
-    ui->title->clear();
-    ui->content->clear();
-    this->close();
+    if(ui->title->toPlainText().isEmpty())
+    {
+        QMessageBox::StandardButton button;
+        button = QMessageBox::information(this, tr("提示"),
+                                          QString(tr("标题不能为空！")));
+    }
+    else if(ui->content->toPlainText().isEmpty())
+    {
+        QMessageBox::StandardButton button;
+        button = QMessageBox::information(this, tr("提示"),
+                                          QString(tr("内容不能为空！")));
+    }
+    else
+    {
+        QVector<Post> new_post = all_post.value(state);
+        QDateTime local(QDateTime::currentDateTime());
+        QString localTime = local.toString("yyyy-MM-dd:hh:mm:ss");
+        Post p;
+    //    int temp = p.id.toInt();
+    //    temp++;
+    //    p.id = QString::number(temp);
+        p.title = ui->title->toPlainText();
+        p.content = ui->content->toPlainText();
+        p.time = localTime;
+        p.poster_name = username;
+        new_post.push_back(p);
+        all_post.insert(state, new_post);
+        ui->title->clear();
+        ui->content->clear();
+        this->close();
+    }
+
 
 }
 

@@ -12,7 +12,7 @@
 #include "post.h"
 
 extern QSqlDatabase database;
-
+extern QVector<user_variable> all_users;
 namespace Ui {
 class LoginWindow;
 }
@@ -26,6 +26,8 @@ public:
     QString username_input;
     QString password_input;
     bool username_flag = false;
+    Administrators *administrators;
+    Ordinary_user *ordinary_user;
     ~LoginWindow();
 
 
