@@ -39,7 +39,6 @@ Moderatorwindow::Moderatorwindow(Category s, QWidget *parent) :
     {
         button[i]->setEnabled(true);
         button[i]->setText(all_users[user_num].username);
-
         if(all_users[user_num].level == "moderator" && all_users[user_num].responsible_plate == state)
         {
             button[i]->setCheckState(Qt::Checked);
@@ -47,7 +46,7 @@ Moderatorwindow::Moderatorwindow(Category s, QWidget *parent) :
         }
         user_num--;
     }
-    connect(bg,SIGNAL(buttonToggled(int,bool)),this,SLOT(click_users(int)));
+    connect(bg,SIGNAL(buttonClicked(int)),this,SLOT(click_users(int)));
 }
 
 void Moderatorwindow::click_users(int i )
@@ -61,14 +60,21 @@ void Moderatorwindow::click_users(int i )
     }
     else if(button[i]->checkState() == Qt::Checked && all_users[temp].level == "ordinary")
     {
-
         all_users[temp].level = "moderator";
         all_users[temp].responsible_plate = state;
-        qDebug()<< all_users[temp].id << all_users[temp].level << all_users[temp].responsible_plate;
+        qDebug()<< all_users[temp].username << all_users[temp].level << all_users[temp].responsible_plate;
     }
     else if(button[i]->checkState() == Qt::Checked && all_users[temp].level == "moderator" && all_users[temp].responsible_plate != state)
     {
-        all_users[temp].responsible_plate = state;
+        QMessageBox::StandardButton button1;
+        button1 = QMessageBox::question(this, tr("警告"),QString(tr("此操作将取消该用户在其他版的版主身份，是否继续?")),QMessageBox::Yes | QMessageBox::No);
+        if (button1 == QMessageBox::No)
+            button[i]->setCheckState(Qt::Unchecked);
+        else if (button1 == QMessageBox::Yes)
+        {
+           button[i]->setCheckState(Qt::Checked);
+           all_users[temp].responsible_plate = state;
+        }
     }
 }
 
@@ -80,11 +86,14 @@ void Moderatorwindow::on_next_page_clicked()
         {
             button[i]->setText("");
             button[i]->setEnabled(false);
+            button[i]->setCheckState(Qt::Unchecked);
         }
         page_num++;
         user_num = all_users.size() - 1 - 13*page_num;
         for(int i = 0;i <= 12 && user_num >= 5;i++)
         {
+            qDebug()<< all_users[user_num].username << all_users[user_num].level << all_users[user_num].responsible_plate;
+
             button[i]->setEnabled(true);
             button[i]->setText(all_users[user_num].username);
             if(all_users[user_num].level == "moderator" && all_users[user_num].responsible_plate == state)
@@ -102,11 +111,13 @@ void Moderatorwindow::on_back_clicked()
         {
             button[i]->setText("");
             button[i]->setEnabled(false);
+            button[i]->setCheckState(Qt::Unchecked);
         }
         page_num--;
         user_num = all_users.size() -1 - 13*page_num;
         for(int i = 0;i <= 12 && user_num >= 5;i++)
         {
+            qDebug()<< all_users[user_num].username << all_users[user_num].level << all_users[user_num].responsible_plate;
             button[i]->setEnabled(true);
             button[i]->setText(all_users[user_num].username);
             if(all_users[user_num].level == "moderator" && all_users[user_num].responsible_plate == state)
@@ -120,7 +131,6 @@ Moderatorwindow::~Moderatorwindow()
 {
     delete ui;
 }
-
 
 void Moderatorwindow::on_pushButton_clicked()
 {

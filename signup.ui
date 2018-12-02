@@ -30,6 +30,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="warning">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QGridLayout" name="gridLayout">
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
@@ -83,6 +90,9 @@
            <family>思源黑体 CN Normal</family>
           </font>
          </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
         </widget>
        </item>
        <item row="2" column="1">
@@ -91,6 +101,9 @@
           <font>
            <family>思源黑体 CN Normal</family>
           </font>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
          </property>
         </widget>
        </item>

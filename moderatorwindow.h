@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QCheckBox>
 #include <QButtonGroup>
+#include <QMessageBox>
 #include <QDebug>
 #include <QDialog>
 #include "user.h"

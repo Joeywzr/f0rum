@@ -6,6 +6,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle(QObject::tr("登录"));
     if (!database.open())
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
@@ -29,8 +30,6 @@ LoginWindow::LoginWindow(QWidget *parent) :
                 qDebug()<<QString("id:%1    username:%2    password:%3   level:%4   responsible_plate:%5").arg(id).arg(username).arg(password).arg(level).arg(responsible_plate);
             }
         }
-
-
 }
 
 LoginWindow::~LoginWindow()
@@ -45,6 +44,7 @@ void LoginWindow::on_sign_in_clicked()
     password_input = ui->password->text();
     if(username_input.isEmpty())
     {
+        ui->warning->setText("Please input username!");
         qDebug() << "Please input username!";
         return;
     }
@@ -121,11 +121,13 @@ void LoginWindow::on_sign_in_clicked()
                     {
                         if(password_input.isEmpty())
                         {
+                            ui->warning->setText("password is empty!");
                             qDebug() << "password is empty!";
                             return;
                         }
                         else
                         {
+                            ui->warning->setText("Password is wrong.Please try again.");
                             qDebug() << "Password is wrong.Please try again.";
                             ui->password->setText(NULL);
                             return;
@@ -137,6 +139,7 @@ void LoginWindow::on_sign_in_clicked()
             {
                 ui->username->setText(NULL);
                 ui->password->setText(NULL);
+                ui->warning->setText("Username doesn't exist!");
                 qDebug() << "Username doesn't exist!";
                 return;
             }

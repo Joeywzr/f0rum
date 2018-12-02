@@ -7,12 +7,11 @@ signup::signup(QWidget *parent) :
     ui(new Ui::signup)
 {
     ui->setupUi(this);
+    this->setWindowTitle(QObject::tr("注册"));
     if (!database.open())
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
     }
-
-
 }
 
 signup::~signup()
@@ -27,6 +26,10 @@ void signup::on_signup_2_clicked()
             confirm_password_input = ui->confirm_password->text();
     if(username_input.isEmpty())
     {
+        ui->warning->setText("用户名不能为空！");
+        ui->username->clear();
+        ui->password->clear();
+        ui->confirm_password->clear();
         qDebug() << "username is empty!";
         return;
     }
@@ -42,6 +45,10 @@ void signup::on_signup_2_clicked()
                 QString username = sql_query.value(0).toString();
                 if(username_input == username)
                 {
+                    ui->warning->setText("用户名已被占用！");
+                    ui->username->clear();
+                    ui->password->clear();
+                    ui->confirm_password->clear();
                     qDebug()<<"The username has been occupied.";
                     return;
                 }
@@ -50,16 +57,28 @@ void signup::on_signup_2_clicked()
     }
     if(password_input.isEmpty())
     {
+        ui->warning->setText("密码不能为空！");
+        ui->username->clear();
+        ui->password->clear();
+        ui->confirm_password->clear();
         qDebug() << "password is empty!";
         return;
     }
     if(confirm_password_input.isEmpty())
     {
+        ui->warning->setText("确认密码不能为空！");
+        ui->username->clear();
+        ui->password->clear();
+        ui->confirm_password->clear();
         qDebug() << "confirm_password is empty!";
         return;
     }
     if(confirm_password_input != password_input)
     {
+        ui->warning->setText("两次输入的密码不一致！");
+        ui->username->clear();
+        ui->password->clear();
+        ui->confirm_password->clear();
         qDebug() << "The passwords entered two times are different.";
         return;
     }

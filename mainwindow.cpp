@@ -7,7 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    this->setWindowTitle(QObject::tr("Memo论坛"));
+    //ui->sign_out->setStyleSheet("background-color: rgb(255,0,0);");
     button[0] = ui->pushButton_1;
     button[1] = ui->pushButton_2;
     button[2] = ui->pushButton_3;

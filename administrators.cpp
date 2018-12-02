@@ -88,7 +88,8 @@ void Administrators::appoint_or_revoke_moderator()
     else if(mod->state == 5)
         temp = "sports";
     mod->ui->state->setText("当前板块:" + temp);
-    mod->setWindowTitle(QObject::tr("个人信息"));
+    mod->setWindowTitle(QObject::tr(""));
+    mod->setWindowModality(Qt::ApplicationModal);
     mod->show();
 }
 
