@@ -52,7 +52,8 @@ HEADERS += \
     user.h \
     administrators.h \
     moderatorwindow.h \
-    moderator_user.h
+    moderator_user.h \
+    headers.h
 
 FORMS += \
     mainwindow.ui \

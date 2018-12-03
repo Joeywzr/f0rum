@@ -46,8 +46,6 @@ void Writepostwindow::on_push_clicked()
         ui->content->clear();
         this->close();
     }
-
-
 }
 
 void Writepostwindow::on_cancel_clicked()

@@ -5,20 +5,6 @@ Moderator_user::Moderator_user()
 
 }
 
-void Moderator_user::init_class()
-{
-    mainview = new MainWindow;
-    mainview->username = username;
-    mainview->password = password;
-    mainview->level = level;
-    mainview->id = id;
-    mainview->responsible_plate = responsible_plate;
-    mainview->ui->appoint->setEnabled(false);
-    mainview->show();
-    connect(mainview->ui->personal_infomation,SIGNAL(clicked(bool)), this, SLOT(user_information()));
-    connect(mainview->ui->sign_out,SIGNAL(clicked(bool)), this, SLOT(sign_out()));
-}
-
 void Moderator_user::user_information()
 {
     per_info = new Personal_infomation;

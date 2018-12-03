@@ -1,11 +1,7 @@
 #ifndef SIGNUP_H
 #define SIGNUP_H
 
-#include <QDialog>
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QDebug>
+#include "headers.h"
 
 extern QSqlDatabase database;
 extern int max_id;
@@ -24,7 +20,7 @@ public:
 
 private slots:
 
-    void on_signup_2_clicked();
+    void on_signup_2_clicked();//点击注册按钮
 
 private:
     Ui::signup *ui;

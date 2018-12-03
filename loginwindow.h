@@ -1,17 +1,13 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 
-#include <QWidget>
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QDebug>
-#include "signup.h"
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "headers.h"
+#include "user.h"
+#include "administrators.h"
+#include "ordinary_user.h"
 #include "moderator_user.h"
 #include "post.h"
-#include "user.h"
+#include "signup.h"
 
 extern QSqlDatabase database;
 extern QVector<user_variable> all_users;
@@ -33,9 +29,9 @@ public:
     QSqlQuery sql_query;
 
 private slots:
-    void on_sign_in_clicked();
-    void on_sign_up_clicked();
-    void show_loginwindow();
+    void on_sign_in_clicked();//登录
+    void on_sign_up_clicked();//注册
+    void show_loginwindow();//打开登录窗口
 
 private:
     LoginWindow *new_mainview;

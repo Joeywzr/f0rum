@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(QObject::tr("Memo论坛"));
-    //ui->sign_out->setStyleSheet("background-color: rgb(255,0,0);");
+    //--------帖子列表显示设置---------------------
     button[0] = ui->pushButton_1;
     button[1] = ui->pushButton_2;
     button[2] = ui->pushButton_3;
@@ -21,42 +21,37 @@ MainWindow::MainWindow(QWidget *parent) :
     button[10] = ui->pushButton_11;
     button[11] = ui->pushButton_12;
     button[12] = ui->pushButton_13;
-    for(int i = 0;i < 13; i++)
+    for(int i = 0;i <= 12; i++)
     {
-        button[i]->setStyleSheet("border:none;");
+        button[i]->setStyleSheet("QPushButton{text-align : left;"
+                                 "border:none;"
+                                 "color:blue;"
+                                 "font-weight: bold;}");
         button[i]->setEnabled(false);
+        button[i]->setText("");
     }
-
     bg = new QButtonGroup;
-    push_post = new Writepostwindow(this);
     post_detail = new Details_of_posts(this);
     for(int i = 0;i <= 12;i++)
         bg->addButton(button[i],i);
+    //-----------------------------------
 
+    //---默认初始板块为game-------
     state = game;
+    page_post_num = 0;
+    QVector<Post> game_posts = all_post.value(state);
+    state_post_num = game_posts.size() - 1;
     ui->game->setChecked(true);
     ui->game->setCheckable(true);
     ui->game->setAutoExclusive(true);
-
-    page_post_num = 0;
-    for(int i = 0;i <= 12;i++)
-    {
-        button[i]->setText("");
-        button[i]->setEnabled(false);
-    }
-    state = game;
-    QVector<Post> game_posts = all_post.value(state);
-    state_post_num = game_posts.size() - 1;
-    //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
         button[i]->setText(game_posts[state_post_num--].title);
     }
+    //-----------------------------------
 
     connect(bg,SIGNAL(buttonClicked(int)),this,SLOT(click_posts(int)));
-    connect(push_post->ui->push, SIGNAL(clicked(bool)),this,SLOT(refresh()));
-    connect(post_detail->ui->delete_this_post, SIGNAL(clicked(bool)),this,SLOT(refresh()));
 }
 
 MainWindow::~MainWindow()
@@ -75,7 +70,6 @@ void MainWindow::on_game_clicked()
     state = game;
     QVector<Post> game_posts = all_post.value(state);
     state_post_num = game_posts.size() - 1;
-    //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
@@ -93,9 +87,7 @@ void MainWindow::on_movie_clicked()
         button[i]->setEnabled(false);
     }
     QVector<Post> movie_posts = all_post.value(state);
-
     state_post_num = movie_posts.size() - 1;
-    //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
@@ -114,7 +106,6 @@ void MainWindow::on_comic_clicked()
     }
     QVector<Post> comic_posts = all_post.value(state);
     state_post_num = comic_posts.size() - 1;
-    //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
@@ -133,7 +124,6 @@ void MainWindow::on_music_clicked()
     }
     QVector<Post> music_posts = all_post.value(state);
     state_post_num = music_posts.size() - 1;
-    //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
@@ -152,25 +142,12 @@ void MainWindow::on_sport_clicked()
     }
     QVector<Post> sports_posts = all_post.value(state);
     state_post_num = sports_posts.size() - 1;
-    //------------------
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
         button[i]->setText(sports_posts[state_post_num--].title);
     }
 
-}
-
-void MainWindow::on_post_clicked()
-{
-    push_post->state = state;
-    push_post->username = username;
-
-    Post a;
-    push_post->a = a;
-    push_post->setWindowModality(Qt::ApplicationModal);
-    push_post->setWindowTitle(QObject::tr("发帖"));
-    push_post->show();
 }
 
 void MainWindow::on_next_page_clicked()
@@ -213,23 +190,6 @@ void MainWindow::on_back_clicked()
     }
 }
 
-void MainWindow::refresh()
-{
-    page_post_num = 0;
-    for(int i = 0;i <= 12;i++)
-    {
-        button[i]->setText("");
-        button[i]->setEnabled(false);
-    }
-    QVector<Post> posts = all_post.value(state);
-
-    state_post_num = posts.size() - 1;
-    for(int i = 0;i <= 12 && state_post_num >= 0;i++)
-    {
-        button[i]->setEnabled(true);
-        button[i]->setText(posts[state_post_num--].title);
-    }
-}
 
 void MainWindow::click_posts(int i)
 {
@@ -250,8 +210,8 @@ void MainWindow::click_posts(int i)
     post_detail->this_post_num = selected_post;
     post_detail->ui->title->setText(post_detail->p.title);
     post_detail->setWindowTitle(QObject::tr("帖子详情"));
+
     QString all_content;
-//    qDebug() << "yonghuming" << post_detail->p.poster_name;
     all_content.append("用户:" + post_detail->p.poster_name+ "   发送时间:" + post_detail->p.time +"\n\n");
     all_content.append(post_detail->p.content+"\n\n");
     all_content.append("------------------------------------------\n\n");
@@ -268,4 +228,34 @@ void MainWindow::click_posts(int i)
     else
         post_detail->ui->delete_this_post->setEnabled(true);
     post_detail->show();
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if (!database.open())
+        qDebug() << "Error: Failed to connect database." << database.lastError();
+
+    QSqlQuery sql_query;
+    QString clear_sql = "delete from users";
+    QString insert_sql = "insert into users values (?, ?, ?, ?, ?)";
+
+    sql_query.prepare(clear_sql);
+    if(!sql_query.exec())
+        qDebug() << sql_query.lastError();
+    else
+        qDebug() << "table cleared";
+
+    for(int i = 0;i < all_users.size();i++)
+    {
+        sql_query.prepare(insert_sql);
+        sql_query.addBindValue(all_users[i].id);
+        sql_query.addBindValue(all_users[i].username);
+        sql_query.addBindValue(all_users[i].password);
+        sql_query.addBindValue(all_users[i].level);
+        sql_query.addBindValue(all_users[i].responsible_plate);
+        if(!sql_query.exec())
+            qDebug() << sql_query.lastError();
+    }
+    all_users.clear();
+    close();
 }

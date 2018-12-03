@@ -1,17 +1,7 @@
 #ifndef POST_H
 #define POST_H
-#include <QString>
-#include <QVector>
-#include <comment.h>
-
-typedef enum
-{
-    game=1,
-    movie,
-    comic,
-    music,
-    sports
-}Category;
+#include "headers.h"
+#include "comment.h"
 
 
 class Post

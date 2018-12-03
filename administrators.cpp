@@ -16,6 +16,8 @@ void Administrators::init_class()
     connect(mainview->ui->personal_infomation,SIGNAL(clicked(bool)), this, SLOT(user_information()));
     connect(mainview->ui->sign_out,SIGNAL(clicked(bool)), this, SLOT(sign_out()));
     connect(mainview->ui->appoint, SIGNAL(clicked(bool)),this,SLOT(appoint_or_revoke_moderator()));
+    connect(mainview->ui->post, SIGNAL(clicked(bool)),this,SLOT(push_post()));
+    connect(mainview->post_detail->ui->delete_this_post, SIGNAL(clicked(bool)),this,SLOT(refresh()));
 }
 
 void Administrators::user_information()
@@ -31,60 +33,22 @@ void Administrators::user_information()
     per_info->show();
 }
 
-void Administrators::sign_out()
-{
-    if (!database.open())
-    {
-        qDebug() << "Error: Failed to connect database." << database.lastError();
-    }
-    QSqlQuery sql_query;
-    QString clear_sql = "delete from users";
-    QString insert_sql = "insert into users values (?, ?, ?, ?, ?)";
-
-    sql_query.prepare(clear_sql);
-    if(!sql_query.exec())
-    {
-        qDebug() << sql_query.lastError();
-    }
-    else
-    {
-        qDebug() << "table cleared";
-    }
-
-    for(int i = 0;i < all_users.size();i++)
-    {
-        sql_query.prepare(insert_sql);
-        sql_query.addBindValue(all_users[i].id);
-        sql_query.addBindValue(all_users[i].username);
-        sql_query.addBindValue(all_users[i].password);
-        sql_query.addBindValue(all_users[i].level);
-        sql_query.addBindValue(all_users[i].responsible_plate);
-        if(!sql_query.exec())
-        {
-            qDebug() << sql_query.lastError();
-        }
-    }
-    all_users.clear();
-    mainview->close();
-}
-
 void Administrators::appoint_or_revoke_moderator()
 {
     mod = new Moderatorwindow(mainview->state);
     QString temp;
     if(mod->state == 1)
-        temp = "game";
+        temp = "游戏";
     else if(mod->state == 2)
-        temp = "movie";
+        temp = "电影";
     else if(mod->state == 3)
-        temp = "comic";
+        temp = "动漫";
     else if(mod->state == 4)
-        temp = "music";
+        temp = "音乐";
     else if(mod->state == 5)
-        temp = "sports";
+        temp = "体育";
     mod->ui->state->setText("当前板块:" + temp);
     mod->setWindowTitle(QObject::tr(""));
     mod->setWindowModality(Qt::ApplicationModal);
     mod->show();
 }
-

@@ -1,25 +1,14 @@
 #ifndef USER_H
 #define USER_H
-#include <QMainWindow>
-#include <QLabel>
-#include <QObject>
-#include <QVector>
-#include <QString>
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QString>
-#include <QDebug>
+#include "headers.h"
+#include "signup.h"
+#include "mainwindow.h"
+#include "moderatorwindow.h"
+#include "personal_infomation.h"
 #include "post.h"
+#include "ui_mainwindow.h"
+#include "ui_moderatorwindow.h"
 extern QSqlDatabase database;
-typedef struct USER_VAR
-{
-    int id;
-    QString username;
-    QString password;
-    QString level;
-    int responsible_plate;
-}user_variable;
 
 class User : public QObject
 {
@@ -33,16 +22,22 @@ public:
     QString password;
     QString level;
     QSqlQuery sql_query;
-    //-------基础要求----------//
 
-    //------------------------//
+    MainWindow *mainview;
+    Personal_infomation *per_info;
+    Moderatorwindow *mod;
+    Writepostwindow *writepost;
+
+    virtual void init_class();//初始化
+
 public slots:
-    virtual void user_information(){}
+    virtual void user_information(){}//用户信息
+    void sign_out();//注销
+    void push_post();//发帖
+    void refresh();//刷新
     bool sign_in(QString username_input, QString password_input,
                  bool &username_flag, int &id, QString &level,
-                 int &responsible_plate);
-    virtual void sign_out(){}
-
+                 int &responsible_plate);//登录
 };
 
 #endif // USER_H

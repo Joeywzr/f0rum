@@ -1,7 +1,6 @@
 #ifndef COMMENT_H
 #define COMMENT_H
-#include <QString>
-#include <QVector>
+#include "headers.h"
 
 class Comment
 {

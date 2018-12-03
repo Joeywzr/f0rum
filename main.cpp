@@ -1,6 +1,4 @@
-#include "mainwindow.h"
 #include "loginwindow.h"
-#include "ordinary_user.h"
 #include "post.h"
 #include "user.h"
 #include <QApplication>
@@ -9,23 +7,22 @@
 #include <QSqlQuery>
 #include <QDebug>
 
-QSqlDatabase database;
-QHash<Category,QVector<Post>> all_post;
-QVector<user_variable> all_users;
-int max_id;
+QSqlDatabase database;//数据库
+QHash<Category,QVector<Post>> all_post;//所有帖子
+QVector<user_variable> all_users;//所有用户
+int max_id;//最大用户id
 void database_init();
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    database_init();
+    database_init();//数据库初始化
     LoginWindow w;
     w.show();
 
     return a.exec();
-
 }
 
-void database_init()
+void database_init()//数据库初始化
 {
     if (QSqlDatabase::contains("qt_sql_default_connection"))
     {

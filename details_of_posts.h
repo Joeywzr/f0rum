@@ -1,15 +1,9 @@
 #ifndef DETAILS_OF_POSTS_H
 #define DETAILS_OF_POSTS_H
 
-#include <QMainWindow>
-#include <QSqlQuery>
-#include <QMessageBox>
-#include <QCloseEvent>
-#include <QDate>
-#include <QTime>
-#include <QDateTime>
-#include <QDebug>
+#include "headers.h"
 #include "post.h"
+
 extern QSqlDatabase database;
 extern QHash<Category,QVector<Post>> all_post;
 namespace Ui {
@@ -23,25 +17,24 @@ public:
     explicit Details_of_posts(QWidget *parent = 0);
     ~Details_of_posts();
 
-    Category state;
-    int this_post_num;
+    Post p;
+    int this_post_num;//该帖子在该板块中的序号
     int responsible_plate;
+    Category state;
     QString username;
     QString level;
     QSqlQuery sql_query;
-    Post p;
     Ui::Details_of_posts *ui;
 
 private slots:
-    void on_comment_clicked();
+    void on_comment_clicked();//点击评论按钮
 
-    void on_quit_clicked();
+    void on_quit_clicked();//点击退出按钮
 
-    void on_delete_this_post_clicked();
+    void on_delete_this_post_clicked();//点击删帖按钮
 
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event);//点击右上角退出按钮
 
-private:
 };
 
 #endif // DETAILS_OF_POSTS_H
