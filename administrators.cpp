@@ -5,7 +5,7 @@ Administrators::Administrators()
 
 }
 
-void Administrators::init_class()
+void Administrators::init_class()//初始化
 {
     mainview = new MainWindow;
     mainview->username = username;
@@ -20,7 +20,7 @@ void Administrators::init_class()
     connect(mainview->post_detail->ui->delete_this_post, SIGNAL(clicked(bool)),this,SLOT(refresh()));
 }
 
-void Administrators::user_information()
+void Administrators::user_information()//用户信息
 {
     per_info = new Personal_infomation;
     per_info->username = username;
@@ -33,7 +33,7 @@ void Administrators::user_information()
     per_info->show();
 }
 
-void Administrators::appoint_or_revoke_moderator()
+void Administrators::appoint_or_revoke_moderator()//任命或撤销版主
 {
     mod = new Moderatorwindow(mainview->state);
     QString temp;

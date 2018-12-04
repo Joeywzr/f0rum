@@ -23,9 +23,7 @@ public:
 
 private slots:
     void on_push_clicked();//点击发帖
-
     void on_cancel_clicked();//点击取消
-
     void closeEvent(QCloseEvent *event);//点击右上角退出
 };
 

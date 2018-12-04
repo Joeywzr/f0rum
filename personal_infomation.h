@@ -19,7 +19,7 @@ public:
     QString username;
     QString level;
     QString responsible_plate;
-    bool show_respresponsible_plate;
+    bool show_respresponsible_plate;//是否显示板块
 
     void show_infomation();//显示个人信息
 

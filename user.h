@@ -16,11 +16,11 @@ class User : public QObject
 public:
 
     explicit User(QObject *parent = nullptr);
-    int id;
-    int responsible_plate;
-    QString username;
-    QString password;
-    QString level;
+    int id;//id
+    int responsible_plate;//负责板块（仅版主）
+    QString username;//用户名
+    QString password;//密码
+    QString level;//级别
     QSqlQuery sql_query;
 
     MainWindow *mainview;

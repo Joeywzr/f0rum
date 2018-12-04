@@ -12,11 +12,14 @@ QHash<Category,QVector<Post>> all_post;//所有帖子
 QVector<user_variable> all_users;//所有用户
 int max_id;//最大用户id
 void database_init();
+
+
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     database_init();//数据库初始化
-    LoginWindow w;
+    LoginWindow w;//登录界面
     w.show();
 
     return a.exec();
@@ -116,4 +119,48 @@ void database_init()//数据库初始化
         max_id++;
         qDebug() << QString("max id:%1").arg(max_id);
     }
+    //初始配置
+    QVector<Post> p_vec;
+    Post p1, p2;
+    Comment c1, c2;
+
+    c1.content = "我是一楼";
+    c1.time = "2018-12-04:12:36:24";
+    c1.username = "ad1";
+    c2.content = "我是二楼";
+    c2.time = "2018-12-04:13:46:56";
+    c2.username = "ad1";
+
+    p1.poster_name = "ad1";
+    p1.time = "2018-12-04:12:35:45";
+    p1.title = "for test1";
+    p1.content = "text";
+    p1.comment.append(c1);
+    p1.comment.append(c2);
+
+    p2.poster_name = "ad1";
+    p2.time = "2018-12-04:13:45:15";
+    p2.title = "for test2";
+    p2.content = "text";
+    p2.comment.append(c1);
+    p2.comment.append(c2);
+
+    p_vec.append(p1);
+    p_vec.append(p2);
+
+    p_vec[0].state = "game";
+    p_vec[1].state = "game";
+    all_post[game] = p_vec;
+    p_vec[0].state = "movie";
+    p_vec[1].state = "movie";
+    all_post[movie] = p_vec;
+    p_vec[0].state = "comic";
+    p_vec[1].state = "comic";
+    all_post[comic] = p_vec;
+    p_vec[0].state = "music";
+    p_vec[1].state = "music";
+    all_post[music] = p_vec;
+    p_vec[0].state = "sports";
+    p_vec[1].state = "sports";
+    all_post[sports] = p_vec;
 }

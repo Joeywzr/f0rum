@@ -5,9 +5,9 @@
 class Comment
 {
 public:
-    QString username;
-    QString content;
-    QString time;
+    QString username;//评论用户名
+    QString content;//评论内容
+    QString time;//评论时间
     Comment();
 };
 

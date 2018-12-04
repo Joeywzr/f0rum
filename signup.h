@@ -14,14 +14,11 @@ class signup : public QDialog
     Q_OBJECT
     QSqlQuery sql_query;
 public:
-
     explicit signup(QWidget *parent = 0);
     ~signup();
 
 private slots:
-
     void on_signup_2_clicked();//点击注册按钮
-
 private:
     Ui::signup *ui;
 };

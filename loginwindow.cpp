@@ -6,6 +6,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    ui->sign_in->setFocus();
     this->setWindowTitle(QObject::tr("登录"));
     //-------------------------看看所有用户----------------------
             QString select_all_sql = "select * from users";
@@ -34,7 +35,7 @@ LoginWindow::~LoginWindow()
     delete ui;
 }
 
-void LoginWindow::on_sign_in_clicked()
+void LoginWindow::on_sign_in_clicked()//点击登录按钮
 {
     QString username_input = ui->username->text();
     QString password_input = ui->password->text();
@@ -138,14 +139,14 @@ void LoginWindow::on_sign_in_clicked()
     }
 }
 
-void LoginWindow::on_sign_up_clicked()
+void LoginWindow::on_sign_up_clicked()//点击注册按钮
 {
     view = new signup(this);
     view->setModal(true);
     view->show();
 }
 
-void LoginWindow::show_loginwindow()
+void LoginWindow::show_loginwindow()//显示登录界面
 {
     new_mainview = new LoginWindow;
     new_mainview->show();

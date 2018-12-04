@@ -16,7 +16,7 @@ Details_of_posts::~Details_of_posts()
     delete ui;
 }
 
-void Details_of_posts::on_comment_clicked()
+void Details_of_posts::on_comment_clicked()//点击评论按钮
 {
     if(ui->comment_edit->toPlainText().isEmpty())
     {
@@ -25,6 +25,7 @@ void Details_of_posts::on_comment_clicked()
     }
     else
     {
+        //刷新内容
         QDateTime local(QDateTime::currentDateTime());
         QString localTime = local.toString("yyyy-MM-dd:hh:mm:ss");
         Comment comment_edit;
@@ -51,8 +52,9 @@ void Details_of_posts::on_comment_clicked()
     }
 }
 
-void Details_of_posts::on_quit_clicked()
+void Details_of_posts::on_quit_clicked()//点击退出按钮
 {
+
     if(ui->comment_edit->toPlainText().isEmpty())
     {
         ui->title->clear();
@@ -61,7 +63,7 @@ void Details_of_posts::on_quit_clicked()
         this->close();
     }
     else
-    {
+    {//未发送评论提示
         QMessageBox::StandardButton button;
         button = QMessageBox::question(this, tr("退出"),
                                        QString(tr("有未发送的评论，是否继续退出?")),
@@ -77,7 +79,7 @@ void Details_of_posts::on_quit_clicked()
     }
 }
 
-void Details_of_posts::on_delete_this_post_clicked()
+void Details_of_posts::on_delete_this_post_clicked()//点击删帖按钮
 {
     QVector<Post> delete_post = all_post.value(state);
     qDebug() << this_post_num;

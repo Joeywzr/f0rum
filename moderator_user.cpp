@@ -5,7 +5,7 @@ Moderator_user::Moderator_user()
 
 }
 
-void Moderator_user::user_information()
+void Moderator_user::user_information()//显示用户信息
 {
     per_info = new Personal_infomation;
     per_info->username = username;

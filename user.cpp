@@ -5,7 +5,7 @@ User::User(QObject *parent) : QObject(parent)
 
 }
 
-void User::init_class()
+void User::init_class()//初始化
 {
     mainview = new MainWindow;
     mainview->username = username;
@@ -20,7 +20,7 @@ void User::init_class()
     connect(mainview->post_detail->ui->delete_this_post, SIGNAL(clicked(bool)),this,SLOT(refresh()));
 }
 
-void User::push_post()
+void User::push_post()//发帖
 {
     writepost = new Writepostwindow;
     writepost->state = mainview->state;
@@ -33,7 +33,7 @@ void User::push_post()
     writepost->show();
 }
 
-void User::refresh()
+void User::refresh()//刷新
 {
     mainview->page_post_num = 0;
     for(int i = 0;i <= 12;i++)
@@ -42,7 +42,7 @@ void User::refresh()
         mainview->button[i]->setEnabled(false);
     }
     QVector<Post> posts = all_post.value(mainview->state);
-
+    qDebug() << "paodaozhele";
     mainview->state_post_num = posts.size() - 1;
     for(int i = 0;i <= 12 && mainview->state_post_num >= 0;i++)
     {
@@ -51,7 +51,7 @@ void User::refresh()
     }
 }
 
-void User::sign_out()
+void User::sign_out()//注销
 {
 //    if (!database.open())
 //    {
@@ -88,7 +88,7 @@ void User::sign_out()
 
 bool User::sign_in(QString username_input, QString password_input,
                    bool &username_flag, int &id, QString &level,
-                   int &responsible_plate)
+                   int &responsible_plate)//登录
 {
     if (!database.open())
         qDebug() << "Error: Failed to connect database." << database.lastError();

@@ -6,7 +6,8 @@ Moderatorwindow::Moderatorwindow(Category s, QWidget *parent) :
     ui(new Ui::Moderatorwindow)
 {
     ui->setupUi(this);
-    state = s;
+    state = s;//当前板块
+    //-----------界面初始化
     button[0] = ui->checkBox_1;
     button[1] = ui->checkBox_2;
     button[2] = ui->checkBox_3;
@@ -43,10 +44,11 @@ Moderatorwindow::Moderatorwindow(Category s, QWidget *parent) :
         }
         user_num--;
     }
+    //----------------------------------------------
     connect(bg,SIGNAL(buttonClicked(int)),this,SLOT(click_users(int)));
 }
 
-void Moderatorwindow::click_users(int i )
+void Moderatorwindow::click_users(int i )//点击用户名
 {
     int temp = all_users.size() - 1 - 13*page_num - i;
     if(button[i]->checkState() == Qt::Unchecked)
@@ -73,7 +75,7 @@ void Moderatorwindow::click_users(int i )
     }
 }
 
-void Moderatorwindow::on_next_page_clicked()
+void Moderatorwindow::on_next_page_clicked()//点击下一页
 {
     if((page_num+1)*13 < (all_users.size() - 5))
     {
@@ -96,7 +98,7 @@ void Moderatorwindow::on_next_page_clicked()
     }
 }
 
-void Moderatorwindow::on_back_clicked()
+void Moderatorwindow::on_back_clicked()//点击上一页
 {
     if(page_num-1>=0)
     {
@@ -125,7 +127,7 @@ Moderatorwindow::~Moderatorwindow()
     delete ui;
 }
 
-void Moderatorwindow::on_quit_clicked()
+void Moderatorwindow::on_quit_clicked()//点击关闭
 {
     this->close();
 }

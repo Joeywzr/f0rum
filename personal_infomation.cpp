@@ -8,7 +8,7 @@ Personal_infomation::Personal_infomation(QWidget *parent) :
     ui->setupUi(this);
 }
 
-void Personal_infomation::show_infomation()
+void Personal_infomation::show_infomation()//显示用户信息
 {
     ui->username->setText(username);
     ui->id->setText(QString::number(id, 10));

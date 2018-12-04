@@ -19,7 +19,7 @@ signup::~signup()
     delete ui;
 }
 
-void signup::on_signup_2_clicked()
+void signup::on_signup_2_clicked()//点击注册按钮
 {
     QString username_input = ui->username->text(),
             password_input = ui->password->text(),

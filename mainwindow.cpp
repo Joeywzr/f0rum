@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle(QObject::tr("Memo论坛"));
+    this->setWindowTitle(QObject::tr("C++“学习”论坛"));
     //--------帖子列表显示设置---------------------
     button[0] = ui->pushButton_1;
     button[1] = ui->pushButton_2;
@@ -59,7 +59,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_game_clicked()
+void MainWindow::on_game_clicked()//点击游戏板块
 {
     page_post_num = 0;
     for(int i = 0;i <= 12;i++)
@@ -77,7 +77,7 @@ void MainWindow::on_game_clicked()
     }
 }
 
-void MainWindow::on_movie_clicked()
+void MainWindow::on_movie_clicked()//点击电影板块
 {
     page_post_num = 0;
     state = movie;
@@ -95,7 +95,7 @@ void MainWindow::on_movie_clicked()
     }
 }
 
-void MainWindow::on_comic_clicked()
+void MainWindow::on_comic_clicked()//点击动漫板块
 {
     page_post_num = 0;
     state = comic;
@@ -113,7 +113,7 @@ void MainWindow::on_comic_clicked()
     }
 }
 
-void MainWindow::on_music_clicked()
+void MainWindow::on_music_clicked()//点击音乐板块
 {
     page_post_num = 0;
     state = music;
@@ -131,7 +131,7 @@ void MainWindow::on_music_clicked()
     }
 }
 
-void MainWindow::on_sport_clicked()
+void MainWindow::on_sport_clicked()//点击体育板块
 {
     page_post_num = 0;
     state = sports;
@@ -150,7 +150,7 @@ void MainWindow::on_sport_clicked()
 
 }
 
-void MainWindow::on_next_page_clicked()
+void MainWindow::on_next_page_clicked()//点击下一页
 {
     QVector<Post> this_state_posts = all_post.value(state);
     if((page_post_num+1)*13 < this_state_posts.size())
@@ -170,7 +170,7 @@ void MainWindow::on_next_page_clicked()
     }
 }
 
-void MainWindow::on_back_clicked()
+void MainWindow::on_back_clicked()//点击上一页
 {
     if(page_post_num-1>=0)
     {
@@ -191,11 +191,11 @@ void MainWindow::on_back_clicked()
 }
 
 
-void MainWindow::click_posts(int i)
+void MainWindow::click_posts(int i)//点击帖子
 {
     QVector<Post> this_state_posts = all_post.value(state);
     int selected_post = this_state_posts.size() - 1 - 13*page_post_num -i;
-
+    //帖子详情初始化
     post_detail->p.title = this_state_posts[selected_post].title;
     post_detail->p.content = this_state_posts[selected_post].content;
     post_detail->p.comment = this_state_posts[selected_post].comment;
@@ -210,7 +210,7 @@ void MainWindow::click_posts(int i)
     post_detail->this_post_num = selected_post;
     post_detail->ui->title->setText(post_detail->p.title);
     post_detail->setWindowTitle(QObject::tr("帖子详情"));
-
+    //帖子内容显示
     QString all_content;
     all_content.append("用户:" + post_detail->p.poster_name+ "   发送时间:" + post_detail->p.time +"\n\n");
     all_content.append(post_detail->p.content+"\n\n");
@@ -223,6 +223,7 @@ void MainWindow::click_posts(int i)
     }
     post_detail->ui->content->setText(all_content);
     post_detail->setWindowModality(Qt::ApplicationModal);
+    //判断删帖按钮能否使用
     if(!(level == "administrator" || (level == "moderator" && state == responsible_plate) || (post_detail->p.poster_name == username && post_detail->p.comment.isEmpty())))
         post_detail->ui->delete_this_post->setEnabled(false);
     else
@@ -230,7 +231,7 @@ void MainWindow::click_posts(int i)
     post_detail->show();
 }
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent *event)//点击右上角退出
 {
     if (!database.open())
         qDebug() << "Error: Failed to connect database." << database.lastError();
@@ -257,5 +258,12 @@ void MainWindow::closeEvent(QCloseEvent *event)
             qDebug() << sql_query.lastError();
     }
     all_users.clear();
+
+//    QString clear_sql_1 = "delete from game";
+//    QString clear_sql_2 = "delete from movie";
+//    QString clear_sql_3 = "delete from comic";
+//    QString clear_sql_4 = "delete from music";
+//    QString clear_sql_5 = "delete from sports";
+//    QString insert_sql_1 = "insert into game values (?, ?, ?, ?, ?, ?, ?)";
     close();
 }

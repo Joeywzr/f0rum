@@ -14,8 +14,6 @@ public:
 public slots:
     void user_information();//用户信息
     void appoint_or_revoke_moderator();//任命或撤销版主
-private:
-
 };
 
 #endif // ADMINISTRATORS_H

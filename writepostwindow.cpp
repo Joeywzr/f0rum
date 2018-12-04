@@ -6,6 +6,8 @@ Writepostwindow::Writepostwindow(QWidget *parent) :
     ui(new Ui::Writepostwindow)
 {
     ui->setupUi(this);
+    ui->title->setMaxLength(30);
+    ui->title->setFocus();
 }
 
 Writepostwindow::~Writepostwindow()
@@ -13,9 +15,9 @@ Writepostwindow::~Writepostwindow()
     delete ui;
 }
 
-void Writepostwindow::on_push_clicked()
+void Writepostwindow::on_push_clicked()//点击发帖
 {
-    if(ui->title->toPlainText().isEmpty())
+    if(ui->title->text().isEmpty())
     {
         QMessageBox::StandardButton button;
         button = QMessageBox::information(this, tr("提示"),
@@ -36,7 +38,7 @@ void Writepostwindow::on_push_clicked()
     //    int temp = p.id.toInt();
     //    temp++;
     //    p.id = QString::number(temp);
-        p.title = ui->title->toPlainText();
+        p.title = ui->title->text();
         p.content = ui->content->toPlainText();
         p.time = localTime;
         p.poster_name = username;
@@ -48,9 +50,9 @@ void Writepostwindow::on_push_clicked()
     }
 }
 
-void Writepostwindow::on_cancel_clicked()
+void Writepostwindow::on_cancel_clicked()//点击取消
 {
-    if(ui->title->toPlainText().isEmpty() && ui->content->toPlainText().isEmpty())
+    if(ui->title->text().isEmpty() && ui->content->toPlainText().isEmpty())
     {
         ui->title->clear();
         ui->content->clear();
@@ -71,9 +73,9 @@ void Writepostwindow::on_cancel_clicked()
     }
 }
 
-void Writepostwindow::closeEvent(QCloseEvent *event)
+void Writepostwindow::closeEvent(QCloseEvent *event)//点击右上角
 {
-    if(ui->title->toPlainText().isEmpty() && ui->content->toPlainText().isEmpty())
+    if(ui->title->text().isEmpty() && ui->content->toPlainText().isEmpty())
     {
         ui->title->clear();
         ui->content->clear();
@@ -95,3 +97,4 @@ void Writepostwindow::closeEvent(QCloseEvent *event)
             }
     }
 }
+

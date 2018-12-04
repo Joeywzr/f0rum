@@ -5,7 +5,7 @@ Ordinary_user::Ordinary_user()
 
 }
 
-void Ordinary_user::init_class()
+void Ordinary_user::init_class()//初始化
 {
     mainview = new MainWindow;
     mainview->username = username;
@@ -21,7 +21,7 @@ void Ordinary_user::init_class()
     connect(mainview->post_detail->ui->delete_this_post, SIGNAL(clicked(bool)),this,SLOT(refresh()));
 }
 
-void Ordinary_user::user_information()
+void Ordinary_user::user_information()//显示用户信息
 {
     per_info = new Personal_infomation;
     per_info->username = username;
