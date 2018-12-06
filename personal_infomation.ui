@@ -18,6 +18,11 @@
     <layout class="QGridLayout" name="gridLayout">
      <item row="1" column="1">
       <widget class="QLabel" name="username">
+       <property name="font">
+        <font>
+         <family>思源黑体 CN Normal</family>
+        </font>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -25,6 +30,11 @@
      </item>
      <item row="0" column="1">
       <widget class="QLabel" name="id">
+       <property name="font">
+        <font>
+         <family>思源黑体 CN Normal</family>
+        </font>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -32,6 +42,11 @@
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <family>思源黑体 CN Normal</family>
+        </font>
+       </property>
        <property name="text">
         <string>ID</string>
        </property>
@@ -39,6 +54,11 @@
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
+       <property name="font">
+        <font>
+         <family>思源黑体 CN Normal</family>
+        </font>
+       </property>
        <property name="text">
         <string>用户名</string>
        </property>
@@ -46,6 +66,11 @@
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <family>思源黑体 CN Normal</family>
+        </font>
+       </property>
        <property name="text">
         <string>级别</string>
        </property>
@@ -53,6 +78,11 @@
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="level">
+       <property name="font">
+        <font>
+         <family>思源黑体 CN Normal</family>
+        </font>
+       </property>
        <property name="text">
         <string/>
        </property>
@@ -60,6 +90,11 @@
      </item>
      <item row="3" column="0">
       <widget class="QLabel" name="res_title">
+       <property name="font">
+        <font>
+         <family>思源黑体 CN Normal</family>
+        </font>
+       </property>
        <property name="text">
         <string>负责板块</string>
        </property>
@@ -67,6 +102,11 @@
      </item>
      <item row="3" column="1">
       <widget class="QLabel" name="responsible">
+       <property name="font">
+        <font>
+         <family>思源黑体 CN Normal</family>
+        </font>
+       </property>
        <property name="text">
         <string/>
        </property>

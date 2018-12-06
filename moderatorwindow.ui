@@ -31,6 +31,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QPushButton" name="back">
+        <property name="font">
+         <font>
+          <family>思源黑体 CN Normal</family>
+         </font>
+        </property>
         <property name="text">
          <string>上一页</string>
         </property>
@@ -38,6 +43,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="next_page">
+        <property name="font">
+         <font>
+          <family>思源黑体 CN Normal</family>
+         </font>
+        </property>
         <property name="text">
          <string>下一页</string>
         </property>
@@ -49,6 +59,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="quit">
+        <property name="font">
+         <font>
+          <family>思源黑体 CN Normal</family>
+         </font>
+        </property>
         <property name="text">
          <string>关闭</string>
         </property>

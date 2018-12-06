@@ -44,6 +44,11 @@
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="delete_this_post">
+          <property name="font">
+           <font>
+            <family>思源黑体 CN Normal</family>
+           </font>
+          </property>
           <property name="text">
            <string>删除该贴</string>
           </property>
@@ -51,6 +56,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="comment">
+          <property name="font">
+           <font>
+            <family>思源黑体 CN Normal</family>
+           </font>
+          </property>
           <property name="text">
            <string>评论</string>
           </property>
@@ -58,6 +68,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="quit">
+          <property name="font">
+           <font>
+            <family>思源黑体 CN Normal</family>
+           </font>
+          </property>
           <property name="text">
            <string>退出</string>
           </property>

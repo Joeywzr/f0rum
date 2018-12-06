@@ -31,6 +31,11 @@
      </item>
      <item>
       <widget class="QLabel" name="warning">
+       <property name="font">
+        <font>
+         <family>思源黑体 CN Normal</family>
+        </font>
+       </property>
        <property name="text">
         <string/>
        </property>

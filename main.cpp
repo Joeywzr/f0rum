@@ -14,7 +14,6 @@ int max_id;//最大用户id
 void database_init();
 
 
-
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -24,6 +23,8 @@ int main(int argc, char *argv[])
 
     return a.exec();
 }
+
+
 
 void database_init()//数据库初始化
 {
@@ -125,7 +126,7 @@ void database_init()//数据库初始化
     Comment c1, c2;
 
     c1.content = "我是一楼";
-    c1.time = "2018-12-04:12:36:24";
+    c1.time = "2018-12-04:13:46:24";
     c1.username = "ad1";
     c2.content = "我是二楼";
     c2.time = "2018-12-04:13:46:56";

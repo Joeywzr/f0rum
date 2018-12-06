@@ -84,37 +84,38 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
                     }
                 }
                 this->close();
+                u = NULL;
                 if(id <= 5)//管理员登录
                 {
-                    administrators = new Administrators;
-                    administrators->id = id;
-                    administrators->username = username_input;
-                    administrators->password = password_input;
-                    administrators->level = level;
-                    administrators->init_class();
-                    connect(administrators->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
+                    u = new Administrators;
+                    u->id = id;
+                    u->username = username_input;
+                    u->password = password_input;
+                    u->level = level;
+                    u->init_class();
+                    connect(u->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
                 }
                 else if(id > 5 && level == "ordinary")//普通用户登录
                 {
-                    ordinary_user = new Ordinary_user;
-                    ordinary_user->id = id;
-                    ordinary_user->username = username_input;
-                    ordinary_user->password = password_input;
-                    ordinary_user->level = level;
-                    ordinary_user->responsible_plate = responsible_plate;
-                    ordinary_user->init_class();
-                    connect(ordinary_user->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
+                    u = new Ordinary_user;
+                    u->id = id;
+                    u->username = username_input;
+                    u->password = password_input;
+                    u->level = level;
+                    u->responsible_plate = responsible_plate;
+                    u->init_class();
+                    connect(u->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
                 }
                 else if(id > 5 && level == "moderator")//版主登录
                 {
-                    moderator_user = new Moderator_user;
-                    moderator_user->id = id;
-                    moderator_user->username = username_input;
-                    moderator_user->password = password_input;
-                    moderator_user->level = level;
-                    moderator_user->responsible_plate = responsible_plate;
-                    moderator_user->init_class();
-                    connect(moderator_user->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
+                    u = new Moderator_user;
+                    u->id = id;
+                    u->username = username_input;
+                    u->password = password_input;
+                    u->level = level;
+                    u->responsible_plate = responsible_plate;
+                    u->init_class();
+                    connect(u->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
                 }
             }
             else

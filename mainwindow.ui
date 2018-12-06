@@ -25,6 +25,11 @@
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
              <widget class="QPushButton" name="back">
+              <property name="font">
+               <font>
+                <family>思源黑体 CN Normal</family>
+               </font>
+              </property>
               <property name="text">
                <string>上一页</string>
               </property>
@@ -32,6 +37,11 @@
             </item>
             <item>
              <widget class="QPushButton" name="next_page">
+              <property name="font">
+               <font>
+                <family>思源黑体 CN Normal</family>
+               </font>
+              </property>
               <property name="text">
                <string>下一页</string>
               </property>
@@ -39,6 +49,11 @@
             </item>
             <item>
              <widget class="QPushButton" name="post">
+              <property name="font">
+               <font>
+                <family>思源黑体 CN Normal</family>
+               </font>
+              </property>
               <property name="text">
                <string>发帖</string>
               </property>
@@ -338,6 +353,11 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>思源黑体 CN Normal</family>
+             </font>
+            </property>
             <property name="text">
              <string>个人信息</string>
             </property>
@@ -351,6 +371,11 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>思源黑体 CN Normal</family>
+             </font>
+            </property>
             <property name="text">
              <string>任命/撤销版主(管理员)</string>
             </property>
@@ -360,6 +385,11 @@
         </item>
         <item>
          <widget class="QPushButton" name="sign_out">
+          <property name="font">
+           <font>
+            <family>思源黑体 CN Normal</family>
+           </font>
+          </property>
           <property name="text">
            <string>注销</string>
           </property>
@@ -382,6 +412,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="game">
+        <property name="font">
+         <font>
+          <family>思源黑体 CN Normal</family>
+         </font>
+        </property>
         <property name="text">
          <string>游戏</string>
         </property>
@@ -408,6 +443,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="movie">
+        <property name="font">
+         <font>
+          <family>思源黑体 CN Normal</family>
+         </font>
+        </property>
         <property name="text">
          <string>电影</string>
         </property>
@@ -434,6 +474,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="comic">
+        <property name="font">
+         <font>
+          <family>思源黑体 CN Normal</family>
+         </font>
+        </property>
         <property name="text">
          <string>动漫</string>
         </property>
@@ -460,6 +505,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="music">
+        <property name="font">
+         <font>
+          <family>思源黑体 CN Normal</family>
+         </font>
+        </property>
         <property name="text">
          <string>音乐</string>
         </property>
@@ -486,6 +536,11 @@
       </item>
       <item>
        <widget class="QPushButton" name="sport">
+        <property name="font">
+         <font>
+          <family>思源黑体 CN Normal</family>
+         </font>
+        </property>
         <property name="text">
          <string>体育</string>
         </property>
