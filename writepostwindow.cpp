@@ -8,6 +8,9 @@ Writepostwindow::Writepostwindow(QWidget *parent) :
     ui->setupUi(this);
     ui->title->setMaxLength(30);
     ui->title->setFocus();
+    QRegExp rx1("[^\\s]+$");
+    QRegExpValidator *validator1 = new QRegExpValidator(rx1, this);
+    ui->title->setValidator(validator1);
 }
 
 Writepostwindow::~Writepostwindow()
@@ -38,6 +41,9 @@ void Writepostwindow::on_push_clicked()//点击发帖
     //    int temp = p.id.toInt();
     //    temp++;
     //    p.id = QString::number(temp);
+        if(!new_post.isEmpty())
+            p.id = new_post.last().id + 1;
+        p.state = state;
         p.title = ui->title->text();
         p.content = ui->content->toPlainText();
         p.time = localTime;

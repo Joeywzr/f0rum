@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(QObject::tr("C++“学习”论坛"));
+    qDebug() << "user_num:"<<all_users.size();
     //--------帖子列表显示设置---------------------
     button[0] = ui->pushButton_1;
     button[1] = ui->pushButton_2;
@@ -199,11 +200,13 @@ void MainWindow::click_posts(int i)//点击帖子
     post_detail->p.title = this_state_posts[selected_post].title;
     post_detail->p.content = this_state_posts[selected_post].content;
     post_detail->p.comment = this_state_posts[selected_post].comment;
+    post_detail->p.comment_num = this_state_posts[selected_post].comment_num;
     post_detail->p.time = this_state_posts[selected_post].time;
     post_detail->p.poster_name = this_state_posts[selected_post].poster_name;
     post_detail->p.id = this_state_posts[selected_post].id;
     post_detail->p.state = this_state_posts[selected_post].state;
     post_detail->username = username;
+    post_detail->id = id;
     post_detail->level = level;
     post_detail->state = state;
     post_detail->responsible_plate = responsible_plate;
@@ -223,7 +226,13 @@ void MainWindow::click_posts(int i)//点击帖子
     }
     post_detail->ui->content->setText(all_content);
     post_detail->setWindowModality(Qt::ApplicationModal);
-    //判断删帖按钮能否使用
+    //判断各个按钮能否使用
+    if(id < 0)
+    {
+        post_detail->ui->comment->setEnabled(false);
+        post_detail->ui->comment_edit->setEnabled(false);
+        post_detail->ui->delete_this_post->setEnabled(false);
+    }
     if(!(level == "administrator" || (level == "moderator" && state == responsible_plate) || (post_detail->p.poster_name == username && post_detail->p.comment.isEmpty())))
         post_detail->ui->delete_this_post->setEnabled(false);
     else
@@ -233,37 +242,23 @@ void MainWindow::click_posts(int i)//点击帖子
 
 void MainWindow::closeEvent(QCloseEvent *event)//点击右上角退出
 {
-    if (!database.open())
-        qDebug() << "Error: Failed to connect database." << database.lastError();
-
-    QSqlQuery sql_query;
-    QString clear_sql = "delete from users";
-    QString insert_sql = "insert into users values (?, ?, ?, ?, ?)";
-
-    sql_query.prepare(clear_sql);
-    if(!sql_query.exec())
-        qDebug() << sql_query.lastError();
-    else
-        qDebug() << "table cleared";
-
-    for(int i = 0;i < all_users.size();i++)
+    if(id > 0)
     {
-        sql_query.prepare(insert_sql);
-        sql_query.addBindValue(all_users[i].id);
-        sql_query.addBindValue(all_users[i].username);
-        sql_query.addBindValue(all_users[i].password);
-        sql_query.addBindValue(all_users[i].level);
-        sql_query.addBindValue(all_users[i].responsible_plate);
-        if(!sql_query.exec())
-            qDebug() << sql_query.lastError();
+        QFile user("user.txt");
+        QFile post("post.txt");
+
+        user.open( QIODevice::ReadWrite | QIODevice::Text );
+        QTextStream fout1(&user);
+        user_variable users;
+        fout1 << users;
+        user.close();
+
+        post.open( QIODevice::ReadWrite | QIODevice::Text );
+        QTextStream fout2(&post);
+        fout2 << all_post;
+        post.close();
     }
     all_users.clear();
-
-//    QString clear_sql_1 = "delete from game";
-//    QString clear_sql_2 = "delete from movie";
-//    QString clear_sql_3 = "delete from comic";
-//    QString clear_sql_4 = "delete from music";
-//    QString clear_sql_5 = "delete from sports";
-//    QString insert_sql_1 = "insert into game values (?, ?, ?, ?, ?, ?, ?)";
-    close();
+    all_post.clear();
+    event->accept();
 }

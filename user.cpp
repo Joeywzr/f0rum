@@ -53,36 +53,6 @@ void User::refresh()//刷新
 
 void User::sign_out()//注销
 {
-//    if (!database.open())
-//    {
-//        qDebug() << "Error: Failed to connect database." << database.lastError();
-//    }
-//    QSqlQuery sql_query;
-//    QString clear_sql = "delete from users";
-//    QString insert_sql = "insert into users values (?, ?, ?, ?, ?)";
-
-//    sql_query.prepare(clear_sql);
-//    if(!sql_query.exec())
-//    {
-//        qDebug() << sql_query.lastError();
-//    }
-//    else
-//    {
-//        //qDebug() << "table cleared user";
-//    }
-
-//    for(int i = 0;i < all_users.size();i++)
-//    {
-//        sql_query.prepare(insert_sql);
-//        sql_query.addBindValue(all_users[i].id);
-//        sql_query.addBindValue(all_users[i].username);
-//        sql_query.addBindValue(all_users[i].password);
-//        sql_query.addBindValue(all_users[i].level);
-//        sql_query.addBindValue(all_users[i].responsible_plate);
-//        if(!sql_query.exec())
-//            qDebug() << sql_query.lastError();
-//    }
-//    all_users.clear();
     mainview->close();
 }
 
@@ -90,30 +60,21 @@ bool User::sign_in(QString username_input, QString password_input,
                    bool &username_flag, int &id, QString &level,
                    int &responsible_plate)//登录
 {
-    if (!database.open())
-        qDebug() << "Error: Failed to connect database." << database.lastError();
-
-    QString select_sql = "select id, username,password, level, responsible_plate from users";
-    if(!sql_query.exec(select_sql))
-        qDebug()<<sql_query.lastError();
-    else
+    user_variable u;
+    for(int i = 0;i < all_users.size();i++)
     {
-        while(sql_query.next())
+        u = all_users[i];
+        if(username_input == u.username)
         {
-            QString username = sql_query.value(1).toString();
-            QString password = sql_query.value(2).toString();
-            if(username_input == username)
+            username_flag = true;
+            if(password_input == u.password)
             {
-                username_flag = true;
-                if(password_input == password)
-                {
-                    level = sql_query.value(3).toString();
-                    responsible_plate = sql_query.value(4).toInt();
-                    id = sql_query.value(0).toInt();
-                    return true;
-                }
-                return false;
+                level = u.level;
+                responsible_plate = u.responsible_plate;
+                id = u.id;
+                return true;
             }
+            return false;
         }
     }
     return false;

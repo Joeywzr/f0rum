@@ -41,7 +41,7 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="id_title">
        <property name="font">
         <font>
          <family>思源黑体 CN Normal</family>
@@ -53,7 +53,7 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="username_title">
        <property name="font">
         <font>
          <family>思源黑体 CN Normal</family>
@@ -65,7 +65,7 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="level_title">
        <property name="font">
         <font>
          <family>思源黑体 CN Normal</family>

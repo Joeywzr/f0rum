@@ -35,7 +35,7 @@ void Details_of_posts::on_comment_clicked()//点击评论按钮
         ui->comment_edit->clear();
 
         p.comment.push_back(comment_edit);
-
+        p.comment_num++;
         QString all_content;
         all_content = ui->content->toPlainText();
         all_content.append("用户:" + comment_edit.username + "   发送时间:" + comment_edit.time + "\n\n");
@@ -46,7 +46,6 @@ void Details_of_posts::on_comment_clicked()//点击评论按钮
         QVector<Post> temp = all_post[state];
         temp[this_post_num] = p;
         all_post[state] = temp;
-
         if(level == "ordinary" || (level == "moderator" && responsible_plate != state) )
             ui->delete_this_post->setEnabled(false);
     }

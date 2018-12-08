@@ -7,6 +7,7 @@
 #include "personal_infomation.h"
 #include "ui_details_of_posts.h"
 #include "ui_writepostwindow.h"
+
 extern QHash<Category,QVector<Post>> all_post;
 extern QVector<user_variable> all_users;
 namespace Ui {
@@ -34,6 +35,7 @@ public:
     Ui::MainWindow *ui;
     Details_of_posts *post_detail;
     QButtonGroup *bg;//按钮组
+
 private slots:
 
     void on_game_clicked();//点击游戏板块，刷新右边帖子列表

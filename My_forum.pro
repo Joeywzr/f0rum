@@ -37,7 +37,8 @@ SOURCES += \
     user.cpp \
     administrators.cpp \
     moderatorwindow.cpp \
-    moderator_user.cpp
+    moderator_user.cpp \
+    anonymous.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,7 +54,8 @@ HEADERS += \
     administrators.h \
     moderatorwindow.h \
     moderator_user.h \
-    headers.h
+    headers.h \
+    anonymous.h
 
 FORMS += \
     mainwindow.ui \

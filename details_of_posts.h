@@ -19,6 +19,7 @@ public:
 
     Post p;
     int this_post_num;//该帖子在该板块中的序号
+    int id;//当前用户id
     int responsible_plate;
     Category state;
     QString username;

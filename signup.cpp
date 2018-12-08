@@ -8,10 +8,11 @@ signup::signup(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(QObject::tr("注册"));
-    if (!database.open())
-    {
-        qDebug() << "Error: Failed to connect database." << database.lastError();
-    }
+    QRegExp rx("[^\\s]+$");
+    QRegExpValidator *validator = new QRegExpValidator(rx, this);
+    ui->username->setValidator(validator);
+    ui->password->setValidator(validator);
+    ui->confirm_password->setValidator(validator);
 }
 
 signup::~signup()
@@ -35,23 +36,17 @@ void signup::on_signup_2_clicked()//点击注册按钮
     }
     else
     {
-        QString select_sql = "select username from users";
-        if(!sql_query.exec(select_sql))
-            qDebug()<<sql_query.lastError();
-        else
+        for(int i = 0;i < all_users.size();i++)
         {
-            while(sql_query.next())
+            QString username = all_users[i].username;
+            if(username_input == username)
             {
-                QString username = sql_query.value(0).toString();
-                if(username_input == username)
-                {
-                    ui->warning->setText("用户名已被占用！");
-                    ui->username->clear();
-                    ui->password->clear();
-                    ui->confirm_password->clear();
-                    qDebug()<<"The username has been occupied.";
-                    return;
-                }
+                ui->warning->setText("用户名已被占用！");
+                ui->username->clear();
+                ui->password->clear();
+                ui->confirm_password->clear();
+                qDebug()<<"The username has been occupied.";
+                return;
             }
         }
     }
@@ -82,27 +77,18 @@ void signup::on_signup_2_clicked()//点击注册按钮
         qDebug() << "The passwords entered two times are different.";
         return;
     }
-
-    QString insert_sql = "insert into users values (?, ?, ?, ?, ?)";
-    sql_query.prepare(insert_sql);
-    sql_query.addBindValue(max_id);
-    sql_query.addBindValue(username_input);
-    sql_query.addBindValue(password_input);
+    max_id = all_users.last().id + 1;
+    qDebug() << all_users.last().username;
+    user_variable uu;
+    uu.id = max_id;
+    uu.username = username_input;
+    uu.password = password_input;
     if(max_id>5)
-        sql_query.addBindValue("ordinary");
+        uu.level = "ordinary";
     else
-        sql_query.addBindValue("administrator");
-    sql_query.addBindValue(0);
-
-    if(!sql_query.exec())
-    {
-        qDebug() << sql_query.lastError();
-    }
-    else
-    {
-        qDebug() << "inserted " << username_input << "!";
-        max_id++;
-        qDebug() << "max id ="<<max_id;
-    }
+        uu.level = "administrator";
+    uu.responsible_plate = 0;
+    all_users.push_back(uu);
+    qDebug() << "inserted " << username_input << "!";
     this->close();
 }

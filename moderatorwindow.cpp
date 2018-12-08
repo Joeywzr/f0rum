@@ -33,7 +33,7 @@ Moderatorwindow::Moderatorwindow(Category s, QWidget *parent) :
     for(int i = 0;i <= 12;i++)
         bg->addButton(button[i],i);
     bg->setExclusive(false);
-    user_num = all_users.size()-1;
+    user_num = all_users.size() - 1;
     for(int i = 0;i <= 12 && user_num >= 5;i++)
     {
         button[i]->setEnabled(true);
