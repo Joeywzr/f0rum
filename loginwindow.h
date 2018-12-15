@@ -9,7 +9,6 @@
 #include "anonymous.h"
 #include "post.h"
 #include "signup.h"
-
 extern QHash<Category,QVector<Post>> all_post;//所有帖子
 extern QVector<user_variable> all_users;
 namespace Ui {

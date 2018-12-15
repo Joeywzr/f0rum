@@ -9,18 +9,35 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->sign_in->setFocus();
     this->setWindowTitle(QObject::tr("登录"));
     QFile file1( "user.txt" );
-    file1.open( QIODevice::ReadWrite | QIODevice::Text );
+    file1.open( QFile::ReadOnly | QFile::Text );
     QTextStream fin1(&file1);
     user_variable users;
     fin1 >> users;
     file1.close();
 
+    if(users.user_error != 0)
+    {
+        QString error = "存在"+QString::number(users.user_error)+"个用户数据出现错误，已删除错误用户数据！";
+        QMessageBox::StandardButton button;
+        button = QMessageBox::information(this, tr("提示"),
+                                          error);
+        users.user_error = 0;
+    }
+
     QFile file2("post.txt");
-    file2.open(QIODevice::ReadWrite | QIODevice::Text);
+    file2.open(QFile::ReadOnly | QFile::Text);
     QTextStream fin2(&file2);
     Post posts;
     fin2 >> posts;
     file2.close();
+    if(posts.post_error != 0)
+    {
+        QString error = "存在"+QString::number(posts.post_error)+"个帖子数据出现错误，已删除错误帖子数据！";
+        QMessageBox::StandardButton button;
+        button = QMessageBox::information(this, tr("提示"),
+                                          error);
+        posts.post_error = 0;
+    }
 }
 
 LoginWindow::~LoginWindow()
@@ -30,6 +47,8 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_sign_in_clicked()//点击登录按钮
 {
+    QString test = "2";
+    qDebug() << "结果是这样滴："<< test.toInt();
     QString username_input = ui->username->text();
     QString password_input = ui->password->text();
     bool username_flag = false;
@@ -58,7 +77,7 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
         {
             this->close();
             u = NULL;
-            if(id <= 5 && id > 0)//管理员登录
+            if(level == "administrator")//管理员登录
             {
                 u = new Administrators;
                 u->id = id;
@@ -68,7 +87,7 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
                 u->init_class();
                 connect(u->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
             }
-            else if(id > 5 && level == "ordinary")//普通用户登录
+            else if(level == "ordinary")//普通用户登录
             {
                 u = new Ordinary_user;
                 u->id = id;
@@ -79,7 +98,7 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
                 u->init_class();
                 connect(u->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
             }
-            else if(id > 5 && level == "moderator")//版主登录
+            else if(level == "moderator")//版主登录
             {
                 u = new Moderator_user;
                 u->id = id;
@@ -138,7 +157,7 @@ void LoginWindow::on_anonymous_clicked()//点击匿名登录
 void LoginWindow::closeEvent(QCloseEvent *event)
 {
     QFile file( "user.txt" );
-    file.open( QIODevice::ReadWrite | QIODevice::Text );
+    file.open( QFile::WriteOnly | QFile :: Truncate );
     QTextStream fout(&file);
     user_variable users;
     fout << users;

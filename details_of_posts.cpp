@@ -25,29 +25,44 @@ void Details_of_posts::on_comment_clicked()//点击评论按钮
     }
     else
     {
-        //刷新内容
-        QDateTime local(QDateTime::currentDateTime());
-        QString localTime = local.toString("yyyy-MM-dd:hh:mm:ss");
-        Comment comment_edit;
-        comment_edit.content = ui->comment_edit->toPlainText();
-        comment_edit.username = username;
-        comment_edit.time = localTime;
-        ui->comment_edit->clear();
+        if(ui->comment_edit->toPlainText().contains(" $$$ "))
+        {
+            QMessageBox::StandardButton button;
+            button = QMessageBox::information(this, tr("提示"),
+                                              QString(tr("内容不能含“ $$$ ”哦！")));
+        }
+        else if(ui->comment_edit->toPlainText().contains(" ### "))
+        {
+            QMessageBox::StandardButton button;
+            button = QMessageBox::information(this, tr("提示"),
+                                              QString(tr("内容不能含“ ### ”哦！")));
+        }
+        else
+        {
+            //刷新内容
+            QDateTime local(QDateTime::currentDateTime());
+            QString localTime = local.toString("yyyy-MM-dd:hh:mm:ss");
+            Comment comment_edit;
+            comment_edit.content = ui->comment_edit->toPlainText();
+            comment_edit.username = username;
+            comment_edit.time = localTime;
+            ui->comment_edit->clear();
 
-        p.comment.push_back(comment_edit);
-        p.comment_num++;
-        QString all_content;
-        all_content = ui->content->toPlainText();
-        all_content.append("用户:" + comment_edit.username + "   发送时间:" + comment_edit.time + "\n\n");
-        all_content.append(comment_edit.content + "\n\n");
-        all_content.append("------------------------------------------\n\n");
-        ui->content->setText(all_content);
+            p.comment.push_back(comment_edit);
+            p.comment_num++;
+            QString all_content;
+            all_content = ui->content->toPlainText();
+            all_content.append("用户:" + comment_edit.username + "   发送时间:" + comment_edit.time + "\n\n");
+            all_content.append(comment_edit.content + "\n\n");
+            all_content.append("------------------------------------------\n\n");
+            ui->content->setText(all_content);
 
-        QVector<Post> temp = all_post[state];
-        temp[this_post_num] = p;
-        all_post[state] = temp;
-        if(level == "ordinary" || (level == "moderator" && responsible_plate != state) )
-            ui->delete_this_post->setEnabled(false);
+            QVector<Post> temp = all_post[state];
+            temp[this_post_num] = p;
+            all_post[state] = temp;
+            if(level == "ordinary" || (level == "moderator" && responsible_plate != state) )
+                ui->delete_this_post->setEnabled(false);
+        }
     }
 }
 

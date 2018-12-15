@@ -34,7 +34,7 @@ Moderatorwindow::Moderatorwindow(Category s, QWidget *parent) :
         bg->addButton(button[i],i);
     bg->setExclusive(false);
     user_num = all_users.size() - 1;
-    for(int i = 0;i <= 12 && user_num >= 5;i++)
+    for(int i = 0;i <= 12 && user_num >= 0 && all_users[user_num].level != "administrator";i++)
     {
         button[i]->setEnabled(true);
         button[i]->setText(all_users[user_num].username);
@@ -77,7 +77,7 @@ void Moderatorwindow::click_users(int i )//点击用户名
 
 void Moderatorwindow::on_next_page_clicked()//点击下一页
 {
-    if((page_num+1)*13 < (all_users.size() - 5))
+    if((page_num+1)*13 < all_users.size())
     {
         for(int i = 0;i <= 12;i++)
         {
@@ -87,7 +87,7 @@ void Moderatorwindow::on_next_page_clicked()//点击下一页
         }
         page_num++;
         user_num = all_users.size() - 1 - 13*page_num;
-        for(int i = 0;i <= 12 && user_num >= 5;i++)
+        for(int i = 0;i <= 12 && user_num >= 0 && all_users[user_num].level != "administrator";i++)
         {
             button[i]->setEnabled(true);
             button[i]->setText(all_users[user_num].username);
@@ -110,7 +110,7 @@ void Moderatorwindow::on_back_clicked()//点击上一页
         }
         page_num--;
         user_num = all_users.size() -1 - 13*page_num;
-        for(int i = 0;i <= 12 && user_num >= 5;i++)
+        for(int i = 0;i <= 12 && user_num >= 0 && all_users[user_num].level != "administrator";i++)
         {
             qDebug()<< all_users[user_num].username << all_users[user_num].level << all_users[user_num].responsible_plate;
             button[i]->setEnabled(true);

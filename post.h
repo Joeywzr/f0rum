@@ -17,9 +17,10 @@ public:
     QString time;//帖子时间
     int comment_num = 0;//评论数量
     QVector<Comment> comment;//帖子评论
+    int post_error = 0;
 
 
-    friend QTextStream& operator << (QTextStream &fout, QHash<Category,QVector<Post>> &all_post)
+    friend QTextStream& operator << (QTextStream &fout, Post posts)
     {
         bool is_first = true;
         for(int i = 1;i <= 5;i++)
@@ -43,7 +44,7 @@ public:
             for(int j = 0;j < p.size();j++)
             {
                 if(!is_first)
-                    fout << " $$$ ";
+                    fout << " ### ";
                 fout << s << " $$$ ";
                 fout << QString::number(p[j].id) << " $$$ ";
                 fout << p[j].poster_name << " $$$ ";
@@ -63,7 +64,6 @@ public:
                 }
                 is_first = false;
             }
-
         }
         return fout;
     }
@@ -72,39 +72,67 @@ public:
     {
         QString str;
         str = fin.readAll();
-        QList<QString> list;
+        QList<QString> list1, list2;
         QList<QString>::iterator i;
-        list = str.split(" $$$ ");
-        if(list.size() <= 1)
-            return fin;
+        bool flag = true;
+        list1 = str.split(" ### ");
 
-        for(i = list.begin();i != list.end();)
+        for(i = list1.begin();i != list1.end();i++)
         {
-            posts.state = *i;i++;
-            posts.id = (*i).toInt();i++;
-            posts.poster_name = *i;i++;
-            posts.time = *i;i++;
-            posts.comment_num = (*i).toInt();i++;
-            posts.title = *i;i++;
-            posts.content = *i;i++;
-            for(int j = 0;j < posts.comment_num;j++)
+            list2 = (*i).split(" $$$ ");
+            if(list2.size() != 7 + list2[4].toInt()*3)
             {
-                com.username = *i;i++;
-                com.time = *i;i++;
-                com.content = *i;i++;
-                posts.comment.push_back(com);
+                posts.post_error++;
+                qDebug() << "cuola" << endl;
             }
-            if(posts.state == "game")
-                all_post[game].push_back(posts);
-            else if(posts.state == "movie")
-                all_post[movie].push_back(posts);
-            else if(posts.state == "comic")
-                all_post[comic].push_back(posts);
-            else if(posts.state == "music")
-                all_post[music].push_back(posts);
-            else if(posts.state == "sports")
-                all_post[sports].push_back(posts);
-            posts.comment.clear();
+            else
+            {
+                posts.state = list2[0];
+                if(posts.state != "game" &&
+                        posts.state != "movie" &&
+                        posts.state != "comic" &&
+                        posts.state != "music" &&
+                        posts.state != "sports")
+                    flag = false;
+                posts.id = list2[1].toInt();
+                posts.poster_name = list2[2];
+                posts.time = list2[3];
+                posts.comment_num = list2[4].toInt();
+                posts.title = list2[5];
+                posts.content = list2[6];
+                for(int j = 7;j < list2.size();j++)
+                {
+                    if(j % 3 == 1)
+                        com.username = list2[j];
+                    else if(j % 3 == 2)
+                        com.time = list2[j];
+                    else if(j % 3 == 0)
+                    {
+                        com.content = list2[j];
+                        posts.comment.push_back(com);
+                    }
+                }
+                if(flag)
+                {
+                    if(posts.state == "game")
+                        all_post[game].push_back(posts);
+                    else if(posts.state == "movie")
+                        all_post[movie].push_back(posts);
+                    else if(posts.state == "comic")
+                        all_post[comic].push_back(posts);
+                    else if(posts.state == "music")
+                        all_post[music].push_back(posts);
+                    else if(posts.state == "sports")
+                        all_post[sports].push_back(posts);
+                }
+                else
+                {
+                    posts.post_error++;
+                    flag = true;
+                }
+                posts.comment.clear();
+            }
+
         }
         return fin;
     }

@@ -247,15 +247,16 @@ void MainWindow::closeEvent(QCloseEvent *event)//点击右上角退出
         QFile user("user.txt");
         QFile post("post.txt");
 
-        user.open( QIODevice::ReadWrite | QIODevice::Text );
+        user.open( QFile::ReadWrite | QFile :: Truncate );
         QTextStream fout1(&user);
         user_variable users;
         fout1 << users;
         user.close();
 
-        post.open( QIODevice::ReadWrite | QIODevice::Text );
+        post.open( QFile::ReadWrite | QFile :: Truncate );
         QTextStream fout2(&post);
-        fout2 << all_post;
+        Post posts;
+        fout2 << posts;
         post.close();
     }
     all_users.clear();

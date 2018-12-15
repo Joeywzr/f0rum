@@ -38,21 +38,35 @@ void Writepostwindow::on_push_clicked()//点击发帖
         QDateTime local(QDateTime::currentDateTime());
         QString localTime = local.toString("yyyy-MM-dd:hh:mm:ss");
         Post p;
-    //    int temp = p.id.toInt();
-    //    temp++;
-    //    p.id = QString::number(temp);
-        if(!new_post.isEmpty())
-            p.id = new_post.last().id + 1;
-        p.state = state;
-        p.title = ui->title->text();
-        p.content = ui->content->toPlainText();
-        p.time = localTime;
-        p.poster_name = username;
-        new_post.push_back(p);
-        all_post.insert(state, new_post);
-        ui->title->clear();
-        ui->content->clear();
-        this->close();
+
+        if(ui->content->toPlainText().contains(" $$$ "))
+        {
+            QMessageBox::StandardButton button;
+            button = QMessageBox::information(this, tr("提示"),
+                                              QString(tr("内容不能含“ $$$ ”哦！")));
+        }
+        else if(ui->content->toPlainText().contains(" ### "))
+        {
+            QMessageBox::StandardButton button;
+            button = QMessageBox::information(this, tr("提示"),
+                                              QString(tr("内容不能含“ ### ”哦！")));
+        }
+        else
+        {
+            if(!new_post.isEmpty())
+                p.id = new_post.last().id + 1;
+            p.state = state;
+            p.title = ui->title->text();
+            p.content = ui->content->toPlainText();
+            p.time = localTime;
+            p.poster_name = username;
+            new_post.push_back(p);
+            all_post.insert(state, new_post);
+            ui->title->clear();
+            ui->content->clear();
+            this->close();
+        }
+
     }
 }
 
