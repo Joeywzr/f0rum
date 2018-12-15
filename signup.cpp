@@ -8,7 +8,7 @@ signup::signup(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(QObject::tr("注册"));
-    QRegExp rx("[^\\s]+$");
+    QRegExp rx("[^\\s]+$");//禁止输入空格
     QRegExpValidator *validator = new QRegExpValidator(rx, this);
     ui->username->setValidator(validator);
     ui->password->setValidator(validator);

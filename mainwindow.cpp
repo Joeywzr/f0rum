@@ -37,18 +37,18 @@ MainWindow::MainWindow(QWidget *parent) :
         bg->addButton(button[i],i);
     //-----------------------------------
 
-    //---默认初始板块为game-------
-    state = game;
+    //---默认初始板块为novice-------
+    state = novice;
     page_post_num = 0;
-    QVector<Post> game_posts = all_post.value(state);
-    state_post_num = game_posts.size() - 1;
-    ui->game->setChecked(true);
-    ui->game->setCheckable(true);
-    ui->game->setAutoExclusive(true);
+    QVector<Post> novice_posts = all_post.value(state);
+    state_post_num = novice_posts.size() - 1;
+    ui->novice->setChecked(true);
+    ui->novice->setCheckable(true);
+    ui->novice->setAutoExclusive(true);
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
-        button[i]->setText(game_posts[state_post_num--].title);
+        button[i]->setText(novice_posts[state_post_num--].title);
     }
     //-----------------------------------
 
@@ -60,7 +60,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_game_clicked()//点击游戏板块
+void MainWindow::on_novice_clicked()//点击游戏板块
 {
     page_post_num = 0;
     for(int i = 0;i <= 12;i++)
@@ -68,85 +68,85 @@ void MainWindow::on_game_clicked()//点击游戏板块
         button[i]->setText("");
         button[i]->setEnabled(false);
     }
-    state = game;
-    QVector<Post> game_posts = all_post.value(state);
-    state_post_num = game_posts.size() - 1;
+    state = novice;
+    QVector<Post> novice_posts = all_post.value(state);
+    state_post_num = novice_posts.size() - 1;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
-        button[i]->setText(game_posts[state_post_num--].title);
+        button[i]->setText(novice_posts[state_post_num--].title);
     }
 }
 
-void MainWindow::on_movie_clicked()//点击电影板块
+void MainWindow::on_technology_clicked()//点击电影板块
 {
     page_post_num = 0;
-    state = movie;
+    state = technology;
     for(int i = 0;i <= 12;i++)
     {
         button[i]->setText("");
         button[i]->setEnabled(false);
     }
-    QVector<Post> movie_posts = all_post.value(state);
-    state_post_num = movie_posts.size() - 1;
+    QVector<Post> technology_posts = all_post.value(state);
+    state_post_num = technology_posts.size() - 1;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
-        button[i]->setText(movie_posts[state_post_num--].title);
+        button[i]->setText(technology_posts[state_post_num--].title);
     }
 }
 
-void MainWindow::on_comic_clicked()//点击动漫板块
+void MainWindow::on_resources_clicked()//点击动漫板块
 {
     page_post_num = 0;
-    state = comic;
+    state = resources;
     for(int i = 0;i <= 12;i++)
     {
         button[i]->setText("");
         button[i]->setEnabled(false);
     }
-    QVector<Post> comic_posts = all_post.value(state);
-    state_post_num = comic_posts.size() - 1;
+    QVector<Post> resources_posts = all_post.value(state);
+    state_post_num = resources_posts.size() - 1;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
-        button[i]->setText(comic_posts[state_post_num--].title);
+        button[i]->setText(resources_posts[state_post_num--].title);
     }
 }
 
-void MainWindow::on_music_clicked()//点击音乐板块
+void MainWindow::on_relex_clicked()//点击音乐板块
 {
     page_post_num = 0;
-    state = music;
+    state = relex;
     for(int i = 0;i <= 12;i++)
     {
         button[i]->setText("");
         button[i]->setEnabled(false);
     }
-    QVector<Post> music_posts = all_post.value(state);
-    state_post_num = music_posts.size() - 1;
+    QVector<Post> relex_posts = all_post.value(state);
+    state_post_num = relex_posts.size() - 1;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
-        button[i]->setText(music_posts[state_post_num--].title);
+        button[i]->setText(relex_posts[state_post_num--].title);
     }
 }
 
-void MainWindow::on_sport_clicked()//点击体育板块
+void MainWindow::on_appeal_clicked()//点击体育板块
 {
     page_post_num = 0;
-    state = sports;
+    state = appeal;
     for(int i = 0;i <= 12;i++)
     {
         button[i]->setText("");
         button[i]->setEnabled(false);
     }
-    QVector<Post> sports_posts = all_post.value(state);
-    state_post_num = sports_posts.size() - 1;
+    QVector<Post> appeal_posts = all_post.value(state);
+    state_post_num = appeal_posts.size() - 1;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
-        button[i]->setText(sports_posts[state_post_num--].title);
+        button[i]->setText(appeal_posts[state_post_num--].title);
     }
 
 }

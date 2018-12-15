@@ -38,15 +38,15 @@ public:
 
 private slots:
 
-    void on_game_clicked();//点击游戏板块，刷新右边帖子列表
+    void on_novice_clicked();//点击新手乐园板块，刷新右边帖子列表
 
-    void on_movie_clicked();//点击电影板块，刷新右边帖子列表
+    void on_technology_clicked();//点击技术交流板块，刷新右边帖子列表
 
-    void on_comic_clicked();//点击动漫板块，刷新右边帖子列表
+    void on_resources_clicked();//点击资源共享板块，刷新右边帖子列表
 
-    void on_music_clicked();//点击音乐板块，刷新右边帖子列表
+    void on_relex_clicked();//点击休闲娱乐板块，刷新右边帖子列表
 
-    void on_sport_clicked();//点击体育板块，刷新右边帖子列表
+    void on_appeal_clicked();//点击账号申诉板块，刷新右边帖子列表
 
     void on_next_page_clicked();//点击下一页，刷新帖子列表
 

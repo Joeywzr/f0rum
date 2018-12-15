@@ -411,14 +411,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="game">
+       <widget class="QPushButton" name="novice">
         <property name="font">
          <font>
           <family>思源黑体 CN Normal</family>
          </font>
         </property>
         <property name="text">
-         <string>游戏</string>
+         <string>新手乐园</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -442,14 +442,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="movie">
+       <widget class="QPushButton" name="technology">
         <property name="font">
          <font>
           <family>思源黑体 CN Normal</family>
          </font>
         </property>
         <property name="text">
-         <string>电影</string>
+         <string>技术交流</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -473,14 +473,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="comic">
+       <widget class="QPushButton" name="resources">
         <property name="font">
          <font>
           <family>思源黑体 CN Normal</family>
          </font>
         </property>
         <property name="text">
-         <string>动漫</string>
+         <string>资源共享</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -504,14 +504,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="music">
+       <widget class="QPushButton" name="relex">
         <property name="font">
          <font>
           <family>思源黑体 CN Normal</family>
          </font>
         </property>
         <property name="text">
-         <string>音乐</string>
+         <string>休闲娱乐</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -535,14 +535,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="sport">
+       <widget class="QPushButton" name="appeal">
         <property name="font">
          <font>
           <family>思源黑体 CN Normal</family>
          </font>
         </property>
         <property name="text">
-         <string>体育</string>
+         <string>账号申诉</string>
         </property>
         <property name="checkable">
          <bool>true</bool>

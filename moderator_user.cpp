@@ -14,15 +14,15 @@ void Moderator_user::user_information()//显示用户信息
     per_info->show_respresponsible_plate = true;
     switch (responsible_plate) {
     case 1:
-        per_info->responsible_plate = "游戏";break;
+        per_info->responsible_plate = "新手乐园";break;
     case 2:
-        per_info->responsible_plate = "电影";break;
+        per_info->responsible_plate = "技术交流";break;
     case 3:
-        per_info->responsible_plate = "动漫";break;
+        per_info->responsible_plate = "资源共享";break;
     case 4:
-        per_info->responsible_plate = "音乐";break;
+        per_info->responsible_plate = "休闲娱乐";break;
     case 5:
-        per_info->responsible_plate = "体育";break;
+        per_info->responsible_plate = "账号申诉";break;
     default:
         break;
     }

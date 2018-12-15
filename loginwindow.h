@@ -23,9 +23,6 @@ public:
     ~LoginWindow();
 
     User *u;
-//    Administrators *administrators;
-//    Ordinary_user *ordinary_user;
-//    Moderator_user *moderator_user;
     QSqlQuery sql_query;
 
 private slots:

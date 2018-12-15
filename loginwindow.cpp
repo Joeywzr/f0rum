@@ -47,8 +47,6 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_sign_in_clicked()//点击登录按钮
 {
-    QString test = "2";
-    qDebug() << "结果是这样滴："<< test.toInt();
     QString username_input = ui->username->text();
     QString password_input = ui->password->text();
     bool username_flag = false;

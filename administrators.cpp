@@ -38,15 +38,15 @@ void Administrators::appoint_or_revoke_moderator()//任命或撤销版主
     mod = new Moderatorwindow(mainview->state);
     QString temp;
     if(mod->state == 1)
-        temp = "游戏";
+        temp = "新手乐园";
     else if(mod->state == 2)
-        temp = "电影";
+        temp = "技术交流";
     else if(mod->state == 3)
-        temp = "动漫";
+        temp = "资源共享";
     else if(mod->state == 4)
-        temp = "音乐";
+        temp = "休闲娱乐";
     else if(mod->state == 5)
-        temp = "体育";
+        temp = "账号申诉";
     mod->ui->state->setText("当前板块:" + temp);
     mod->setWindowTitle(QObject::tr(""));
     mod->setWindowModality(Qt::ApplicationModal);

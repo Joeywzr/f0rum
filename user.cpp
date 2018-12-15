@@ -42,7 +42,6 @@ void User::refresh()//刷新
         mainview->button[i]->setEnabled(false);
     }
     QVector<Post> posts = all_post.value(mainview->state);
-    qDebug() << "paodaozhele";
     mainview->state_post_num = posts.size() - 1;
     for(int i = 0;i <= 12 && mainview->state_post_num >= 0;i++)
     {

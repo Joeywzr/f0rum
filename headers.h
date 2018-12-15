@@ -62,7 +62,6 @@ public:
         {
             line = fin.readLine();//按行读入
             strlist = line.split(" ");//把读入的行按空格分隔
-
             if(strlist.size() != 5)//如果每个用户信息不足5项，则报错，跳过读入该用户信息
                 users.user_error++;
             else
@@ -94,11 +93,11 @@ public:
 };
 typedef enum
 {
-    game=1,
-    movie,
-    comic,
-    music,
-    sports
+    novice=1,
+    technology,
+    resources,
+    relex,
+    appeal
 }Category;
 
 #endif // HEADERS_H
