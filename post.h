@@ -20,7 +20,7 @@ public:
     int post_error = 0;
 
     //重载Post类<<运算符
-    friend QTextStream& operator << (QTextStream &fout, Post posts)
+    friend QTextStream& operator << (QTextStream &fout, Post &posts)
     {
         bool is_first = true;//是否是每个帖子的的开头
         for(int i = 1;i <= 5;i++)
@@ -86,6 +86,9 @@ public:
                 posts.post_error++;
             else
             {
+                for(int ii = 0;ii < list2.size();ii++)
+                    if(list2[ii].size() == 0)
+                        flag = false;
                 posts.state = list2[0];
                 if(posts.state != "novice" &&posts.state != "technology" &&posts.state != "resources" &&posts.state != "relex" && posts.state != "appeal")
                     flag = false;

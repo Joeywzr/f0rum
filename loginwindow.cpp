@@ -154,11 +154,20 @@ void LoginWindow::on_anonymous_clicked()//点击匿名登录
 
 void LoginWindow::closeEvent(QCloseEvent *event)
 {
-    QFile file( "user.txt" );
-    file.open( QFile::WriteOnly | QFile :: Truncate );
-    QTextStream fout(&file);
+    QFile user("user.txt");
+    QFile post("post.txt");
+
+    user.open( QFile::ReadWrite | QFile :: Truncate );
+    QTextStream fout1(&user);
     user_variable users;
-    fout << users;
-    file.close();
+    fout1 << users;
+    user.close();
+
+    post.open( QFile::ReadWrite | QFile :: Truncate );
+    QTextStream fout2(&post);
+    Post posts;
+    fout2 << posts;
+    post.close();
+
     event->accept();
 }

@@ -77,8 +77,10 @@ void signup::on_signup_2_clicked()//点击注册按钮
         qDebug() << "The passwords entered two times are different.";
         return;
     }
-    max_id = all_users.last().id + 1;
-    qDebug() << all_users.last().username;
+    if(all_users.size() != 0)
+        max_id = all_users.last().id + 1;
+    else
+        max_id = 1;
     user_variable uu;
     uu.id = max_id;
     uu.username = username_input;

@@ -66,6 +66,9 @@ public:
                 users.user_error++;
             else
             {
+                for(int ii = 0;ii <= 4;ii++)
+                    if(strlist[ii].size() == 0)
+                        flag = false;
                 users.id = strlist[0].toInt();
                 if(users.id == 0)
                     flag = false;
