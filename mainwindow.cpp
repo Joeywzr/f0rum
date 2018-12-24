@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle(QObject::tr("C++“学习”论坛"));
+    this->setWindowTitle(QObject::tr("C++学习论坛"));
     qDebug() << "user_num:"<<all_users.size();
     //--------帖子列表显示设置---------------------
     button[0] = ui->pushButton_1;
@@ -259,7 +259,7 @@ void MainWindow::closeEvent(QCloseEvent *event)//点击右上角退出
         fout2 << posts;
         post.close();
     }
-    all_users.clear();
     all_post.clear();
+    all_users.clear();
     event->accept();
 }
