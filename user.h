@@ -8,7 +8,6 @@
 #include "post.h"
 #include "ui_mainwindow.h"
 #include "ui_moderatorwindow.h"
-extern QSqlDatabase database;
 
 class User : public QObject
 {
@@ -21,7 +20,7 @@ public:
     QString username;//用户名
     QString password;//密码
     QString level;//级别
-    QSqlQuery sql_query;
+    QTcpSocket *tcpsocket;
 
     MainWindow *mainview;
     Personal_infomation *per_info;

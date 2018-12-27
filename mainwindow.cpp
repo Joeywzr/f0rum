@@ -244,14 +244,7 @@ void MainWindow::closeEvent(QCloseEvent *event)//点击右上角退出
 {
     if(id > 0)
     {
-        QFile user("user.txt");
         QFile post("post.txt");
-
-        user.open( QFile::ReadWrite | QFile :: Truncate );
-        QTextStream fout1(&user);
-        user_variable users;
-        fout1 << users;
-        user.close();
 
         post.open( QFile::ReadWrite | QFile :: Truncate );
         QTextStream fout2(&post);
@@ -261,5 +254,6 @@ void MainWindow::closeEvent(QCloseEvent *event)//点击右上角退出
     }
     all_post.clear();
     all_users.clear();
+    tcpsocket->abort();
     event->accept();
 }

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 QT       += sql
 RC_ICONS = forum.ico
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

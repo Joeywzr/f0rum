@@ -22,6 +22,8 @@
 #include <QDataStream>
 #include <QDialog>
 #include <QRegExpValidator>
+#include <QTcpServer>
+#include <QTcpSocket>
 #include <ostream>
 #include <istream>
 #include <iostream>

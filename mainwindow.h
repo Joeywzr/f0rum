@@ -35,6 +35,8 @@ public:
     Ui::MainWindow *ui;
     Details_of_posts *post_detail;
     QButtonGroup *bg;//按钮组
+    QTcpSocket *tcpsocket;
+
 
 private slots:
 

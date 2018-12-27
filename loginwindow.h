@@ -21,9 +21,10 @@ class LoginWindow : public QWidget
 public:
     explicit LoginWindow(QWidget *parent = 0);
     ~LoginWindow();
-
+    QTcpServer *tcpserver;
+    QTcpSocket *tcpsocket;
+    QList<QString> login_return_list;
     User *u;
-    QSqlQuery sql_query;
 
 private slots:
     void on_sign_in_clicked();//登录
@@ -31,7 +32,8 @@ private slots:
     void show_loginwindow();//打开登录窗口
     void on_anonymous_clicked();//匿名登录
     void closeEvent(QCloseEvent *event);//点击右上角退出
-
+    //void send_message();
+    void connect_sever();
 private:
     LoginWindow *new_mainview;
     signup *view;

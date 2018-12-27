@@ -10,6 +10,7 @@ void Anonymous::init_class()
     mainview = new MainWindow;
     mainview->username = "匿名";
     mainview->id = id;
+    mainview->tcpsocket = tcpsocket;
     mainview->ui->post->setEnabled(false);
     mainview->ui->appoint->setEnabled(false);
     mainview->show();

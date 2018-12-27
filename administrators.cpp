@@ -12,6 +12,7 @@ void Administrators::init_class()//初始化
     mainview->password = password;
     mainview->level = level;
     mainview->id = id;
+    mainview->tcpsocket = tcpsocket;
     mainview->show();
     connect(mainview->ui->personal_infomation,SIGNAL(clicked(bool)), this, SLOT(user_information()));
     connect(mainview->ui->sign_out,SIGNAL(clicked(bool)), this, SLOT(sign_out()));

@@ -8,21 +8,6 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->sign_in->setFocus();
     this->setWindowTitle(QObject::tr("登录"));
-    QFile file1( "user.txt" );
-    file1.open( QFile::ReadOnly | QFile::Text );
-    QTextStream fin1(&file1);
-    user_variable users;
-    fin1 >> users;
-    file1.close();
-
-    if(users.user_error != 0)
-    {
-        QString error = "存在"+QString::number(users.user_error)+"个用户数据出现错误，已删除错误用户数据！";
-        QMessageBox::StandardButton button;
-        button = QMessageBox::information(this, tr("提示"),
-                                          error);
-        users.user_error = 0;
-    }
 
     QFile file2("post.txt");
     file2.open(QFile::ReadOnly | QFile::Text);
@@ -38,6 +23,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
                                           error);
         posts.post_error = 0;
     }
+
+    tcpsocket = new QTcpSocket(this);
+    this->connect(ui->to_connect,SIGNAL(clicked(bool)),this,SLOT(connect_sever()));
 }
 
 LoginWindow::~LoginWindow()
@@ -49,7 +37,6 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
 {
     QString username_input = ui->username->text();
     QString password_input = ui->password->text();
-    bool username_flag = false;
     if(username_input.isEmpty())
     {
         ui->warning->setText("请输入用户名");
@@ -64,15 +51,42 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
     }
     else
     {
+        QString ss = ui->username->text();
+        ss.append(" ");
+        tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
+        tcpsocket->write(ui->password->text().toStdString().c_str(),strlen(ui->password->text().toStdString().c_str()));
+        qDebug()<<"发送信息";
         qDebug() << all_users.size();
-        int id;
-        QString level;
-        int responsible_plate;
-        u = new User;
-        bool judge = u->sign_in(username_input, password_input, username_flag, id, level, responsible_plate);
-        //通过返回的judge来判断用户是否存在并获得正确的用户名与密码
-        if(judge)
+        //等待返还用户数据
+        tcpsocket->waitForReadyRead();
+
+        QByteArray qba = tcpsocket->readAll();
+        login_return_list = QVariant(qba).toString().split(" ");
+        if(login_return_list.size() == 1)
         {
+            if(login_return_list[0] == "UDE")
+            {
+                ui->username->setText(NULL);
+                ui->password->setText(NULL);
+                ui->warning->setText("用户名不存在！");
+                qDebug() << "Username doesn't exist!";
+                return;
+            }
+            else if(login_return_list[0] == "PIW")
+            {
+                ui->warning->setText("密码错误！请重试！");
+                qDebug() << "Password is wrong.Please try again.";
+                ui->password->setText(NULL);
+                return;
+            }
+        }
+        else if(login_return_list.size() == 3)
+        {
+            u = new User;
+            QString level = login_return_list[0];
+            int responsible_plate = login_return_list[1].toInt();
+            int id = login_return_list[2].toInt();
+            qDebug()<<level << "  " << responsible_plate << "  " << id;
             this->close();
             u = NULL;
             if(level == "administrator")//管理员登录
@@ -82,6 +96,7 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
                 u->username = username_input;
                 u->password = password_input;
                 u->level = level;
+                u->tcpsocket = tcpsocket;
                 u->init_class();
                 connect(u->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
             }
@@ -93,6 +108,7 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
                 u->password = password_input;
                 u->level = level;
                 u->responsible_plate = responsible_plate;
+                u->tcpsocket = tcpsocket;
                 u->init_class();
                 connect(u->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
             }
@@ -104,32 +120,13 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
                 u->password = password_input;
                 u->level = level;
                 u->responsible_plate = responsible_plate;
+                u->tcpsocket = tcpsocket;
                 u->init_class();
                 connect(u->mainview->ui->sign_out,SIGNAL(clicked(bool)),this,SLOT(show_loginwindow()));
             }
         }
-        else
-        {
-            if(!username_flag)
-            {
-                ui->username->setText(NULL);
-                ui->password->setText(NULL);
-                ui->warning->setText("用户名不存在！");
-                qDebug() << "Username doesn't exist!";
-                return;
-            }
-            else
-            {
-                ui->warning->setText("密码错误！请重试！");
-                qDebug() << "Password is wrong.Please try again.";
-                ui->password->setText(NULL);
-                return;
-            }
-        }
-
     }
 }
-
 void LoginWindow::on_sign_up_clicked()//点击注册按钮
 {
     view = new signup(this);
@@ -152,15 +149,18 @@ void LoginWindow::on_anonymous_clicked()//点击匿名登录
     this->close();
 }
 
+void LoginWindow::connect_sever()
+{
+    tcpsocket->abort();
+    tcpsocket->connectToHost("127.0.0.1",19999,QTcpSocket::ReadWrite);
+    qDebug()<<"连接服务器";
+    qDebug()<<tcpsocket->waitForConnected();
+}
+
 void LoginWindow::closeEvent(QCloseEvent *event)
 {
-    QFile user("user.txt");
-
-    user.open( QFile::ReadWrite | QFile :: Truncate );
-    QTextStream fout1(&user);
-    user_variable users;
-    fout1 << users;
-    user.close();
-
+    if(login_return_list.size() != 3)
+        tcpsocket->abort();
+    login_return_list.clear();
     event->accept();
 }
