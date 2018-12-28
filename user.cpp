@@ -21,6 +21,11 @@ void User::init_class()//初始化
     connect(mainview->post_detail->ui->delete_this_post, SIGNAL(clicked(bool)),this,SLOT(refresh()));
 }
 
+void User::ddisconnected()
+{
+    mainview->close();
+}
+
 void User::push_post()//发帖
 {
     writepost = new Writepostwindow;

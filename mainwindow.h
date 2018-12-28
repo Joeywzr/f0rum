@@ -7,9 +7,6 @@
 #include "personal_infomation.h"
 #include "ui_details_of_posts.h"
 #include "ui_writepostwindow.h"
-
-extern QHash<Category,QVector<Post>> all_post;
-extern QVector<user_variable> all_users;
 namespace Ui {
 class MainWindow;
 }
@@ -46,7 +43,7 @@ private slots:
 
     void on_resources_clicked();//点击资源共享板块，刷新右边帖子列表
 
-    void on_relex_clicked();//点击休闲娱乐板块，刷新右边帖子列表
+    void on_relax_clicked();//点击休闲娱乐板块，刷新右边帖子列表
 
     void on_appeal_clicked();//点击账号申诉板块，刷新右边帖子列表
 
@@ -55,6 +52,8 @@ private slots:
     void on_back_clicked();//点击上一页，刷新帖子列表
 
     void click_posts(int i);//打开帖子
+
+    void get_post_from_server(QString str, QVector<Post> &this_state_posts, Post posts);
 
     void closeEvent(QCloseEvent *event);//点击右上角退出
 };

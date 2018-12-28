@@ -3,8 +3,6 @@
 
 #include "headers.h"
 #include "post.h"
-
-extern QSqlDatabase database;
 extern QHash<Category,QVector<Post>> all_post;
 namespace Ui {
 class Details_of_posts;

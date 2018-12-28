@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(QObject::tr("C++学习论坛"));
-    qDebug() << "user_num:"<<all_users.size();
     //--------帖子列表显示设置---------------------
     button[0] = ui->pushButton_1;
     button[1] = ui->pushButton_2;
@@ -36,22 +35,6 @@ MainWindow::MainWindow(QWidget *parent) :
     for(int i = 0;i <= 12;i++)
         bg->addButton(button[i],i);
     //-----------------------------------
-
-    //---默认初始板块为novice-------
-    state = novice;
-    page_post_num = 0;
-    QVector<Post> novice_posts = all_post.value(state);
-    state_post_num = novice_posts.size() - 1;
-    ui->novice->setChecked(true);
-    ui->novice->setCheckable(true);
-    ui->novice->setAutoExclusive(true);
-    for(int i = 0;i <= 12 && state_post_num >= 0;i++)
-    {
-        button[i]->setEnabled(true);
-        button[i]->setText(novice_posts[state_post_num--].title);
-    }
-    //-----------------------------------
-
     connect(bg,SIGNAL(buttonClicked(int)),this,SLOT(click_posts(int)));
 }
 
@@ -60,8 +43,67 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::get_post_from_server(QString str, QVector<Post> &this_state_posts, Post posts)
+{
+    QList<QString> list1, list2;
+    QList<QString>::iterator i;
+    bool flag = true;
+    list1 = str.split(" ### ");//按" ### "分隔读取各个帖子
+    if(list1.size() <= 1)
+        return;
+    for(i = list1.begin();i != list1.end();i++)
+    {
+        list2 = (*i).split(" $$$ ");//按" $$$ "分隔读取帖子内部信息
+        if(list2.size() != 7 + list2[4].toInt()*3)//如果帖子内部信息数量不对应
+            posts.post_error++;
+        else
+        {
+            for(int ii = 0;ii < list2.size();ii++)
+                if(list2[ii].size() == 0)
+                    flag = false;
+            posts.state = list2[0];
+            if(posts.state != "novice" &&posts.state != "technology" &&posts.state != "resources" &&posts.state != "relax" && posts.state != "appeal")
+                flag = false;
+            posts.id = list2[1].toInt();
+            posts.poster_name = list2[2];
+            posts.time = list2[3];
+            posts.comment_num = list2[4].toInt();
+            posts.title = list2[5];
+            posts.content = list2[6];
+            //读取评论信息
+            for(int j = 7;j < list2.size();j++)
+            {
+                if(j % 3 == 1)
+                    com.username = list2[j];
+                else if(j % 3 == 2)
+                    com.time = list2[j];
+                else if(j % 3 == 0)
+                {
+                    com.content = list2[j];
+                    posts.comment.push_back(com);
+                }
+            }
+            if(flag)//如果没错误就读入该帖子信息
+                this_state_posts.push_back(posts);
+            else//若帖子有错则跳过该帖子不读入
+            {
+                posts.post_error++;
+                flag = true;
+            }
+            posts.comment.clear();
+        }
+    }
+}
+
 void MainWindow::on_novice_clicked()//点击游戏板块
 {
+    QString ss = "novice";
+    tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
+    tcpsocket->waitForReadyRead();
+    QTextStream in(tcpsocket);
+    ss = in.readAll();
+    qDebug()<< ss;
+
     page_post_num = 0;
     for(int i = 0;i <= 12;i++)
     {
@@ -69,8 +111,14 @@ void MainWindow::on_novice_clicked()//点击游戏板块
         button[i]->setEnabled(false);
     }
     state = novice;
-    QVector<Post> novice_posts = all_post.value(state);
+    if(ss == "None")
+        return;
+
+    QVector<Post> novice_posts;
+    Post posts;
+    get_post_from_server(ss,novice_posts,posts);
     state_post_num = novice_posts.size() - 1;
+    qDebug()<< state_post_num;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
@@ -80,14 +128,25 @@ void MainWindow::on_novice_clicked()//点击游戏板块
 
 void MainWindow::on_technology_clicked()//点击电影板块
 {
+    QString ss = "technology";
+    tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
+    tcpsocket->waitForReadyRead();
+    QTextStream in(tcpsocket);
+    ss = in.readAll();
+    qDebug()<< ss;
+
     page_post_num = 0;
-    state = technology;
     for(int i = 0;i <= 12;i++)
     {
         button[i]->setText("");
         button[i]->setEnabled(false);
     }
-    QVector<Post> technology_posts = all_post.value(state);
+    state = technology;
+    if(ss == "None")
+        return;
+    QVector<Post> technology_posts;
+    Post posts;
+    get_post_from_server(ss,technology_posts,posts);
     state_post_num = technology_posts.size() - 1;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
@@ -98,14 +157,25 @@ void MainWindow::on_technology_clicked()//点击电影板块
 
 void MainWindow::on_resources_clicked()//点击动漫板块
 {
+    QString ss = "resources";
+    tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
+    tcpsocket->waitForReadyRead();
+    QTextStream in(tcpsocket);
+    ss = in.readAll();
+    qDebug()<< ss;
+
     page_post_num = 0;
-    state = resources;
     for(int i = 0;i <= 12;i++)
     {
         button[i]->setText("");
         button[i]->setEnabled(false);
     }
-    QVector<Post> resources_posts = all_post.value(state);
+    state = resources;
+    if(ss == "None")
+        return;
+    QVector<Post> resources_posts;
+    Post posts;
+    get_post_from_server(ss,resources_posts,posts);
     state_post_num = resources_posts.size() - 1;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
@@ -114,34 +184,56 @@ void MainWindow::on_resources_clicked()//点击动漫板块
     }
 }
 
-void MainWindow::on_relex_clicked()//点击音乐板块
+void MainWindow::on_relax_clicked()//点击音乐板块
 {
+    QString ss = "relax";
+    tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
+    tcpsocket->waitForReadyRead();
+    QTextStream in(tcpsocket);
+    ss = in.readAll();
+    qDebug()<< ss;
+
     page_post_num = 0;
-    state = relex;
     for(int i = 0;i <= 12;i++)
     {
         button[i]->setText("");
         button[i]->setEnabled(false);
     }
-    QVector<Post> relex_posts = all_post.value(state);
-    state_post_num = relex_posts.size() - 1;
+    state = relax;
+    if(ss == "None")
+        return;
+    QVector<Post> relax_posts;
+    Post posts;
+    get_post_from_server(ss,relax_posts,posts);
+    state_post_num = relax_posts.size() - 1;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
         button[i]->setEnabled(true);
-        button[i]->setText(relex_posts[state_post_num--].title);
+        button[i]->setText(relax_posts[state_post_num--].title);
     }
 }
 
 void MainWindow::on_appeal_clicked()//点击体育板块
 {
+    QString ss = "appeal";
+    tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
+    tcpsocket->waitForReadyRead();
+    QTextStream in(tcpsocket);
+    ss = in.readAll();
+    qDebug()<< ss;
+
     page_post_num = 0;
-    state = appeal;
     for(int i = 0;i <= 12;i++)
     {
         button[i]->setText("");
         button[i]->setEnabled(false);
     }
-    QVector<Post> appeal_posts = all_post.value(state);
+    state = appeal;
+    if(ss == "None")
+        return;
+    QVector<Post> appeal_posts;
+    Post posts;
+    get_post_from_server(ss,appeal_posts,posts);
     state_post_num = appeal_posts.size() - 1;
     for(int i = 0;i <= 12 && state_post_num >= 0;i++)
     {
@@ -153,7 +245,25 @@ void MainWindow::on_appeal_clicked()//点击体育板块
 
 void MainWindow::on_next_page_clicked()//点击下一页
 {
-    QVector<Post> this_state_posts = all_post.value(state);
+    QString ss;
+    if(state == novice)
+        ss = "novice";
+    else if(state == technology)
+        ss = "technology";
+    else if(state == resources)
+        ss = "resources";
+    else if(state == relax)
+        ss = "relax";
+    else if(state == appeal)
+        ss = "appeal";
+    tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
+    tcpsocket->waitForReadyRead();
+    QTextStream in(tcpsocket);
+    ss = in.readAll();
+
+    QVector<Post> this_state_posts;
+    Post posts;
+    get_post_from_server(ss,this_state_posts,posts);
     if((page_post_num+1)*13 < this_state_posts.size())
     {
         for(int i = 0;i <= 12;i++)
@@ -173,6 +283,21 @@ void MainWindow::on_next_page_clicked()//点击下一页
 
 void MainWindow::on_back_clicked()//点击上一页
 {
+    QString ss;
+    if(state == novice)
+        ss = "novice";
+    else if(state == technology)
+        ss = "technology";
+    else if(state == resources)
+        ss = "resources";
+    else if(state == relax)
+        ss = "relax";
+    else if(state == appeal)
+        ss = "appeal";
+    tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
+    tcpsocket->waitForReadyRead();
+    QTextStream in(tcpsocket);
+    ss = in.readAll();
     if(page_post_num-1>=0)
     {
         for(int i = 0;i <= 12;i++)
@@ -181,7 +306,9 @@ void MainWindow::on_back_clicked()//点击上一页
             button[i]->setEnabled(false);
         }
         page_post_num--;
-        QVector<Post> this_state_posts = all_post.value(state);
+        QVector<Post> this_state_posts;
+        Post posts;
+        get_post_from_server(ss,this_state_posts,posts);
         state_post_num = this_state_posts.size() - 1 - 13*page_post_num;
         for(int i = 0;i <= 12 && state_post_num >= 0;i++)
         {
@@ -194,7 +321,25 @@ void MainWindow::on_back_clicked()//点击上一页
 
 void MainWindow::click_posts(int i)//点击帖子
 {
-    QVector<Post> this_state_posts = all_post.value(state);
+    QString ss;
+    if(state == novice)
+        ss = "novice";
+    else if(state == technology)
+        ss = "technology";
+    else if(state == resources)
+        ss = "resources";
+    else if(state == relax)
+        ss = "relax";
+    else if(state == appeal)
+        ss = "appeal";
+    tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
+    tcpsocket->waitForReadyRead();
+    QTextStream in(tcpsocket);
+    ss = in.readAll();
+    QVector<Post> this_state_posts;
+    Post posts;
+    get_post_from_server(ss,this_state_posts,posts);
+
     int selected_post = this_state_posts.size() - 1 - 13*page_post_num -i;
     //帖子详情初始化
     post_detail->p.title = this_state_posts[selected_post].title;
@@ -240,20 +385,11 @@ void MainWindow::click_posts(int i)//点击帖子
     post_detail->show();
 }
 
+
+
 void MainWindow::closeEvent(QCloseEvent *event)//点击右上角退出
 {
-    if(id > 0)
-    {
-        QFile post("post.txt");
-
-        post.open( QFile::ReadWrite | QFile :: Truncate );
-        QTextStream fout2(&post);
-        Post posts;
-        fout2 << posts;
-        post.close();
-    }
-    all_post.clear();
-    all_users.clear();
+    this->close();
     tcpsocket->abort();
     event->accept();
 }

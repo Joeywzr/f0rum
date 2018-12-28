@@ -9,21 +9,6 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui->sign_in->setFocus();
     this->setWindowTitle(QObject::tr("登录"));
 
-    QFile file2("post.txt");
-    file2.open(QFile::ReadOnly | QFile::Text);
-    QTextStream fin2(&file2);
-    Post posts;
-    fin2 >> posts;
-    file2.close();
-    if(posts.post_error != 0)
-    {
-        QString error = "存在"+QString::number(posts.post_error)+"个帖子数据出现错误，已删除错误帖子数据！";
-        QMessageBox::StandardButton button;
-        button = QMessageBox::information(this, tr("提示"),
-                                          error);
-        posts.post_error = 0;
-    }
-
     tcpsocket = new QTcpSocket(this);
     this->connect(ui->to_connect,SIGNAL(clicked(bool)),this,SLOT(connect_sever()));
 }
@@ -35,6 +20,11 @@ LoginWindow::~LoginWindow()
 
 void LoginWindow::on_sign_in_clicked()//点击登录按钮
 {
+    if(!tcpsocket->isOpen())
+    {
+        ui->warning->setText("未连接服务器！");
+        return;
+    }
     QString username_input = ui->username->text();
     QString password_input = ui->password->text();
     if(username_input.isEmpty())
@@ -56,7 +46,6 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
         tcpsocket->write(ss.toStdString().c_str(),strlen(ss.toStdString().c_str()));
         tcpsocket->write(ui->password->text().toStdString().c_str(),strlen(ui->password->text().toStdString().c_str()));
         qDebug()<<"发送信息";
-        qDebug() << all_users.size();
         //等待返还用户数据
         tcpsocket->waitForReadyRead();
 
@@ -129,6 +118,11 @@ void LoginWindow::on_sign_in_clicked()//点击登录按钮
 }
 void LoginWindow::on_sign_up_clicked()//点击注册按钮
 {
+    if(!tcpsocket->isOpen())
+    {
+        ui->warning->setText("未连接服务器！");
+        return;
+    }
     view = new signup(this);
     view->setModal(true);
     view->show();
@@ -142,6 +136,11 @@ void LoginWindow::show_loginwindow()//显示登录界面
 
 void LoginWindow::on_anonymous_clicked()//点击匿名登录
 {
+    if(!tcpsocket->isOpen())
+    {
+        ui->warning->setText("未连接服务器！");
+        return;
+    }
     u = new Anonymous;
     u->id = -1;
     u->init_class();

@@ -35,7 +35,7 @@ public:
             case 3:
                 state = resources;s = "resources";break;
             case 4:
-                state = relex;s = "relex";break;
+                state = relax;s = "relax";break;
             case 5:
                 state = appeal;s = "appeal";break;
             default:break;
@@ -90,7 +90,7 @@ public:
                     if(list2[ii].size() == 0)
                         flag = false;
                 posts.state = list2[0];
-                if(posts.state != "novice" &&posts.state != "technology" &&posts.state != "resources" &&posts.state != "relex" && posts.state != "appeal")
+                if(posts.state != "novice" &&posts.state != "technology" &&posts.state != "resources" &&posts.state != "relax" && posts.state != "appeal")
                     flag = false;
                 posts.id = list2[1].toInt();
                 posts.poster_name = list2[2];
@@ -119,8 +119,8 @@ public:
                         all_post[technology].push_back(posts);
                     else if(posts.state == "resources")
                         all_post[resources].push_back(posts);
-                    else if(posts.state == "relex")
-                        all_post[relex].push_back(posts);
+                    else if(posts.state == "relax")
+                        all_post[relax].push_back(posts);
                     else if(posts.state == "appeal")
                         all_post[appeal].push_back(posts);
                 }

@@ -31,6 +31,7 @@ public:
 
 public slots:
     virtual void user_information(){}//用户信息
+    void ddisconnected();
     void sign_out();//注销
     void push_post();//发帖
     void refresh();//刷新

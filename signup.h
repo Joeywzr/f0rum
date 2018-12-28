@@ -2,8 +2,6 @@
 #define SIGNUP_H
 
 #include "headers.h"
-
-extern QSqlDatabase database;
 extern QVector<user_variable> all_users;
 extern int max_id;
 namespace Ui {

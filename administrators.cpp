@@ -19,6 +19,7 @@ void Administrators::init_class()//初始化
     connect(mainview->ui->appoint, SIGNAL(clicked(bool)),this,SLOT(appoint_or_revoke_moderator()));
     connect(mainview->ui->post, SIGNAL(clicked(bool)),this,SLOT(push_post()));
     connect(mainview->post_detail->ui->delete_this_post, SIGNAL(clicked(bool)),this,SLOT(refresh()));
+    connect(mainview->tcpsocket,SIGNAL(disconnected()),this,SLOT(ddisconnected()));
 }
 
 void Administrators::user_information()//用户信息

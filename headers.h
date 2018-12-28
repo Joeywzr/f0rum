@@ -101,7 +101,7 @@ typedef enum
     novice=1,
     technology,
     resources,
-    relex,
+    relax,
     appeal
 }Category;
 
